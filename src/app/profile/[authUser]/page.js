@@ -9,7 +9,7 @@ export default function ProfilePage() {
 
 	const handleLogout = async () => {
     try {
-        const res = await fetch("/api/auth/logout", { method: "POST" });
+        const res = await fetch("/api/user/logout", { method: "POST" });
         const data = await res.json();
         if (res.ok) {
 					setAuthUser(null); // Clear the user state

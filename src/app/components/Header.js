@@ -14,11 +14,11 @@ export const Header = () => {
 	const carBedsCategory = getCategoryBySlug('lizhka-avtomobili');
 	const { authUser , setAuthUser} = useAuth();
 	const { cartItemsCount } = useCartContext();
- 
+
 
 		const handleLogout = async () => {
 			try {
-					const res = await fetch("/api/auth/logout", { method: "POST" });
+					const res = await fetch("/api/user/logout", { method: "POST" });
 					const data = await res.json();
 					if (res.ok) {
 						setAuthUser(null); // Clear the user state
@@ -29,6 +29,7 @@ export const Header = () => {
 					console.error("Error during logout:", error);
 			}
 	};
+
 	return (
 		<header className='w-full bg-[#022335] border-b border-b-gray-300 pt-4'>
 			{/* Logo and search */}

@@ -34,7 +34,7 @@ export default function AuthPage() {
     setLoginError(""); //  Clear previous errors before a new attempt
 
     try {
-        const res = await fetch("/api/auth/login", {
+        const res = await fetch("/api/user/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -59,33 +59,39 @@ export default function AuthPage() {
 };
 
 
-	const handleRegister = async (e) => {
-			e.preventDefault();
-			setLoading(true);
-			try {
-        const res = await fetch("/api/auth/register", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ registerUsername, registerEmail, registerPassword }),
-        });
+const handleRegister = async (e) => {
+	e.preventDefault();
+	setLoading(true);
+	setLoginError("");
 
-        const data = await res.json();
+	try {
+			const res = await fetch("/api/user/register", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ registerUsername, registerEmail, registerPassword }),
+			});
 
-
-        if (!res.ok) {
-						setLoginError(data.message);
-            //console.error("Register Failed:", data.message);
-        } else {
-					router.push(`/profile/${registerUsername}`);
-        }
-    } catch (error) {
-        console.error("Error during Register:", error);
-    } finally {
+			const data = await res.json();
+			console.log(data);
+			if (!res.ok) {
+					setLoginError(data.message);
+			} else {
+					console.log("Registration successful. Fetching auth status...");
+					setAuthUser(data.user);
+					// ✅ Redirect after successful registration
+					router.push(`/profile/${data.user}`);
+			}
+	} catch (error) {
+			console.error("Error during Register:", error);
+			setLoginError("An unexpected error occurred.");
+	} finally {
+		
 			setLoading(false);
-		}
-	};
+	}
+};
+
+
+
 
 	return (
 		<section id="authSection" className="pt-8 pb-0 border border-gray-300/60 rounded px-8 mx-auto mt-8">
