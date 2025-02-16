@@ -11,7 +11,7 @@ export async function POST(req) {
             });
         }
 
-        console.log("Getting Admin Token Before Creating a User..");
+
         // 🔥 Fetch Admin Token Before Creating a User
         const adminResponse = await fetch(`${process.env.WP_BASE_API}/jwt-auth/v1/token`, {
             method: "POST",
@@ -31,7 +31,7 @@ export async function POST(req) {
         }
 
         const adminToken = adminData.token;
-        console.log("Use Admin Token to Create User..");
+
 
         // 🔥 Use Admin Token to Create User
         const userResponse = await fetch(`${process.env.WP_USERS_API_URL}`, {
@@ -56,7 +56,7 @@ export async function POST(req) {
             });
         }
 
-        console.log("Logging user in after registration...");
+
 
         /** ✅ LOG USER IN AUTOMATICALLY AFTER REGISTRATION */
         const loginResponse = await fetch(`${process.env.WP_BASE_API}/jwt-auth/v1/token`, {
@@ -95,7 +95,6 @@ export async function POST(req) {
             path: "/",
         });
 
-        console.log("Return success response with minimal data...");
         return new Response(
             JSON.stringify({
                 message: "User registered & logged in successfully",

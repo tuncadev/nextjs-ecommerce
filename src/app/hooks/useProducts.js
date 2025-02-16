@@ -33,7 +33,7 @@ const ProductContext = createContext();
   /***  Product Operations ***/
 
 	async function fetchProducts() {
-    console.log("Fetching products...");
+
     try {
         const res = await fetch("/api/products"); // Fetch from our Next.js API
 

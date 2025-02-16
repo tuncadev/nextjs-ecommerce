@@ -6,7 +6,6 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
     const [authUser, setAuthUser] = useState(null);
 
-    // ✅ Check if user is logged in on app load
 		useEffect(() => {
 			async function checkAuthStatus() {
 				try {
@@ -15,11 +14,11 @@ export const AuthProvider = ({ children }) => {
 						headers: {
 								"Content-Type": "application/json",
 						},
-						credentials: "include", // ✅ Ensures cookies are sent
+						credentials: "include", 
 					});
 					const data = await res.json();
 
-					// ✅ Only set user if authenticated
+
 					if (data.isAuthenticated) {
 						setAuthUser(data.user);
 					} else {

@@ -72,7 +72,7 @@ export const useUserActions = () => {
 		async function checkAuth() {
 			setLoading(true);
 			try {
-				console.log("Trying check auth");
+
 				const res = await fetch("/api/user/check-auth", {
 					method: "GET",
 					headers: {

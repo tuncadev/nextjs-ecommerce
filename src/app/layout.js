@@ -32,16 +32,16 @@ export default function RootLayout({ children }) {
         {/* Preconnect for Google Fonts */}
       </head>
       <body id="root" className={`antialiased `}>
-			<AuthProvider> 
-				<CartProvider>  {/*  Add Cart Context Provider */}
-					<ProductProvider>  {/*  Keep your existing ProductProvider */}
-						<ErrorBoundary>
-							<Header />
-							<main className="container">
-								{children}
-							</main>
-						</ErrorBoundary>
-					</ProductProvider>
+				<AuthProvider> 
+					<CartProvider>  {/*  Add Cart Context Provider */}
+						<ProductProvider>  {/*  Keep your existing ProductProvider */}
+							<ErrorBoundary>
+								<Header />
+								<main className="container">
+									{children}
+								</main>
+							</ErrorBoundary>
+						</ProductProvider>
 					</CartProvider>
 				</AuthProvider>
         {/* FontAwesome Script (Now Using Next.js <Script> Component) */}

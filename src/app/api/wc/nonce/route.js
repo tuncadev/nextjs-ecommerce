@@ -4,9 +4,12 @@ const STORE_API_URL = process.env.WC_STORE_API_URL;
 const CONSUMER_KEY = process.env.WP_CONSUMER_KEY;
 const CONSUMER_SECRET = process.env.WP_CONSUMER_SECRET;
 const encodedAuth = btoa(`${CONSUMER_KEY}:${CONSUMER_SECRET}`);
+import { headers } from "next/headers";
 
 export async function GET() {
+
     try {
+
         const response = await fetch(`${STORE_API_URL}/cart`, {
             method: "GET",
             headers: {

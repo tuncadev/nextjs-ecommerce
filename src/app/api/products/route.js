@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
     try {
+				const start = Date.now(); // Track execution time
         const API_URL = process.env.WP_API_PRODUCTS_URL;
         const CONSUMER_KEY = process.env.WP_CONSUMER_KEY;
         const CONSUMER_SECRET = process.env.WP_CONSUMER_SECRET;
@@ -13,7 +14,8 @@ export async function GET() {
         if (!res.ok) throw new Error("Failed to fetch products");
 
         const data = await res.json();
-
+				const executionTime = Date.now() - start;
+				console.log(`✅ Products Fetched in ${executionTime}ms`);
         return NextResponse.json({ products: data }, { status: 200 });
     } catch (error) {
         return NextResponse.json({ error: error.message }, { status: 500 });

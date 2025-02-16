@@ -72,11 +72,11 @@ const handleRegister = async (e) => {
 			});
 
 			const data = await res.json();
-			console.log(data);
+
 			if (!res.ok) {
 					setLoginError(data.message);
 			} else {
-					console.log("Registration successful. Fetching auth status...");
+
 					setAuthUser(data.user);
 					// ✅ Redirect after successful registration
 					router.push(`/profile/${data.user}`);

@@ -4,10 +4,13 @@ const STORE_API_URL = process.env.WC_STORE_API_URL;
 const CONSUMER_KEY = process.env.WP_CONSUMER_KEY;
 const CONSUMER_SECRET = process.env.WP_CONSUMER_SECRET;
 const encodedAuth = btoa(`${CONSUMER_KEY}:${CONSUMER_SECRET}`);
+import { headers } from "next/headers";
 
 export async function GET() {
+
     try {
-        const response = await fetch(`${STORE_API_URL}/cart`, {
+				const start = Date.now(); // Track execution time
+        const response = await fetch(`${STORE_API_URL}/cart/items`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -21,7 +24,8 @@ export async function GET() {
                 { status: response.status, headers: { "Content-Type": "application/json" } }
             );
         }
-
+				const executionTime = Date.now() - start;
+        console.log(`✅ WooCommerce Cart Fetched in ${executionTime}ms`);
         const cartData = await response.json();
         return new Response(JSON.stringify(cartData), {
             status: 200,
