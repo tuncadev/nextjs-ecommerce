@@ -1,12 +1,14 @@
 "use client";
 import { useState, useEffect } from 'react';
-import { parseCookies } from "nookies"; // Import nookies for reading cookies
+
 import { DrawerNav } from './DrawerNav';
 import { BreadCrumbsNav } from './BreadCrumbsNav';
 import Link from 'next/link';
 import { useCartContext } from "@/app/context/CartContext";
 import { useProducts } from '../hooks/useProducts';
 import { useAuth } from "@/app/context/AuthContext";
+import { getOrCreateVisitorId } from '../utils/getOrCreateVisitorId';
+
 
 export const Header = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -14,11 +16,23 @@ export const Header = () => {
 	const carBedsCategory = getCategoryBySlug('lizhka-avtomobili');
 	const { authUser , setAuthUser} = useAuth();
 	const { cartItemsCount } = useCartContext();
+	const visitorId = getOrCreateVisitorId();
 
 
 		const handleLogout = async () => {
+
 			try {
-					const res = await fetch("/api/user/logout", { method: "POST" });
+					
+					
+					const res = await fetch("/api/user/logout", { 
+						method: "POST" ,
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ 
+							visitorId: visitorId, 
+							authUser: authUser 
+						}),
+					});
+					
 					const data = await res.json();
 					if (res.ok) {
 						setAuthUser(null); // Clear the user state
@@ -32,9 +46,10 @@ export const Header = () => {
 
 	return (
 		<header className='w-full bg-[#022335] border-b border-b-gray-300 pt-4'>
-			{/* Logo and search */}
+			{/* Logo , search and user menu */}
 			<div className="container border-gray-200 dark:bg-gray-900 px-4">
 				<div className="flex flex-wrap items-center justify-center sm:justify-between">
+					{/** Logo */}
 					<a href="/" className="flex flex-col  space-x-3 rtl:space-x-reverse">
 						<div id="logo" className="text-3xl font-bold text-sky-100">Baby<span className='text-red-600 ml-1'>Kangaroo</span></div>
 						<div className="text-right -mt-1 mb-2 sm:mb-0 text-sm tracking-widest text-gray-100"><span id="sublogo">магазин дитячих меблів</span></div>
@@ -52,15 +67,16 @@ export const Header = () => {
 						</div>
 					</div>
 					{/* User Menu */}
-					<div className="items-center justify-center sm:justify-between w-full md:flex md:w-auto md:order-1 pr-6" id="navbar-search">
+					<div className="items-center justify-center sm:justify-between w-full md:flex md:w-auto md:order-1 pr-6 pb-4" id="navbar-search">
 						<div className="flex gap-8  justify-center">
-							
+							{/** Favorites */}
 								<div className="relative group text-gray-50">
 									<i className="fa-regular fa-heart text-xl sm:text-3xl group-hover:text-red-500 group-hover:cursor-pointer"></i>
 									<span className='absolute text-[10px] bg-red-500 leading-none rounded-full px-2 py-1 group-hover:cursor-pointer bottom-0 -right-3 group-hover:bg-white group-hover:text-red-600'>
 										0
 									</span>
 								</div>
+							{/** Cart Icon */}
 							<Link
 								href="/cart"
 								> 
@@ -71,6 +87,7 @@ export const Header = () => {
 								</span>
 							</div>
 							</Link>
+							{/** User Auth */}
 							<div className={`relative group ${authUser ? "text-lime-500" : "text-gray-50"}`}>
 								<Link 
 									href={authUser ? `/profile/${authUser}` : "/auth"}

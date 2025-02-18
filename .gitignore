@@ -14,7 +14,7 @@
 
 # testing
 /coverage
-
+src/app/api/debug/*
 # next.js
 /.next/
 /out/

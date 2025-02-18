@@ -16,26 +16,24 @@ const ProductContext = createContext();
 	const [subCategoriesByParent, setSubCategoriesByParent] = useState({});
 
 
-
-  useEffect(() => {
-		async function fetchData() {
-			if (products.length === 0) {  
-				await fetchProducts();
-			}
-			if (categories.length === 0) {  
-				await fetchCategories();
-			}
-		}
-		fetchData();
-	}, [products.length, categories.length]);  
-	
+	useEffect(() => {
+    async function fetchData() {
+      if (products.length === 0) {
+        await fetchProducts();
+      }
+      if (categories.length === 0) {
+        await fetchCategories();
+      }
+    }
+    fetchData();
+  }, [products.length, categories.length]);
 
   /***  Product Operations ***/
-
+	
 	async function fetchProducts() {
 
     try {
-        const res = await fetch("/api/products"); // Fetch from our Next.js API
+        const res = await fetch("/api/redis/products");// Fetch from our Next.js API
 
         if (!res.ok) throw new Error("Failed to fetch products");
 
@@ -100,23 +98,23 @@ const ProductContext = createContext();
   /***  Category Operations ***/
 
   async function fetchCategories() {
-		console.log("Fetching categories...");
+
 		try {
 			setCategoriesLoading(true);
-			const res = await  fetch("/api/categories");
+			const res = await  fetch("/api/redis/categories");
 			if (!res.ok) throw new Error("Failed to fetch categories");
 	
-			const {data} = await res.json();
-			setCategories(data);
+			const {categories} = await res.json();
+			setCategories(categories);
 	
 			//  Store all categories in a separate state
-			setAllCategories(data);
+			setAllCategories(categories);
 
-			const featured = data.filter(category => category.featured === true);
+			const featured = categories.filter(category => category.featured === true);
     	setFeaturedCategories(featured);
 
 			const groupedSubCategories = {};
-			data.forEach((category) => {
+			categories.forEach((category) => {
 				if (category.parent !== 0) {
 					if (!groupedSubCategories[category.parent]) {
 						groupedSubCategories[category.parent] = [];
@@ -133,7 +131,7 @@ const ProductContext = createContext();
 			setCategoriesLoading(false);
 		}
 	}
-	
+	  
 	//  Now, `listAllCategories()` simply returns the stored value
 	function listAllCategories() {
 		return allCategories;
@@ -153,6 +151,7 @@ const ProductContext = createContext();
   }
 
   function getCategoryBySlug(slug) {
+
     if (!categories.length) return null;
     return categories.find((category) => category.slug === slug) || null;
   }

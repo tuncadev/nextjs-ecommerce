@@ -9,8 +9,8 @@ import { headers } from "next/headers";
 export async function GET() {
 
     try {
-				const start = Date.now(); // Track execution time
-        const response = await fetch(`${STORE_API_URL}/cart/items`, {
+
+        const response = await fetch(`${STORE_API_URL}/cart`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -24,8 +24,7 @@ export async function GET() {
                 { status: response.status, headers: { "Content-Type": "application/json" } }
             );
         }
-				const executionTime = Date.now() - start;
-        console.log(`✅ WooCommerce Cart Fetched in ${executionTime}ms`);
+
         const cartData = await response.json();
         return new Response(JSON.stringify(cartData), {
             status: 200,

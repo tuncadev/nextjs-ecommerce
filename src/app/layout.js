@@ -8,6 +8,7 @@ import { CartProvider } from "@/app/context/CartContext";
 import { ErrorBoundary } from "@/app/components/ErrorBoundary";
 import { AuthProvider } from './context/AuthContext';
 
+
 const openSans = Open_Sans({ subsets: ["latin"], weight: ["400", "700"], variable: "--openSans", preload: false });
 const oswald = Oswald({ subsets: ["latin"], weight: ["400", "700"], variable: "--oswald", preload: false });
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "700"], variable: "--poppins", preload: true });
@@ -26,6 +27,7 @@ export const metadata = {
 
 
 export default function RootLayout({ children }) {
+
   return (
     <html lang="en" className={`${openSans.variable} ${oswald.variable}  ${workSans.variable} ${poppins.variable}`} >
       <head>

@@ -15,12 +15,36 @@ export async function POST(req) {
             });
         }
 
-        const response = await fetch(`${STORE_API_URL}/cart/add-item?id=${productId}&quantity=${quantity}`, {
+										const nonceResponse = await fetch(`${STORE_API_URL}/cart`, {
+										method: "GET",
+										headers: {
+												"Content-Type": "application/json",
+										Authorization: `Basic ${encodedAuth}`,	
+										},
+										
+								});
+
+								if (!nonceResponse.ok) {
+										return new Response(JSON.stringify({ message: "Failed to fetch nonce" }), {
+												status: nonceResponse.status,
+												headers: { "Content-Type": "application/json" },
+										});
+								}
+
+								// Extract the nonce from the response headers
+								const nonce = nonceResponse.headers.get("nonce") || null;
+
+ 
+ 
+        // 🔹 Step 2: Add product to cart using Nonce
+        const response = await fetch(`${STORE_API_URL}/cart/add-item`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Basic ${encodedAuth}`,
+                Nonce: nonce, // ✅ Nonce is required for WooCommerce
             },
+            body: JSON.stringify({ id: productId, quantity }),
         });
 
         if (!response.ok) {
@@ -37,6 +61,7 @@ export async function POST(req) {
         });
 
     } catch (error) {
+        console.error("❌ Error adding to cart:", error);
         return new Response(JSON.stringify({ message: "Internal Server Error" }), {
             status: 500,
             headers: { "Content-Type": "application/json" },

@@ -1,11 +1,17 @@
 "use client";
 import { Card } from "flowbite-react";
 import Link from "next/link";
+import { useState } from "react";
 
 export const ProductCard01 = ({ product }) => {
+	const [isFavorite, setIsFavorite] = useState(false);
+	
   return (
 		<div >		
-      <div className="flex h-full w-full flex-col justify-between">
+      <div className="relative group flex h-full w-full flex-col justify-between">
+				<div className=" group-hover:block product_favorites absolute right-3 top-2">
+				<i class={`${isFavorite ? "fa-solid" : "fa-regular "} hover:text-gray-600 text-md hover:cursor-pointer fa-heart text-red-500`}></i>
+				</div>
         <Link
           href={`/${product.categories[0].slug}/c${product.categories[0].id}/${product.slug}/p${product.id}`}
           className="h-full w-full"

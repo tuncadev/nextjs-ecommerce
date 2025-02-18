@@ -14,17 +14,38 @@ export async function POST(req) {
                 headers: { "Content-Type": "application/json" },
             });
         }
+				const nonceResponse = await fetch(`${STORE_API_URL}/cart`, {
+					method: "GET",
+					headers: {
+							"Content-Type": "application/json",
+					Authorization: `Basic ${encodedAuth}`,	
+					},
+					
+			});
 
+			if (!nonceResponse.ok) {
+
+					return new Response(JSON.stringify({ message: "Failed to fetch nonce" }), {
+							status: nonceResponse.status,
+							headers: { "Content-Type": "application/json" },
+					});
+			}	
+
+			// Extract the nonce from the response headers
+			const nonce = nonceResponse.headers.get("nonce") || null;
         // Remove the existing item first
         const removeResponse = await fetch(`${STORE_API_URL}/cart/remove-item?key=${itemKey}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Basic ${encodedAuth}`,
+								Nonce: nonce
             },
+						
         });
 
         if (!removeResponse.ok) {
+
             return new Response(JSON.stringify({ message: "Failed to remove item before update" }), {
                 status: removeResponse.status,
                 headers: { "Content-Type": "application/json" },
@@ -37,10 +58,12 @@ export async function POST(req) {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Basic ${encodedAuth}`,
+								Nonce: nonce
             },
         });
 
         if (!addResponse.ok) {
+
             return new Response(JSON.stringify({ message: "Failed to update cart item quantity" }), {
                 status: addResponse.status,
                 headers: { "Content-Type": "application/json" },
@@ -51,6 +74,7 @@ export async function POST(req) {
         return new Response(JSON.stringify(cartData), {
             status: 200,
             headers: { "Content-Type": "application/json" },
+						
         });
 
     } catch (error) {

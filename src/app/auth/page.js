@@ -5,11 +5,14 @@ import { Working } from "../components/actions/Working";
 import { useUserActions } from "@/app/hooks/useUserActions";
 import { Tabs } from "flowbite-react";
 import { HiOutlineUserAdd, HiUserCircle } from "react-icons/hi";
-import { MdDashboard } from "react-icons/md";
 import { useRouter } from "next/navigation"; 
+import { getOrCreateVisitorId } from "@/app/utils/getOrCreateVisitorId";
+
 
 
 export default function AuthPage() {
+	const visitorId = getOrCreateVisitorId();
+
 	const router = useRouter();
 	const { user, login, checkAuth, logout, setLoading, register, loading, error } = useUserActions();
 	const { authUser, setAuthUser } = useAuth();
@@ -38,8 +41,9 @@ export default function AuthPage() {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+								"User-Agent": navigator.userAgent // 🔹 Send browser details
             },
-            body: JSON.stringify({ loginEmail, loginPassword }),
+            body: JSON.stringify({ loginEmail, loginPassword, visitorId}),
         });
 
         const data = await res.json();
@@ -68,7 +72,7 @@ const handleRegister = async (e) => {
 			const res = await fetch("/api/user/register", {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify({ registerUsername, registerEmail, registerPassword }),
+					body: JSON.stringify({ registerUsername, registerEmail, registerPassword, visitorId }),
 			});
 
 			const data = await res.json();

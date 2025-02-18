@@ -14,13 +14,32 @@ export async function POST(req) {
                 headers: { "Content-Type": "application/json" },
             });
         }
+				const nonceResponse = await fetch(`${STORE_API_URL}/cart`, {
+					method: "GET",
+					headers: {
+							"Content-Type": "application/json",
+					Authorization: `Basic ${encodedAuth}`,	
+					},
+					
+			});
 
+			if (!nonceResponse.ok) {
+					return new Response(JSON.stringify({ message: "Failed to fetch nonce" }), {
+							status: nonceResponse.status,
+							headers: { "Content-Type": "application/json" },
+					});
+			}
+
+			// Extract the nonce from the response headers
+			const nonce = nonceResponse.headers.get("nonce") || null;
         const response = await fetch(`${STORE_API_URL}/cart/remove-item?key=${cartKey}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Basic ${encodedAuth}`,
+								Nonce: nonce
             },
+						
         });
 
         if (!response.ok) {

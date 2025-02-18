@@ -1,8 +1,16 @@
 import { cookies } from "next/headers";
+import {redis, saveToRedis } from "@/lib/redis";
+import { getOrCreateVisitorId } from "@/app/utils/getOrCreateVisitorId";
 
 export async function POST(req) {
     try {
-        const { registerUsername: username, registerEmail: email, registerPassword: password } = await req.json();
+        const { registerUsername: username, registerEmail: email, registerPassword: password, visitorId: visitorId } = await req.json();
+ 
+				const userRole = "customer";
+				
+				const redisKey = `users:${visitorId}`; // Unique key for each user
+
+				
 
         if (!username || !email || !password) {
             return new Response(JSON.stringify({ message: "Username, email, and password are required" }), {
@@ -44,10 +52,9 @@ export async function POST(req) {
                 username,
                 email,
                 password,
-                roles: ["customer"],
+                roles: [userRole],
             }),
         });
-
         const userData = await userResponse.json();
         if (!userResponse.ok) {
             return new Response(JSON.stringify({ message: userData.message || "Failed to register user" }), {
@@ -56,7 +63,7 @@ export async function POST(req) {
             });
         }
 
-
+				
 
         /** ✅ LOG USER IN AUTOMATICALLY AFTER REGISTRATION */
         const loginResponse = await fetch(`${process.env.WP_BASE_API}/jwt-auth/v1/token`, {
@@ -76,6 +83,9 @@ export async function POST(req) {
             });
         }
 
+				const redisUserData = JSON.stringify({ id: visitorId, email: email, role: userRole, loggedIn: true }); // Store structured data
+				await saveToRedis(redisKey, redisUserData,);
+				
         // ✅ Store JWT token in HTTP-only cookies (Prevents JS access)
         const cookieStore = cookies();
         await cookieStore.set("auth_token", loginData.token, {

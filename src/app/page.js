@@ -9,12 +9,14 @@ import { BannerLeft, BannerRight, BannerDouble } from "./components/banners";
 import BannerSpace from '@/app/assets/banners/banner-space-bg.png';
 import BannerLarge from '@/app/assets/banners/banner-large.jpg';
 
-
+import { getOrCreateVisitorId } from './utils/getOrCreateVisitorId';
+import { useEffect } from 'react';
  
 export default function Home() {
  
-
-
+	useEffect(() => {
+		getOrCreateVisitorId();
+	}, []);
 
     return (
 			<>			

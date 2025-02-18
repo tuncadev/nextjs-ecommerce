@@ -16,15 +16,25 @@ export const useWooCommerceCart = () => {
 	//  Fetch Nonce
 	async function fetchNonce() {
 		try {
-				const response = await fetch("/api/wc/nonce", {
-						method: "GET",
-						headers: {
-								"Content-Type": "application/json",
-						},
-				});
+			const nonceResponse = await fetch(`${STORE_API_URL}/cart`, {
+				method: "GET",
+				headers: {
+						"Content-Type": "application/json",
+				Authorization: `Basic ${encodedAuth}`,	
+				},
+				
+		});
 
-				const data = await response.json();
-				return data.nonce || null;
+		if (!nonceResponse.ok) {
+				return new Response(JSON.stringify({ message: "Failed to fetch nonce" }), {
+						status: nonceResponse.status,
+						headers: { "Content-Type": "application/json" },
+				});
+		}
+
+		// Extract the nonce from the response headers
+		const nonce = nonceResponse.headers.get("nonce") || null;
+				return nonce || null;
 		} catch (error) {
 				console.error("Error Fetching WooCommerce Nonce:", error);
 				return null;

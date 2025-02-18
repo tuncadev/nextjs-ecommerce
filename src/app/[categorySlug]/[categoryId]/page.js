@@ -8,13 +8,10 @@ import { WarningMessage } from '@/app/components/WarningMessage';
 
 export default function SingleCategory() {
     const params = useParams();
-
-   
-
+  
 		const { loading, categoriesLoading, categories, getCategoryBySlug, getProductsByCategoryId } = useProducts();
     
-     
-		if (loading || categoriesLoading || categories.length === 0) {
+     	if (loading || categoriesLoading || categories.length === 0) {
 			return <Loading text="category..." />; // 🛑 Wait until categories are fetched
 		}
 	

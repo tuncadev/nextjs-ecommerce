@@ -14,8 +14,9 @@ export async function GET() {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Basic ${encodedAuth}`,
+						Authorization: `Basic ${encodedAuth}`,	
             },
+						
         });
 
         if (!response.ok) {
@@ -26,7 +27,7 @@ export async function GET() {
         }
 
         // Extract the nonce from the response headers
-        const nonce = response.headers.get("Nonce") || null;
+        const nonce = response.headers.get("nonce") || null;
 
         return new Response(JSON.stringify({ nonce }), {
             status: 200,
