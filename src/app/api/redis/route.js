@@ -1,6 +1,15 @@
 import { getAllRedisData } from "@/lib/redis";
+import { NextResponse } from "next/server";
+import { getAllowedHosts } from "@/app/utils/getAllowedHosts";
 
-export async function GET() { 
+export async function GET(req) { 
+	const checkHost = getAllowedHosts(req);
+			if (!checkHost) {
+			return new Response("403 Forbidden - Access Denied", { 
+					status: 403,
+					headers: { "Content-Type": "text/plain" }, // ✅ Ensure raw text response
+			});
+	}
 	try {
 		// ✅ Fetch categories from Redis
  

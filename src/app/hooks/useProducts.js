@@ -1,6 +1,6 @@
 "use client";
 import { createContext, useContext, useState, useEffect, useMemo } from "react";
- 
+  
 const ProductContext = createContext();
 
  export const ProductProvider = ({ children }) => {
@@ -71,6 +71,27 @@ const ProductContext = createContext();
 
 	}
 	
+	async function getProductFromRedisById(id) {
+    try {
+ 
+
+			const res = await fetch("/api/products/from-redis");
+			if (!res.ok) throw new Error("Failed to fetch products from Redis");
+
+			const { products } = await res.json(); // ✅ Extract 'products' from the object
+
+			if (!Array.isArray(products)) {
+					throw new Error("Invalid products format in Redis response");
+			}
+
+			const product = products.find(p => Number(p.id) === Number(id));
+
+			return product || null;
+	} catch (error) {
+			console.error("❌ Error retrieving product:", error);
+			return null;
+	}
+	}
 
   async function getProductById(id) {
     try {
@@ -141,7 +162,12 @@ const ProductContext = createContext();
 		return () => featuredCategories; //  Returns a function that returns the value
 	}, [featuredCategories]); 
 	
-	
+	function getProductImage(product) {
+		return product?.images?.length > 0
+			? product.images[0].src.replace("backend.tunca.site", "kangaroo.tunca.site")
+			: "/default-placeholder.jpg";
+	}
+
 	
 
 	
@@ -170,6 +196,7 @@ function getSubCategoriesByParentId(id) {
         categoriesLoading, //  Separate loading state for categories
         error,
 				selectedProductId, 
+				getProductFromRedisById,
 				getHotOffers,
         getProductById,
         getProductsByCategorySlug,
@@ -179,7 +206,8 @@ function getSubCategoriesByParentId(id) {
         getFeaturedCategories,
         getSubCategoriesByParentId,
         getCategoryBySlug,
-				setSelectedProductId
+				setSelectedProductId,
+				getProductImage
       }}
     >
       {children}

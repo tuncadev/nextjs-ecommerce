@@ -4,6 +4,13 @@ import crypto from "crypto";
 import { redis } from "@/lib/redis";
 
 export async function POST(req) {
+	const checkHost = getAllowedHosts(req);
+			if (!checkHost) {
+			return new Response("403 Forbidden - Access Denied", { 
+					status: 403,
+					headers: { "Content-Type": "text/plain" }, // ✅ Ensure raw text response
+			});
+	}
   try {
     const secret = process.env.WC_CATEGORY_UPDATE_WEBHOOK_SECRET;
     const signature = req.headers.get("x-wc-webhook-signature");

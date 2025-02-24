@@ -1,26 +1,40 @@
 import { redis, saveToRedis } from "@/lib/redis";
+import { NextResponse } from "next/server";
+
 import { fetchAllCategories, fetchAllProducts } from "@/lib/fetchWooData";
+import { getAllowedHosts } from "@/app/utils/getAllowedHosts"; 
 
-export async function GET() {
+export async function GET(req) {
+	const checkHost = getAllowedHosts(req);
+			if (!checkHost) {
+			return new Response("403 Forbidden - Access Denied", { 
+					status: 403,
+					headers: { "Content-Type": "text/plain" }, // ✅ Ensure raw text response
+			});
+	}
+	const BACKEND_URL = process.env.BACKEND_UPLOADS_URL;
     try {
-			
-
 				const categories = await fetchAllCategories();
-				const products = await fetchAllProducts();
-
+				const fetchedProducts = await fetchAllProducts();
+				const products = fetchedProducts.map(product => ({
+					...product,
+					images: product.images
+							? product.images.map(image => ({
+									...image,
+									src: image.src.replace(BACKEND_URL, "")
+							}))
+							: []
+				}));
         // Store data in Redis
         await saveToRedis("products", products);
         await saveToRedis("categories", categories);
 
-				const productsFromRedis = await redis.get("products");
-				const categoriesFromRedis = await redis.get("categories");
         return new Response(
 					JSON.stringify({ 
-						message: "WooCommerce data updated successfully" ,
-						products: JSON.parse(productsFromRedis) || [],
-						categories: JSON.parse(categoriesFromRedis) || [],
-					
-					}), {
+						message: "WooCommerce data updated successfully",
+						//products: JSON.parse(productsFromRedis) || [],
+						//categories: JSON.parse(categoriesFromRedis) || [],
+					})+ "\n", {
             status: 200,
             headers: { "Content-Type": "application/json" },
         });

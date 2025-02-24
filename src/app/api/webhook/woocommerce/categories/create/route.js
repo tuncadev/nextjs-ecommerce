@@ -2,8 +2,10 @@ import { NextResponse } from "next/server";
 import { parse } from "querystring";
 import crypto from "crypto";
 import { redis } from "@/lib/redis";
+import { getAllowedHosts } from "@/app/utils/getAllowedHosts";
 
 export async function POST(req) {
+
   try {
     const secret = process.env.WC_CATEGORY_CREATE_WEBHOOK_SECRET;
     const signature = req.headers.get("x-wc-webhook-signature");

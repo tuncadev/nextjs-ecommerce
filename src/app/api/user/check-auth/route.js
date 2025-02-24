@@ -1,8 +1,16 @@
 import { cookies } from "next/headers";
 import { headers } from "next/headers";
+import { NextResponse } from "next/server";
+import { getAllowedHosts } from "@/app/utils/getAllowedHosts";
 
-export async function GET() {
-
+export async function GET(req) {
+		const checkHost = getAllowedHosts(req);
+		if (!checkHost) {
+			return new Response("403 Forbidden - Access Denied", { 
+					status: 403,
+					headers: { "Content-Type": "text/plain" }, // ✅ Ensure raw text response
+			});
+	}
     try {
 
         const cookieStore = await cookies(); 

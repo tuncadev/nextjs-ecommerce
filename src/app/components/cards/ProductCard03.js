@@ -21,15 +21,12 @@ export const ProductCard03 = ({ categoryProducts }) => {
 					>
 						<div key={product.id} className="flex flex-col p-2 bg-gray-50/50 border rounded-lg text flex-grow h-full">
 							<div className="flex justify-center h-full">
-								<Image
-									src={product.images[0]?.src || "/images/default-product.jpg"}
-									className="object-contain h-full"
-									loading="lazy"
-									width={187}
-									height={187}
-									alt={product.name}
-									unoptimized
-								/>
+							<picture>
+								<source media="(max-width: 767px)" srcSet={`/api/media?url=${product.images[0]?.src}`} />
+								<source media="(min-width: 768px) and (max-width: 1024px)" srcSet={`/api/media?url=${product.images[0]?.src}`} />
+								<img src={`/api/media?url=${product.images[0]?.src}`} alt="Product" />
+							</picture>
+ 
 							</div>
 							<div className="mt-2 px-4 flex flex-col flex-grow h-full">
 								<p>

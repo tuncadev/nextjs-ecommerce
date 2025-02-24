@@ -10,17 +10,19 @@ export const ProductCard01 = ({ product }) => {
 		<div >		
       <div className="relative group flex h-full w-full flex-col justify-between">
 				<div className=" group-hover:block product_favorites absolute right-3 top-2">
-				<i class={`${isFavorite ? "fa-solid" : "fa-regular "} hover:text-gray-600 text-md hover:cursor-pointer fa-heart text-red-500`}></i>
+				<i className={`${isFavorite ? "fa-solid" : "fa-regular "} hover:text-gray-600 text-md hover:cursor-pointer fa-heart text-red-500`}></i>
 				</div>
         <Link
           href={`/${product.categories[0].slug}/c${product.categories[0].id}/${product.slug}/p${product.id}`}
           className="h-full w-full"
         >
-          <Card
-              className="h-full flex flex-col justify-between w-full"
-            imgAlt={product.name}
-            imgSrc={product.images[0]?.src || "/images/default-product.jpg"}
-          >
+          <div>
+					<picture>
+						<source media="(max-width: 767px)" srcSet={`/api/media?url=${product.images[0]?.src}`} />
+						<source media="(min-width: 768px) and (max-width: 1024px)" srcSet={`/api/media?url=${product.images[0]?.src}`} />
+						<img src={`/api/media?url=${product.images[0]?.src}`} alt="Product" />
+					</picture>
+
             {/* Title */}
             <h5 className="text-sm font-semibold tracking-tight text-gray-900 dark:text-white">
               {product.name}
@@ -58,7 +60,7 @@ export const ProductCard01 = ({ product }) => {
                 Add to cart
               </button>
             </div>
-          </Card>
+          </div>
         </Link>
       </div>
 		</div>

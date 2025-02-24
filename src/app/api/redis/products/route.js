@@ -1,6 +1,15 @@
 import { getFromRedis } from "@/lib/redis";
+import { getAllowedHosts } from "@/app/utils/getAllowedHosts";
+import { NextResponse } from "next/server";
 
-export async function GET() { 
+export async function GET(req) { 
+	const checkHost = getAllowedHosts(req);
+		if (!checkHost) {
+			return new Response("403 Forbidden - Access Denied", { 
+					status: 403,
+					headers: { "Content-Type": "text/plain" }, // ✅ Ensure raw text response
+			});
+	}
 	try {
 		// ✅ Fetch products from Redis
 		const productsFromRedis = await getFromRedis("products");
@@ -22,10 +31,28 @@ export async function GET() {
 		// ✅ Ensure products are returned as an array
 		const products = Array.isArray(productsFromRedis) ? productsFromRedis : [];
 
+		// 🔹 **Replace backend URL with frontend**
+		/*const products = Array.isArray(productsFromRedis) ? productsFromRedis : [];
+
+        // 🔹 **Ensure images exist before modifying**
+        const updatedProducts = products.map(product => ({
+            ...product,
+            permalink: typeof product.permalink === "string"
+                ? product.permalink.replace("backend.tunca.site", "kangaroo.tunca.site")
+                : product.permalink,
+            images: Array.isArray(product.images)
+                ? product.images.map(image => ({
+                    ...image,
+                    src: typeof image.src === "string"
+                        ? image.src.replace("backend.tunca.site", "kangaroo.tunca.site")
+                        : image.src
+                }))
+                : [], // Ensure images is always an array
+        }));*/
 		return new Response(
 			JSON.stringify({
 				message: "products fetched successfully",
-				products,
+				products: products,
 			}),
 			{
 				status: 200,

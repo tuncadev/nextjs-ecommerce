@@ -1,4 +1,6 @@
 import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
+import { getAllowedHosts } from "@/app/utils/getAllowedHosts";
 
 const STORE_API_URL = process.env.WC_STORE_API_URL;
 const CONSUMER_KEY = process.env.WP_CONSUMER_KEY;
@@ -6,6 +8,13 @@ const CONSUMER_SECRET = process.env.WP_CONSUMER_SECRET;
 const encodedAuth = btoa(`${CONSUMER_KEY}:${CONSUMER_SECRET}`);
 
 export async function POST(req) {
+		const checkHost = getAllowedHosts(req);
+		if (!checkHost) {
+			return new Response("403 Forbidden - Access Denied", { 
+					status: 403,
+					headers: { "Content-Type": "text/plain" }, // ✅ Ensure raw text response
+			});
+	}
     try {
         const { productId, itemKey, newQuantity } = await req.json();
         if (!productId || !itemKey || !newQuantity) {

@@ -15,18 +15,22 @@ import { useCartContext } from "@/app/context/CartContext";
 
 export default function ProductPage() {
     const { productId } = useParams();
-    const { getProductById } = useProducts();
+    const { getProductFromRedisById } = useProducts();
  
+
     const [product, setProduct] = useState(null);
 
     useEffect(() => {
         async function fetchProduct() {
-            const data = await getProductById(productId.substring(1)); // Remove "p"
+					//	const redisProduct = await getProductFromRedisById(productId);
+ 
+            const data = await getProductFromRedisById(productId.substring(1)); // Remove "p"
              setProduct(data);
         }
         fetchProduct();
     }, [productId]);
 
+		
     if (!product) return <Loading text="product details..." />;
  
     return (
@@ -38,13 +42,11 @@ export default function ProductPage() {
 								<Carousel className='carousel' slide={false} >
 										{product?.images.map((image) => (
 											<div key={image.id} className="w-full h-full flex items-center justify-center">
-												<Image 
-														src={image.src || "/images/default-product.jpg"} 
-														width={460}
-														height={460}
-														alt={`${product.name}-${product.id}`}
-														className="  object-contain" 
-												/>
+												<picture>
+													<source media="(max-width: 767px)" srcSet={`/api/media?url=${image.src}`} />
+													<source media="(min-width: 768px) and (max-width: 1024px)" srcSet={`/api/media?url=${image.src}`} />
+													<img src={`/api/media?url=${image.src}`} alt="Product" />
+												</picture>
 											</div>
 										))}
 								</Carousel>	

@@ -1,6 +1,15 @@
 import { getFromRedis } from "@/lib/redis";
+import { getAllowedHosts } from "@/app/utils/getAllowedHosts";
+import { NextResponse } from "next/server";
 
-export async function GET() { 
+export async function GET(req) { 
+	const checkHost = getAllowedHosts(req);
+		if (!checkHost) {
+			return new Response("403 Forbidden - Access Denied", { 
+					status: 403,
+					headers: { "Content-Type": "text/plain" }, // ✅ Ensure raw text response
+			});
+	}
   try {
     // ✅ Fetch categories from Redis
     const categoriesFromRedis = await getFromRedis("categories");
@@ -20,12 +29,20 @@ export async function GET() {
     }
 
     // ✅ Ensure categories are returned as an array
-    const categories = Array.isArray(categoriesFromRedis) ? categoriesFromRedis : [];
+ 
+		const categories = Array.isArray(categoriesFromRedis) ? categoriesFromRedis : [];
 
+		// 🔹 **Ensure category.image is a string before replacing**
+		/*const updatedCategories = categories.map(category => ({
+				...category,
+				image: typeof category.image === "string"
+						? category.image.replace("backend.tunca.site", "kangaroo.tunca.site")
+						: category.image, // Keep it as-is if it's null/undefined
+		}));*/
     return new Response(
       JSON.stringify({
         message: "Categories fetched successfully",
-        categories,
+        categories: categories,
       }),
       {
         status: 200,

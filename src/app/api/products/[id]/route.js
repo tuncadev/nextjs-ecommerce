@@ -1,10 +1,18 @@
 import { NextResponse } from "next/server";
+import { getAllowedHosts } from "@/app/utils/getAllowedHosts";
 
 const API_URL = process.env.WP_API_PRODUCTS_URL;
 const CONSUMER_KEY = process.env.WP_CONSUMER_KEY;
 const CONSUMER_SECRET = process.env.WP_CONSUMER_SECRET;
 
 export async function GET(req) {
+		const checkHost = getAllowedHosts(req);
+		if (!checkHost) {
+			return new Response("403 Forbidden - Access Denied", { 
+					status: 403,
+					headers: { "Content-Type": "text/plain" }, // ✅ Ensure raw text response
+			});
+	}
     try {
         const pathnameParts = req.nextUrl.pathname.split("/"); 
         const productId = pathnameParts[pathnameParts.length - 1]; // ✅ Extract ID from URL
