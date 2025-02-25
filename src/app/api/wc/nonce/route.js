@@ -5,7 +5,7 @@ const STORE_API_URL = process.env.WC_STORE_API_URL;
 const CONSUMER_KEY = process.env.WP_CONSUMER_KEY;
 const CONSUMER_SECRET = process.env.WP_CONSUMER_SECRET;
 const encodedAuth = btoa(`${CONSUMER_KEY}:${CONSUMER_SECRET}`);
-
+import { getAllowedHosts } from "@/app/utils/getAllowedHosts";
 
 export async function GET() {
 		const checkHost = getAllowedHosts(req);
@@ -14,7 +14,7 @@ export async function GET() {
 					status: 403,
 					headers: { "Content-Type": "text/plain" }, // ✅ Ensure raw text response
 			});
-	}
+		}
 
     try {
 

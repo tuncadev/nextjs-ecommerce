@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { parse } from "querystring";
 import crypto from "crypto";
 import { redis } from "@/lib/redis";
+import { getAllowedHosts } from "@/app/utils/getAllowedHosts";
 
 export async function POST(req) {
 	const checkHost = getAllowedHosts(req);

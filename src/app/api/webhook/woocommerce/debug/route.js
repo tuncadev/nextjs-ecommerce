@@ -1,9 +1,19 @@
 import { NextResponse } from "next/server";
 import { parse } from "querystring";
 import crypto from "crypto";
+import { getAllowedHosts } from "@/app/utils/getAllowedHosts";
 
 export async function POST(req) {
+	const checkHost = getAllowedHosts(req);
+	if (!checkHost) {
+		return new Response("403 Forbidden - Access Denied", { 
+				status: 403,
+				headers: { "Content-Type": "text/plain" }, // ✅ Ensure raw text response
+		});
+	}
+	
   try {
+		
     const secret = process.env.WC_API_DEBUG_SECRET;
     const signature = req.headers.get("x-wc-webhook-signature");
 

@@ -11,10 +11,10 @@ export async function POST(req) {
 		const checkHost = getAllowedHosts(req);
 		if (!checkHost) {
 			return new Response("403 Forbidden - Access Denied", { 
-					status: 403,
-					headers: { "Content-Type": "text/plain" }, // ✅ Ensure raw text response
+				status: 403,
+				headers: { "Content-Type": "text/plain" }, // ✅ Ensure raw text response
 			});
-	}
+		}
     try {
         const { cartKey } = await req.json();
         if (!cartKey) {

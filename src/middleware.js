@@ -27,11 +27,9 @@ export function middleware(req) {
     const acceptHeader = req.headers.get("accept") || "";
     const isRealPageVisit = acceptHeader.includes("text/html");
 
-    console.log(`acceptHeader : ${acceptHeader}`);
-    console.log(`isRealPageVisit : ${isRealPageVisit}`);
 
     if (isRealPageVisit) {
-        console.log("📌 Server-side visit detected:", pathname);
+
         fetch(`${req.nextUrl.origin}/api/track-visitor?path=${pathname}`, {
             method: "GET",
             keepalive: true,
