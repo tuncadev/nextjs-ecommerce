@@ -8,13 +8,13 @@ export async function POST(req) {
 		if (!checkHost) {
 			return new Response("403 Forbidden - Access Denied", { 
 					status: 403,
-					headers: { "Content-Type": "text/plain" }, // ✅ Ensure raw text response
+					headers: { "Content-Type": "text/plain" }, 
 			});
 	}
 		if (!checkHost) {
 			return new Response("403 Forbidden - Access Denied", { 
 					status: 403,
-					headers: { "Content-Type": "text/plain" }, // ✅ Ensure raw text response
+					headers: { "Content-Type": "text/plain" }, 
 			});
 	}
     try {

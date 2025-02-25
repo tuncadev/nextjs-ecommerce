@@ -5,27 +5,23 @@ const STORE_API_URL = process.env.WC_STORE_API_URL;
 const CONSUMER_KEY = process.env.WP_CONSUMER_KEY;
 const CONSUMER_SECRET = process.env.WP_CONSUMER_SECRET;
 const encodedAuth = btoa(`${CONSUMER_KEY}:${CONSUMER_SECRET}`);
-import { getAllowedHosts } from "@/app/utils/getAllowedHosts";
-
+ 
 export async function GET() {
 		const checkHost = getAllowedHosts(req);
 		if (!checkHost) {
 			return new Response("403 Forbidden - Access Denied", { 
 					status: 403,
-					headers: { "Content-Type": "text/plain" }, // ✅ Ensure raw text response
+					headers: { "Content-Type": "text/plain" }, 
 			});
 		}
-
     try {
-
-        const response = await fetch(`${STORE_API_URL}/cart`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-						Authorization: `Basic ${encodedAuth}`,	
-            },
-						
-        });
+			const response = await fetch(`${STORE_API_URL}/cart`, {
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Basic ${encodedAuth}`,	
+				},
+			});
 
         if (!response.ok) {
             return new Response(JSON.stringify({ message: "Failed to fetch nonce" }), {

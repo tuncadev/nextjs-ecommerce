@@ -1,10 +1,17 @@
 import { NextResponse } from "next/server";
 import { saveVisitorToRedis, getVisitorFromRedis, getPageFromRedis, savePageToRedis } from "@/lib/redis-track";
-
+import { getAllowedHosts } from "@/app/utils/getAllowedHosts";
 /**
  * Tracks a visitor by checking their IP and user agent.
  */
 export async function GET(req) {
+			const checkHost = getAllowedHosts(req);
+			if (!checkHost) {
+				return new Response("403 Forbidden - Access Denied", { 
+						status: 403,
+						headers: { "Content-Type": "text/plain" }, 
+				});
+			}
     try {
  
 
