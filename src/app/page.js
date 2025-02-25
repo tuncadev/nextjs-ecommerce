@@ -8,15 +8,18 @@ import { BannerLeft, BannerRight, BannerDouble } from "./components/banners";
 
 import BannerSpace from '@/app/assets/banners/banner-space-bg.png';
 import BannerLarge from '@/app/assets/banners/banner-large.jpg';
-
+import { usePathname } from 'next/navigation'
 import { getOrCreateVisitorId } from './utils/getOrCreateVisitorId';
-import { useEffect } from 'react';
- 
+import { useEffect, useState } from 'react';
+
+
 export default function Home() {
- 
+
+	// Track visitor on first load
 	useEffect(() => {
-		getOrCreateVisitorId();
+			getOrCreateVisitorId();
 	}, []);
+
 
     return (
 			<>			

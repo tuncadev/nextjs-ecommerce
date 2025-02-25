@@ -1,5 +1,5 @@
 export function getAllowedHosts(req) { 
-	console.log("Get the request: " + req.headers.get("host"));
+ 
 
 	try {
 			if (!req) return false;
