@@ -12,20 +12,26 @@ export async function GET(req) {
 	}
   try {
     // ✅ Fetch categories from Redis
-    const categoriesFromRedis = await getFromRedis("categories");
+    let categoriesFromRedis = await getFromRedis("categories");
 
     if (!categoriesFromRedis) {
-      console.warn("⚠️ No categories found in Redis");
-      return new Response(
-        JSON.stringify({
-          message: "No categories found in Redis",
-          categories: [],
-        }),
-        {
-          status: 200,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      console.warn("⚠️ No categories found in Redis, updating db");
+      categoriesFromRedis = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/update-data`, {
+				method: "GET",
+				headers: { "Content-Type": "application/json" },
+			});
+			if(!categoriesFromRedis) {
+			return new Response(
+				JSON.stringify({
+					message: "No products found in Redis",
+					products: [],
+				}),
+				{
+					status: 200,
+					headers: { "Content-Type": "application/json" },
+				}
+			);
+			}
     }
 
     // ✅ Ensure categories are returned as an array

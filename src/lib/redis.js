@@ -81,16 +81,30 @@ export async function getAllRedisData() {
 
 			const keys = await client.keys("*");
 			const allData = await Promise.all(
-					keys.map(async (key) => ({ [key]: await client.get(key) }))
+					keys.map(async (key) => {
+							const type = await client.type(key); // Check type
+
+							if (type === "string") {
+									const value = await client.get(key);
+									return { [key]: JSON.parse(value) };
+							} else if (type === "set") {
+									const members = await client.sMembers(key);
+									return { [key]: members };
+							} else {
+									console.warn(`⚠️ Skipping unsupported Redis key type: ${type} for key: ${key}`);
+									return { [key]: `Unsupported type: ${type}` };
+							}
+					})
 			);
 
 			return allData;
-			
+
 	} catch (error) {
 			console.error("❌ Error retrieving all Redis data:", error);
 			return null;
 	}
 }
+
 
 
 // ✅ Export client for direct Redis access

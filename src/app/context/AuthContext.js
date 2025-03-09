@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
 					});
 					const data = await res.json();
 
-
+ 
 					if (data.isAuthenticated) {
 						setAuthUser(data.user);
 					} else {
@@ -33,7 +33,9 @@ export const AuthProvider = ({ children }) => {
 		}, []);
 			
     const logout = async () => {
-        await fetch("/api/user/logout", { method: "POST", credentials: "include" });
+        await fetch("/api/user/logout", { 
+					method: "POST", 
+					credentials: "include" });
         setAuthUser(null);
     };
 

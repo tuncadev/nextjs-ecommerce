@@ -1,13 +1,13 @@
 "use client";
 import { useState, useEffect } from 'react';
 
-import { DrawerNav } from './DrawerNav';
-import { BreadCrumbsNav } from './BreadCrumbsNav';
+import { DrawerNav } from '@/app/components/DrawerNav';
+import { BreadCrumbsNav } from '@/app/components/BreadCrumbsNav';
 import Link from 'next/link';
 import { useCartContext } from "@/app/context/CartContext";
-import { useProducts } from '../hooks/useProducts';
+import { useProducts } from '@/app/hooks/useProducts';
 import { useAuth } from "@/app/context/AuthContext";
-import { getOrCreateVisitorId } from '../utils/getOrCreateVisitorId';
+import { getOrCreateVisitorId } from '@/app/utils/getOrCreateVisitorId';
 
 
 export const Header = () => {
@@ -45,6 +45,8 @@ export const Header = () => {
 	};
 
 	return (
+
+
 		<header className='w-full bg-[#022335] border-b border-b-gray-300 pt-4'>
 			{/* Logo , search and user menu */}
 			<div className="container border-gray-200 dark:bg-gray-900 px-4">
@@ -78,7 +80,7 @@ export const Header = () => {
 								</div>
 							{/** Cart Icon */}
 							<Link
-								href="/cart"
+								href={`${authUser ? "/profile/cart" : "/cart"} `}
 								> 
 							<div className={`${cartItemsCount > 0 ? "text-lime-500" : "text-gray-50"} relative group `}>
 								<i className="fa-solid fa-bag-shopping text-xl sm:text-3xl group-hover:text-red-500 group-hover:cursor-pointer"></i>
@@ -180,5 +182,6 @@ export const Header = () => {
 				})()}
 			</div>
 		</header>
+
 	);
 };

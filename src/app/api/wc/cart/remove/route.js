@@ -30,7 +30,7 @@ export async function POST(req) {
 					Authorization: `Basic ${encodedAuth}`,	
 					},
 					
-			});
+				});
 
 			if (!nonceResponse.ok) {
 					return new Response(JSON.stringify({ message: "Failed to fetch nonce" }), {

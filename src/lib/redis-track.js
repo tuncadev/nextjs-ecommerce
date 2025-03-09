@@ -1,16 +1,12 @@
 import { createClient } from "redis";
 
-// Initialize Redis Client for Visitor Tracking
 const client = createClient({
-    url: process.env.REDIS_TRACK_URL,
+    url: process.env.REDIS_URL,
 });
 
 client.on("error", (err) => console.error("❌ Redis Tracking Error:", err));
 
-/**
- * Ensures Redis connection before any operation
- */
-export async function connectRedis() {
+async function connectRedis() {
     if (!client.isOpen) {
         try {
             await client.connect();
@@ -20,89 +16,101 @@ export async function connectRedis() {
     }
 }
 
-/**
- * Saves visitor data in Redis using `visitor:{ip}` as a key
- */
-export async function saveVisitorToRedis(visitorIp, data) {
-    try {
-        await connectRedis();
-        await client.set(`visitor:${visitorIp}`, JSON.stringify(data), { EX: 60 * 60 * 24 }); // Expires in 24h
- 
-    } catch (error) {
-        console.error(`❌ Error saving visitor (${visitorIp}):`, error);
-    }
+// ** Save Visitor **
+export async function saveVisitorToRedis(visitorId, data) {
+	try {
+		await connectRedis();
+		await client.hSet(`tracking`, `visitors:${visitorId}`, JSON.stringify(data));
+} catch (error) {
+		console.error(`❌ Error saving visitor (${visitorId}):`, error);
+}
 }
 
-/**
- * Retrieves visitor data from Redis
- */
-export async function getVisitorFromRedis(visitorIp) {
-    try {
-        await connectRedis();
-        const data = await client.get(`visitor:${visitorIp}`);
-        return data ? JSON.parse(data) : null;
-    } catch (error) {
-        console.error(`❌ Error retrieving visitor (${visitorIp}):`, error);
-        return null;
-    }
+// ** Get Visitor **
+export async function getVisitorFromRedis(visitorId) {
+	try {
+		await connectRedis();
+		const data = await client.hGet(`tracking`, `visitors:${visitorId}`);
+		return data ? JSON.parse(data) : null;
+} catch (error) {
+		console.error(`❌ Error retrieving visitor (${visitorId}):`, error);
+		return null;
+}
 }
 
-/**
- * Saves page visit data in Redis using `url:{pagePath}`
- */
+// ** Save Page Visit **
 export async function savePageToRedis(url, data) {
-    try {
-        await connectRedis();
-        await client.set(`url:${url}`, JSON.stringify(data), { EX: 60 * 60 * 24 }); // Expires in 24h
- 
-    } catch (error) {
-        console.error(`❌ Error saving page (${url}):`, error);
-    }
+	try {
+		await connectRedis();
+		await client.hSet(`tracking`, `pages:${url}`, JSON.stringify(data));
+} catch (error) {
+		console.error(`❌ Error saving page (${url}):`, error);
+}
 }
 
-/**
- * Retrieves page visit data from Redis
- */
+// ** Get Page Visit **
 export async function getPageFromRedis(url) {
+	try {
+		await connectRedis();
+		const data = await client.hGet(`tracking`, `pages:${url}`);
+		return data ? JSON.parse(data) : null;
+} catch (error) {
+		console.error(`❌ Error retrieving page (${url}):`, error);
+		return null;
+}
+}
+
+// ** Get All Visitors **
+export async function getAllVisitors() {
     try {
         await connectRedis();
-        const data = await client.get(`url:${url}`);
-        return data ? JSON.parse(data) : null;
+        const visitorIds = await client.sMembers("tracking:visitors");
+        const visitors = await Promise.all(
+            visitorIds.map(async (id) => ({
+                id,
+                data: await getVisitor(id),
+            }))
+        );
+        return visitors;
     } catch (error) {
-        console.error(`❌ Error retrieving page (${url}):`, error);
+        console.error("❌ Error retrieving all visitors:", error);
         return null;
     }
 }
 
-
-/**
- * Retrieves all visitor logs
- */
-export async function getAllVisitors() {
-	try {
-			await connectRedis();
-			const keys = await client.keys("visitor:*");
-			const visitors = await Promise.all(
-					keys.map(async (key) => ({ [key]: await client.get(key) }))
-			);
-			return visitors;
-	} catch (error) {
-			console.error("❌ Error retrieving all visitor logs:", error);
-			return null;
-	}getAllPages
-	
-}
-
+// ** Get All Pages **
 export async function getAllPages() {
+    try {
+        await connectRedis();
+        const pageUrls = await client.sMembers("tracking:pages");
+        const pages = await Promise.all(
+            pageUrls.map(async (url) => ({
+                url,
+                data: await getPage(url),
+            }))
+        );
+        return pages;
+    } catch (error) {
+        console.error("❌ Error retrieving all pages:", error);
+        return null;
+    }
+}
+export async function getAllTrackingData() {
 	try {
 			await connectRedis();
-			const keys = await client.keys("url:*");
-			const url = await Promise.all(
-					keys.map(async (key) => ({ [key]: await client.get(key) }))
-			);
-			return url;
+			const data = await client.hGetAll(`tracking`);
+			if (!data) return null;
+
+			const parsedData = Object.entries(data).reduce((acc, [key, value]) => {
+					const [type, id] = key.split(":");
+					if (!acc[type]) acc[type] = {};
+					acc[type][id] = JSON.parse(value);
+					return acc;
+			}, {});
+
+			return parsedData;
 	} catch (error) {
-			console.error("❌ Error retrieving all visitor logs:", error);
+			console.error("❌ Error retrieving all tracking data:", error);
 			return null;
 	}
 }

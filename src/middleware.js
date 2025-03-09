@@ -3,11 +3,16 @@ import { NextResponse } from "next/server";
 export function middleware(req) {
     const pathname = req.nextUrl.pathname;
     const userAgent = req.headers.get("user-agent") || "";
-
-    // ✅ Exclude Next.js static files, assets, and API requests
+    const ip = req.headers.get("x-forwarded-for") || req.ip || "unknown";
+    
+    // ✅ Read referer from cookie (set by `LinkTracker`)
+    let referer = req.cookies.get("tracking_referrer")?.value || "direct";
+    
+ 
+    // ✅ Exclude static assets & API requests (this prevents recursion)
     if (
         pathname.startsWith("/_next/") ||
-        pathname.startsWith("/api/") ||
+        pathname.startsWith("/api/") ||  // Prevent tracking API from triggering middleware
         pathname.endsWith(".ico") ||
         pathname.endsWith(".jpg") ||
         pathname.endsWith(".png") ||
@@ -27,19 +32,22 @@ export function middleware(req) {
     const acceptHeader = req.headers.get("accept") || "";
     const isRealPageVisit = acceptHeader.includes("text/html");
 
-
     if (isRealPageVisit) {
-
         fetch(`${req.nextUrl.origin}/api/track-visitor?path=${pathname}`, {
             method: "GET",
             keepalive: true,
+            headers: {
+                "User-Agent": userAgent,
+                "X-Forwarded-For": ip,
+                "X-Custom-Referer": referer, // ✅ Pass referer manually
+            },
         }).catch((err) => console.error("Tracking failed:", err));
     }
 
     return NextResponse.next();
 }
 
-// ✅ Apply middleware to all pages
+// ✅ Apply middleware only to pages, NOT API routes
 export const config = {
-    matcher: "/:path*",
+    matcher: "/((?!api/).*)", // ✅ Prevents running on API routes
 };

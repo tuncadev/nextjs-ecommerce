@@ -8,7 +8,8 @@ import { ProductProvider } from './hooks/useProducts';
 import { CartProvider } from "@/app/context/CartContext";
 import { ErrorBoundary } from "@/app/components/ErrorBoundary";
 import { AuthProvider } from './context/AuthContext';
-import TrackingProvider from "@/app/components/TrackingProvider"; // ✅ Import client component
+import TrackingProvider from "@/app/components/TrackingProvider"; 
+import LinkTracker from "@/app/components/LinkTracker";
 
 
 const openSans = Open_Sans({ subsets: ["latin"], weight: ["400", "700"], variable: "--openSans", preload: false });
@@ -36,15 +37,17 @@ export default function RootLayout({ children }) {
         {/* Preconnect for Google Fonts */}
       </head>
       <body id="root" className={`antialiased `}>
+				<LinkTracker /> 
 				<TrackingProvider />
+				
 				<AuthProvider> 
 					<CartProvider>  {/*  Add Cart Context Provider */}
 						<ProductProvider>  {/*  Keep your existing ProductProvider */}
 							<ErrorBoundary>
 								<Header />
-								<main className="container">
-									{children}
-								</main>
+									<main className="container">
+										{children}
+									</main>
 							</ErrorBoundary>
 						</ProductProvider>
 					</CartProvider>

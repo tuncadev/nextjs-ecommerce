@@ -1,80 +1,70 @@
 import { NextResponse } from "next/server";
-import { saveVisitorToRedis, getVisitorFromRedis, getPageFromRedis, savePageToRedis } from "@/lib/redis-track";
+import { saveVisitor, getVisitor, savePage, getPage } from "@/lib/sqlite-track";
 import { getAllowedHosts } from "@/app/utils/getAllowedHosts";
-/**
- * Tracks a visitor by checking their IP and user agent.
- */
+
+
 export async function GET(req) {
-			const checkHost = getAllowedHosts(req);
-			if (!checkHost) {
-				return new Response("403 Forbidden - Access Denied", { 
-						status: 403,
-						headers: { "Content-Type": "text/plain" }, 
-				});
+	const checkHost = getAllowedHosts(req);
+	if (!checkHost) {
+			return new Response("403 Forbidden - Access Denied", { 
+					status: 403,
+					headers: { "Content-Type": "text/plain" }, 
+			});
+	}
+
+	try {
+			const { searchParams } = new URL(req.url);
+			const path = searchParams.get("path") || "unknown"; // Page path
+
+			const visitorIp = req.headers.get("x-forwarded-for") || "unknown"; // Real visitor IP
+			const userAgent = req.headers.get("user-agent") || "unknown"; // Real User-Agent
+			let referrer = req.cookies.get("tracking_referrer")?.value || "tracker direct";
+			const visitTimestamp = new Date().toISOString();
+
+			let visitorData = getVisitor(visitorIp);
+			if (visitorData) {
+					visitorData.visit_count += 1;
+					visitorData.referrer = referrer,
+					visitorData.timestamp = visitTimestamp;
+			} else {
+					visitorData = {
+							id: visitorIp,
+							ip: visitorIp,
+							userAgent,
+							referrer,
+							timestamp: visitTimestamp,
+							visit_count: 1,
+					};
 			}
-    try {
- 
 
-        const { searchParams } = new URL(req.url);
-        const path = searchParams.get("path") || "unknown"; // Page path
+			saveVisitor(visitorIp, visitorData);
 
-        const visitorIp = req.headers.get("x-forwarded-for") || "unknown"; // Unique visitor key
-        const userAgent = req.headers.get("user-agent") || "unknown";
-        const referrer = req.headers.get("referer") || "direct";
-        const visitTimestamp = new Date().toISOString();
+			let pageVisits = getPage(path);
 
-        /*** 🔹 Fetch Visitor Data ***/
-        let visitorData = await getVisitorFromRedis(visitorIp);
+			if (pageVisits && pageVisits.visitor_id === visitorIp) {
+					pageVisits.visit_count += 1;
+					pageVisits.timestamp = visitTimestamp;
+			} else {
+					pageVisits = {
+							url: path,
+							visitor_id: visitorIp,
+							ip: visitorIp,
+							referrer,
+							timestamp: visitTimestamp,
+							visit_count: 1,
+					};
+			}
 
-        if (visitorData) {
-            // ✅ Visitor already exists, update their last visit
- 
-            visitorData.visit_count += 1;
-            visitorData.timestamp = visitTimestamp;
-        } else {
-            // 🆕 First time visitor
-            visitorData = {
-                id: visitorIp,
-                ip: visitorIp,
-                userAgent,
-                referrer,
-                timestamp: visitTimestamp,
-                visit_count: 1,
-            };
-        }
+			savePage(path, visitorIp, pageVisits);
 
-        // ✅ Save visitor data to Redis
-        await saveVisitorToRedis(visitorIp, visitorData);
+			return NextResponse.json({ 
+					message: "Visitor & Page Tracked", 
+					visitor: visitorData, 
+					page: path 
+			}, { status: 200 });
 
-        /*** 🔹 Track Page-Specific Visits ***/
-        const pageKey = `${path}`;
-        let pageVisits = await getPageFromRedis(pageKey) || [];
-
-        // 🔎 Check if visitor exists in page visits
-        const existingVisitorIndex = pageVisits.findIndex((v) => v.id === visitorIp);
-
-        if (existingVisitorIndex !== -1) {
-            // ✅ Increment visit count if user already visited this page
-            pageVisits[existingVisitorIndex].visit_count += 1;
-            pageVisits[existingVisitorIndex].timestamp = visitTimestamp;
-        } else {
-            // 🆕 First time visiting this page
-            pageVisits.push({
-                id: visitorIp,
-                ip: visitorIp,
-                referrer,
-                timestamp: visitTimestamp,
-                visit_count: 1,
-            });
-        }
-
-        // ✅ Save updated page visit log
-        await savePageToRedis(pageKey, pageVisits);
-
-        return NextResponse.json({ message: "Visitor & Page Tracked", visitor: visitorData, pageKey }, { status: 200 });
-
-    } catch (error) {
-        console.error("❌ Error tracking visitor:", error);
-        return NextResponse.json({ error: "Failed to track visitor" }, { status: 500 });
-    }
+	} catch (error) {
+			console.error("❌ Error tracking visitor:", error);
+			return NextResponse.json({ error: "Failed to track visitor" }, { status: 500 });
+	}
 }

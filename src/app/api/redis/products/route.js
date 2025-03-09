@@ -12,10 +12,15 @@ export async function GET(req) {
 	}
 	try {
 		// ✅ Fetch products from Redis
-		const productsFromRedis = await getFromRedis("products");
+		let productsFromRedis = await getFromRedis("products");
 
 		if (!productsFromRedis) {
-			console.warn("⚠️ No products found in Redis");
+			console.warn("⚠️ No products found in Redis, updating db");
+			productsFromRedis = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/update-data`, {
+				method: "GET",
+				headers: { "Content-Type": "application/json" },
+			});
+			if(!productsFromRedis) {
 			return new Response(
 				JSON.stringify({
 					message: "No products found in Redis",
@@ -26,6 +31,7 @@ export async function GET(req) {
 					headers: { "Content-Type": "application/json" },
 				}
 			);
+			}
 		}
 
 		// ✅ Ensure products are returned as an array
