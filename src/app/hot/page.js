@@ -14,7 +14,7 @@ export default function page() {
   return (
     <section>
       <h2>🔥 Hot Offers</h2>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 ">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 items-stretch">
         {hotOffers.map((product) => (
           <ProductCard01 key={product.id} product={product} />
         ))}

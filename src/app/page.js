@@ -28,11 +28,20 @@ export default function Home() {
 				</section>
 
 				<section className="container">
-					<BannerLeft title="Кровать-машина  SPACE" text="Ох какая хорошая кровать" bannerClass="bg-gray-200 sm:py-16 border border-gray-300 shadow-md" bannerImage={BannerSpace} />
+					<BannerLeft 
+						title="Кровать-машина  SPACE" 
+						text="Ох какая хорошая кровать" 
+						bannerClass="bg-gray-200 sm:py-16 border border-gray-300 shadow-md" 
+						bannerImage={BannerSpace} 
+					/>
 				</section>
  
 				<section className="container">
-					<BannerDouble bannerClass="" bannerImageSmall={BannerSpace} bannerImageLarge={BannerLarge} />
+					<BannerDouble 
+						bannerClass=""
+						bannerImageSmall={BannerSpace} 
+						bannerImageLarge={BannerLarge} 
+					/>
 				</section>
 
 				<section className="container">
@@ -40,7 +49,10 @@ export default function Home() {
 				</section>
 				
 				<section className="container">
-					<BannerRight  bannerClass="bg-sky-200 py-16 border border-gray-300 shadow-md" bannerImage={BannerSpace} />
+					<BannerRight  
+						bannerClass="bg-sky-200 py-16 border border-gray-300 shadow-md" 
+						bannerImage={BannerSpace} 
+					/>
 				</section>
 
 				<section className="container">

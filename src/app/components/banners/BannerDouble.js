@@ -10,14 +10,16 @@ export const BannerDouble = ({bannerClass, bannerImageLarge, bannerImageSmall}) 
 
 		<>	
 		<div className={`${bannerClass} flex flex-col sm:grid sm:grid-cols-3 rounded-md relative  `}>
-			<div className="bg-sky-200 col-span-2 max-w-[700px] pl-14 py-10 sm:py-0 flex justify-center items-left flex-col" style={{ backgroundImage: `url('${bannerImageLarge.src}')` }}>
+			<div 
+				className="bg-sky-200 col-span-2 max-w-[700px] pl-14 py-10 sm:py-0 bg-no-repeat bg-cover flex justify-center items-left flex-col" 
+				style={{ backgroundImage: `url('${bannerImageLarge.src}')` }}>
 				<h3 className='text-2xl mb-6 max-w-[250px]'>
 					WOODEN MINIMALISTIC CHARIS
 				</h3>
 				<span className='font-semibold'>SALE UP TO</span>
 				<span className='price-green'>40% OFF</span>
 				<button
-				className='bg-[#fb7c00] flex items-center w-32 text-white text-sm font-semibold px-6 py-2 rounded mt-4'>
+				className='bg-[#fb7c00] flex items-center w-32 text-white text-sm  font-semibold px-6 py-2 rounded mt-4'>
 					Shop Now
 				</button>
 			</div>
