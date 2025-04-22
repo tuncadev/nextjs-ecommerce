@@ -1,26 +1,125 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+ /* Custom utility classes */
+@layer utilities {
+  .container {
+    @apply m-auto p-2 max-w-[1170px];
   }
+	#root {
+		@apply bg-white text-gray-600;
+	}
+	.container h2 {
+		@apply text-2xl font-semibold py-4;
+	}
+	span.price-green {
+		@apply text-[#669900] font-semibold;
+	}
+	span.price-red {
+		@apply text-[#ff3300] font-semibold ;
+	}
+	span.price-discount-gray {
+		@apply text-[#999999] text-xl line-through;
+	}
+	div.banner-left {
+		@apply max-w-[1170px] mx-auto my-6 rounded-md bg-no-repeat bg-[right_100px_top] bg-contain;
+	}
+	div.banner-left-content {
+		@apply max-w-[300px] m-auto py-5;
+	}
+	div.banner-left-price {
+		@apply max-w-[270px]    text-center;
+	}
+	div.banner-right {
+		@apply max-w-[1170px]  mx-auto my-6  rounded-md bg-no-repeat bg-[left_100px_top] bg-contain;
+	}
+	div.banner-right-content {
+		@apply max-w-[300px] py-5;
+	}
+	div.banner-right-price {
+		@apply max-w-[270px]  py-5 text-center;
+	}
+	span.instock {
+		@apply text-[#8bc500] font-bold;
+	}
+	span.discount_price {
+		@apply text-[#ff3300] font-bold;
+	}
+	.product_desc ul {
+		@apply list-disc text-sm text-gray-500;
+	}
+ h1.header1 {
+	@apply text-2xl font-bold mb-6;
+ } 
+h2.header2 {
+	@apply text-lg font-semibold;
+}
+.p_accordion button {
+	@apply px-4 py-1;
+}
+.p_accordion button:hover {
+	@apply bg-sky-100;
+}
+.p_accordion button h2 {
+	@apply py-2;
+}
+button.a_btn:hover {
+	@apply bg-sky-900;
+}
+}
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--openSans), sans-serif;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+span#sublogo {
+  font-family: var(--oswald), sans-serif;
+  font-optical-sizing: auto;
 }
+ 
+div#logo {
+  font-family: var(--poppins), sans-serif;
+  font-optical-sizing: auto;
+}
+.numbers {
+	font-family: var(--workSans), sans-serif;
+  font-optical-sizing: auto;
+}
+text {
+  font-family: var(--poppins), sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  dominant-baseline: middle;
+  text-anchor: middle;
+}
+ 
+img {
+	height: auto;
+ 
+}
+.contact-btn {
+	font-family: var(--oswald);
+	font-optical-sizing: auto;
+}
+.carousel div:first-child {
+	align-items: center;
+}
+.carousel div:last-child button {
+	background-color: #000;
+	border-radius: 50%;
+
+}
+.carousel div:nth-last-child(2) button {
+	background-color: #000;
+	border-radius: 50%;
+
+}
+.carousel div:last-child {
+	right: -25px;
+}
+.carousel div:nth-last-child(2) {
+	left: -25px;
+}
+ 
