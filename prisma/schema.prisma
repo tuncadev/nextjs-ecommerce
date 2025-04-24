@@ -1,6 +1,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  output   = "./src/lib/prismaClient"
 }
 
 datasource db {
@@ -51,6 +52,7 @@ model Product {
   brands          Json?
 
   Variation Variation[]
+	favorites  Favorite[]
 }
 
 model Variation { 
@@ -131,7 +133,8 @@ model User {
   dateModified    DateTime?
 
   sessions        Session[]
-  cart           Cart? // ✅ Relation to Cart (each user can have one cart)
+  cart	          Cart? // ✅ Relation to Cart (each user can have one cart)
+	favorites				Favorite[]
 }
 
 model Session {
@@ -173,3 +176,16 @@ model PageVisit {
   @@unique([url, visitorId]) // ✅ Make (url, visitorId) unique
 }
 
+/* Favorites */
+model Favorite {
+  id        Int     @id @default(autoincrement())
+  userId    String?
+	sessionToken String?
+  productId Int
+  createdAt DateTime @default(now())
+
+  user     User?    @relation(fields: [userId], references: [id])
+  product  Product @relation(fields: [productId], references: [id])
+
+  @@unique([userId, productId]) // no duplicate favorites per user
+}

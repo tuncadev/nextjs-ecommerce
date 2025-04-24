@@ -3,39 +3,82 @@ import { Card } from "flowbite-react";
 import Link from "next/link";
 import { useState, useMemo } from "react";
 import { Product } from "@/app/types/products";
+import { useCart } from "@/app/context/CartContext";
+import Working from "../actions/Working";
+import { SingleProduct } from "../products/SingleProduct";
+import { AddToCartModal } from "../modals/AddToCartModal";
 
 type Props = {
   product: Product;
+	isModal?: boolean;
 };
 
 export const ProductCard01 = ({ product }: Props) => {
 	const [isFavorite, setIsFavorite] = useState(false);
+	const [isInCart, setIsInCart] = useState(false);
+	const [cartLoading, setCartLoading] = useState(false);
+	const { addToCart } = useCart();
+	const [openModal, setOpenModal] = useState(false);
+ 
+	const handleAddToCart = async () => {
+		setOpenModal(true)
+		/*
+		    setCartLoading(true);
 
+		 addToCart({
+      productId: product.wpId,
+			variationId: product.wpId,
+      quantity: 1,
+      price: product.price,
+    });
+     setCartLoading(false);
+*/
+	}
 
+	
 	const productImage = product?.images[0]?.src || "/images/default-category.jpg";
 
 	const averageRating = useMemo(() => Math.round(product?.averageRating || 0), [product]);
 
-	return (
-		<div className="relative group flex flex-col justify-between h-full w-full min-h-[300px] min-w-[200px] ">
-			<div className="flex flex-col flex-grow">
+return cartLoading ? (
+    <Working />
+  ) : (
+		<>
+		<div className="group/outer relative flex flex-col overflow-hidden justify-between h-full w-full min-h-[300px] md:min-w-[200px] sm:max-w-[150px]">
 				{/** Favorites */}
- 
+			<div className="group/inner flex group-hover/outer:right-0 hover:bg-red-500 justify-start items-center  w-8 h-[20px] transition-all duration-200	z-10 bg-white absolute -right-6 top-[13px]		rounded-tl-md rounded-bl-md 			">
+				<i
+					className={`${
+						isFavorite ? "fa-solid" : "fa-regular "
+					} group-hover/inner:text-white pl-2 text-md hover:cursor-pointer fa-heart text-red-500 `}
+				></i>
+			</div>
+			{/** Cart */}
+			
+			<div className="group/inner  flex group-hover/outer:right-0 hover:bg-red-500 justify-start items-center  w-8 h-[20px] transition-all	z-10 duration-500 bg-white absolute -right-6 top-[35px]		rounded-tl-md rounded-bl-md 			">
+				<i
+				 onClick={handleAddToCart}
+					className={`${
+						isInCart? "fa-cart-shopping" : "fa-cart-plus"
+					} fa-solid group-hover/inner:text-white pl-2 text-md hover:cursor-pointer  text-red-500`}
+				></i>
+			</div>
+
+			{product.type === "variable" &&
+				<div className="">aasd</div>
+			}
 				{/** Product Card */}
+			<div className="flex group flex-col flex-grow">
+			
+ 							
+
 				<Link
 					href={`/product/${product.slug}/${product.wpId}`}
 					className="h-full w-full "
 				>
 					{/** Product Image */}
-					<div className="flex relatives items-center justify-center mb-2">
-						<div className="w-10 bg-white absolute right-0 top-4 rounded-tl-md rounded-bl-md ">
-							<i
-								className={`${
-									isFavorite ? "fa-solid" : "fa-regular"
-								} hover:text-gray-600 text-md hover:cursor-pointer fa-heart text-red-500 `}
-							></i>
-						</div>
-						<picture className=" w-auto h-[160px] overflow-hidden">
+					<div className="flex relative items-center justify-center mb-2  h-[140px] overflow-hidden">
+						<picture className="w-auto">
 							<source media="(max-width: 767px)" srcSet={`/api/media?url=${productImage}`} />
 							<source media="(min-width: 768px) and (max-width: 1024px)" srcSet={`/api/media?url=${productImage}`} />
 							<img src={`/api/media?url=${productImage}`} alt="Product" />
@@ -90,6 +133,12 @@ export const ProductCard01 = ({ product }: Props) => {
 				</Link>
 			</div>
 		</div>
+		<AddToCartModal 
+			openModal={openModal}
+			setOpenModal={setOpenModal}
+			product={product} 
+		/>
+</>
 	);
 };
 

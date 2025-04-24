@@ -1,15 +1,6 @@
 // src/app/utils/getProductLink.ts
-
-type Category = {
-  id: number;
-  slug: string;
-};
-
-type Product = {
-  id: number;
-  slug: string;
-  categories?: Category[] | string;
-};
+import { Category } from "@/app/types/categories";
+import { Product } from "@/app/types/products";
 
 const safelyParseCategories = (cats: string | Category[]): Category[] => {
   if (typeof cats === "string") {
