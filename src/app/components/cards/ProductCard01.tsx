@@ -7,6 +7,7 @@ import { useCart } from "@/app/context/CartContext";
 import Working from "../actions/Working";
 import { SingleProduct } from "../products/SingleProduct";
 import { AddToCartModal } from "../modals/AddToCartModal";
+import { useFavorites } from "@/app/context/FavoritesContext";
 
 type Props = {
   product: Product;
@@ -14,27 +15,19 @@ type Props = {
 };
 
 export const ProductCard01 = ({ product }: Props) => {
-	const [isFavorite, setIsFavorite] = useState(false);
 	const [isInCart, setIsInCart] = useState(false);
 	const [cartLoading, setCartLoading] = useState(false);
 	const { addToCart } = useCart();
+	const { handleFavoritesAction, isFavorite }= useFavorites();
 	const [openModal, setOpenModal] = useState(false);
  
 	const handleAddToCart = async () => {
-		setOpenModal(true)
-		/*
-		    setCartLoading(true);
-
-		 addToCart({
-      productId: product.wpId,
-			variationId: product.wpId,
-      quantity: 1,
-      price: product.price,
-    });
-     setCartLoading(false);
-*/
+		product && setOpenModal(true);
 	}
 
+	const handleFavorites = async () => {
+		product && handleFavoritesAction(product);
+	}
 	
 	const productImage = product?.images[0]?.src || "/images/default-category.jpg";
 
@@ -46,27 +39,24 @@ return cartLoading ? (
 		<>
 		<div className="group/outer relative flex flex-col overflow-hidden justify-between h-full w-full min-h-[300px] md:min-w-[200px] sm:max-w-[150px]">
 				{/** Favorites */}
-			<div className="group/inner flex group-hover/outer:right-0 hover:bg-red-500 justify-start items-center  w-8 h-[20px] transition-all duration-200	z-10 bg-white absolute -right-6 top-[13px]		rounded-tl-md rounded-bl-md 			">
+			<div className={`${isFavorite(product.id) ? "bg-red-500 text-white " : "bg-white text-red-500 hover:cursor-pointer hover:text-white hover:bg-red-500"} group/inner flex group-hover/outer:right-0 justify-start items-center  w-8 h-[20px] transition-all duration-200	z-10 absolute -right-6 top-[13px]		rounded-tl-md rounded-bl-md`}>
 				<i
+				onClick={handleFavorites}
 					className={`${
-						isFavorite ? "fa-solid" : "fa-regular "
-					} group-hover/inner:text-white pl-2 text-md hover:cursor-pointer fa-heart text-red-500 `}
+						isFavorite(product.id) ? "fa-solid " : "fa-regular "
+					}  pl-2 text-md hover:cursor-pointer fa-heart  `}
 				></i>
 			</div>
 			{/** Cart */}
 			
-			<div className="group/inner  flex group-hover/outer:right-0 hover:bg-red-500 justify-start items-center  w-8 h-[20px] transition-all	z-10 duration-500 bg-white absolute -right-6 top-[35px]		rounded-tl-md rounded-bl-md 			">
+			<div className="group/inner  flex group-hover/outer:right-0 hover:cursor-pointer  hover:bg-red-500 justify-start items-center  w-8 h-[20px] transition-all	z-10 duration-500 bg-white absolute -right-6 top-[35px]		rounded-tl-md rounded-bl-md 			">
 				<i
 				 onClick={handleAddToCart}
 					className={`${
 						isInCart? "fa-cart-shopping" : "fa-cart-plus"
-					} fa-solid group-hover/inner:text-white pl-2 text-md hover:cursor-pointer  text-red-500`}
+					} fa-solid group-hover/inner:text-white pl-2 text-md  text-red-500`}
 				></i>
 			</div>
-
-			{product.type === "variable" &&
-				<div className="">aasd</div>
-			}
 				{/** Product Card */}
 			<div className="flex group flex-col flex-grow">
 			
@@ -77,7 +67,7 @@ return cartLoading ? (
 					className="h-full w-full "
 				>
 					{/** Product Image */}
-					<div className="flex relative items-center justify-center mb-2  h-[140px] overflow-hidden">
+					<div className="flex relative items-center rounded-lg  justify-center mb-2  h-[140px] overflow-hidden">
 						<picture className="w-auto">
 							<source media="(max-width: 767px)" srcSet={`/api/media?url=${productImage}`} />
 							<source media="(min-width: 768px) and (max-width: 1024px)" srcSet={`/api/media?url=${productImage}`} />

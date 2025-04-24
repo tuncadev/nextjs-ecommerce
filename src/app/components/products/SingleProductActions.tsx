@@ -6,34 +6,36 @@ import { useCart } from "@/app/context/CartContext";
 import { SuccessModal } from "@/app/components/modals/SuccessModal";
 import Working from "@/app/components/actions/Working";
 import { Variation } from "@/app/types/variations";
+import { useFavorites } from "@/app/context/FavoritesContext";
+import { Product } from "@/app/types/products";
 
 type Props = {
-  product: {
-    wpId: number;
-    price: number;
-    name: string;
-		selectedVariation?: Variation;
-  };
-	parentProductId: number;
+	selectedVariation: Variation;
+	product: Product;
 	requiredAttributes?: string[];
 	selectedAttributes?: Record<string, string>;
-  onAddToFavorites?: () => void;
 };
 
-export const SingleProductActions = ({ parentProductId, product, onAddToFavorites, requiredAttributes, selectedAttributes }: Props) => {
+export const SingleProductActions = ({ selectedVariation, product, requiredAttributes, selectedAttributes }: Props) => {
   const [quantity, setQuantity] = useState(1);
   const [openModal, setOpenModal] = useState(false);
   const [cartLoading, setCartLoading] = useState(false);
 	const isAddDisabled = requiredAttributes?.some(attr => !selectedAttributes?.[attr]);
 
   const { addToCart } = useCart();
+	const { handleFavoritesAction, isFavorite }= useFavorites();
+
+	const handleFavorites = async () => {
+		handleFavoritesAction(product);
+	}
+	
 
   const handleAddToCart = async () => {
     setCartLoading(true);
 
      addToCart({
-			variationId: product.wpId,
-      productId: parentProductId,
+			variationId: selectedVariation.wpId,
+      productId: product.wpId,
       quantity,
       price: product.price,
     });
@@ -67,11 +69,11 @@ export const SingleProductActions = ({ parentProductId, product, onAddToFavorite
 
           <button
             type="button"
-            onClick={onAddToFavorites}
-            className="disabled:opacity-75 w-12 h-12 flex items-center justify-center border border-gray-300 rounded-lg hover:bg-gray-200 transition"
+            onClick={handleFavorites}
+            className={`${isFavorite(product.id) ? "bg-red-500 text-white border-red-500 " : "bg-white border-red-500 text-red-500 hover:bg-red-500 hover:text-white" } disabled:opacity-75 w-12 h-12 flex items-center justify-center border rounded-lg transition`}
           >
             <svg
-              className="w-6 h-6 text-gray-900 dark:text-white"
+              className="w-6 h-6"
               aria-hidden="true"
               fill="none"
               stroke="currentColor"

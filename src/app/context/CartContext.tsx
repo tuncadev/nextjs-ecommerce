@@ -2,7 +2,24 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAuth } from "@/app/context/AuthProvider";
-import { CartContextType, CartItem } from "@/app/types/cart";
+
+type CartItem = {
+	variationId: number,
+	productId: number;
+	quantity: number;
+	price: number;
+};
+
+type CartContextType = {
+	cartItems: CartItem[];
+	addToCart: (item: CartItem) => void;
+	removeFromCart: (variationId: number) => void;
+	updateQuantity: (variationId: number, quantity: number) => void;
+	clearCart: () => void;
+	refreshCart: () => Promise<void>;
+	loading: boolean;
+	initialized: boolean;
+};
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 

@@ -7,13 +7,14 @@ import useLogout from "@/app/hooks/useLogout";
 import toast from "react-hot-toast";
 import { useCart } from "@/app/context/CartContext";
 import { DrawerNav } from "./DrawerNav";
+import { useFavorites } from "@/app/context/FavoritesContext";
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user, loading, hydrated } = useAuth();
   const { handleLogout } = useLogout();
 	const {cartItems} = useCart();
-
+ 	const { hasFavorites, favorites }= useFavorites();
 	if (!hydrated) return null;// 🧠 Prevent hydration mismatch
 
   return (
@@ -51,10 +52,10 @@ export const Header = () => {
           <div className="items-center justify-center sm:justify-between w-full md:flex md:w-auto md:order-1 pr-6 pb-4">
             <div className="flex gap-8 justify-center">
               {/* Favorites */}
-              <div className="relative group text-gray-50">
-                <i className="fa-regular fa-heart text-xl sm:text-3xl group-hover:text-red-500 group-hover:cursor-pointer"></i>
-                <span className="absolute text-[10px] bg-red-500 leading-none rounded-full px-2 py-1 group-hover:cursor-pointer bottom-0 -right-3 group-hover:bg-white group-hover:text-red-600">
-                  0
+              <div className={`${hasFavorites ? "text-red-500" : "text-gray-50"} relative group `}>
+                <i className={` fa-regular fa-heart text-xl sm:text-3xl group-hover:text-red-500 group-hover:cursor-pointer`}></i>
+                <span className="text-white  absolute text-[10px] bg-red-500 leading-none rounded-full px-2 py-1 group-hover:cursor-pointer bottom-0 -right-3 group-hover:bg-white group-hover:text-red-600">
+                  {favorites.length}
                 </span>
               </div>
 

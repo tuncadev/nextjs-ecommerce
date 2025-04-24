@@ -25,7 +25,7 @@ export const SingleProduct: React.FC<SingleProductProps> = ({ product, isModal }
 	const {loading, getProductBySlug, getProductById} = useProducts();
 	const [selectedAttributes, setSelectedAttributes] = useState<Record<string, string>>({});
 
-	const selectedVariation: Variation | undefined = useMemo(() => {
+	const selectedVariation: Variation = useMemo(() => {
 		if (!product?.variationsData || !Array.isArray(product.variationsData)) return undefined;
 	
 		return product.variationsData.find((variation) => {
@@ -99,10 +99,10 @@ if (loading || !product) return <Loading text="product details..." />;
 						<div className="flex items-center border-b border-b-gray-200">
 							
 						<SingleProductActions
-							product={selectedVariation || product}
+							selectedVariation={selectedVariation}
 							requiredAttributes={attributeNames}
 							selectedAttributes={selectedAttributes}
-							parentProductId={product.wpId}
+							product={product}
 						/>
 
 						</div>

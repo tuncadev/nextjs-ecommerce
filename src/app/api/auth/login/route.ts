@@ -3,6 +3,8 @@ import { parse } from "cookie";
 import { getSession } from "@/lib/session";
 import { prisma } from "@/lib/prisma";
 import { compare } from "bcryptjs";
+import { syncGuestFavoritesToUser } from "@/app/utils/syncGuestFavoritesToUser";
+
 
 export async function POST(req: Request) {
   try {
@@ -138,6 +140,11 @@ export async function POST(req: Request) {
     const session = await getSession();
     session.userId = user.id;
     await session.save();
+
+
+		if (sessionToken) {
+			await syncGuestFavoritesToUser(user.id, sessionToken);
+		}
 
     return NextResponse.json({ ok: true });
   } catch (err) {
