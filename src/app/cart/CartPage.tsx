@@ -2,20 +2,19 @@
 
 import { useEffect, useState } from "react";
 import { useCart } from "@/app/context/CartContext";
-import { useProducts } from "../context/ProductsContext";
+import { useProducts } from "@/app/context/ProductsContext";
 import { CartItem } from "@/app/components/cart/CartItem";
-import { Loading } from "@/app/components/actions/Loading";
 import { InfoBadge } from "@/app/components/badges/InfoBadge";
 import { Product } from "@/app/types/products";
 import { Variation } from "@/app/types/variations";
-import Working from "../components/actions/Working";
-import { PopularCategories } from "../components/sections/PopularCategories";
+import Working from "@/app/components/actions/Working";
+import { PopularCategories } from "@/app/components/sections/PopularCategories";
 
 type EnrichedProduct = Product & { quantity: number; price: number };
 
 export default function CartPage() {
 	const { cartItems, updateQuantity, removeFromCart, loading, initialized } = useCart();
-	const { getProductById, getProductVariationById } = useProducts();
+	const { getProductById } = useProducts();
 
 	const [cartProducts, setCartProducts] = useState<
 			Record<number, { product: EnrichedProduct; variation?: Variation }>

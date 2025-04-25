@@ -4,7 +4,7 @@ import React from 'react'
 import { useAuth } from '@/app/context/AuthProvider';
 import Working from '@/app/components/actions/Working';
 import { PopularCategories } from '@/app/components/sections/PopularCategories';
-import { BannerLeft, BannerRight, BannerDouble } from "@/app/components/banners";
+import { BannerLeft, BannerDouble } from "@/app/components/banners";
 
 import BannerSpace from '@/app/assets/banners/banner-space-bg.png';
 import BannerLarge from '@/app/assets/banners/banner-large.jpg';

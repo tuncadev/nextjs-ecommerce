@@ -1,5 +1,5 @@
 import React from "react";
-import Image, { ImageLoaderProps } from "next/image";
+import Image from "next/image";
 
 type BannerDoubleProps = {
   bannerClass?: string;
@@ -12,9 +12,7 @@ export const BannerDouble: React.FC<BannerDoubleProps> = ({
   bannerImageLarge,
   bannerImageSmall,
 }) => {
-  const imageLoader = ({ src, width, quality }: ImageLoaderProps): string => {
-    return `${src}?w=${width}&q=${quality || 75}`;
-  };
+ 
 
   return (
     <div

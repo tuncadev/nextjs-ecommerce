@@ -3,23 +3,33 @@
 import Link from "next/link";
 
 type Props = {
-  openModal: boolean;
-  setOpenModal: (open: boolean) => void;
+  openSuccessModal: boolean;
+  setOpenSuccessModal: (open: boolean) => void;
+	openCartModal: boolean;
+  setOpenCartModal?: (open: boolean) => void;
   header?: string;
   message?: string;
 };
 
 export const SuccessModal = ({
-  openModal,
-  setOpenModal,
+  openSuccessModal,
+	setOpenSuccessModal,
+	
+	openCartModal,
+	setOpenCartModal,
+  
   header = "Успішно додано в кошик!",
   message,
 }: Props) => {
   return (
     <div
-      onClick={() => setOpenModal(false)}
+		onClick={() => {
+			setOpenSuccessModal(false);
+			if (openCartModal && setOpenCartModal) setOpenCartModal(false);
+
+		}}
       className={`fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 ${
-        !openModal ? "hidden" : ""
+        !openSuccessModal ? "hidden" : "" 
       }`}
     >
       <div
@@ -27,7 +37,10 @@ export const SuccessModal = ({
         className="bg-white rounded-lg shadow-lg relative max-w-[300px] sm:max-w-sm mx-auto w-full p-6"
       >
         <button
-          onClick={() => setOpenModal(false)}
+					onClick={() => {
+						setOpenSuccessModal(false);
+						if (openCartModal && setOpenCartModal) setOpenCartModal(false);
+					}}
           className="absolute right-4 top-2 text-gray-400 hover:text-gray-600"
         >
           ✕
@@ -47,7 +60,10 @@ export const SuccessModal = ({
             </Link>
 
             <button
-              onClick={() => setOpenModal(false)}
+              onClick={() => {
+								setOpenSuccessModal(false);
+								if (openCartModal && setOpenCartModal) setOpenCartModal(false);
+							}}
               className="bg-slate-500 px-3 py-1 font-semibold text-white rounded text-sm hover:bg-slate-800"
             >
               закрити

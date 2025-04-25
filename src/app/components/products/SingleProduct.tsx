@@ -17,12 +17,14 @@ import { ProductVariationSelector } from "./ProductVariationSelector";
 import { Loading } from "@/app/components/actions/Loading";
 
 type SingleProductProps = {
-	product: Product;
-	isModal?: boolean;
+  product: Product;
+  isModal?: boolean;
+  openCartModal?: boolean;
+  setOpenCartModal?: (open: boolean) => void;
 };
 
-export const SingleProduct: React.FC<SingleProductProps> = ({ product, isModal }) => {
-	const {loading, getProductBySlug, getProductById} = useProducts();
+export const SingleProduct: React.FC<SingleProductProps> = ({ product, isModal, openCartModal, setOpenCartModal }) => {
+	const {loading } = useProducts();
 	const [selectedAttributes, setSelectedAttributes] = useState<Record<string, string>>({});
 
 	const selectedVariation: Variation = useMemo(() => {
@@ -103,6 +105,8 @@ if (loading || !product) return <Loading text="product details..." />;
 							requiredAttributes={attributeNames}
 							selectedAttributes={selectedAttributes}
 							product={product}
+							openCartModal={openCartModal || false}
+							setOpenCartModal={setOpenCartModal}
 						/>
 
 						</div>

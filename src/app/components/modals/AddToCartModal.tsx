@@ -1,12 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import { Product } from "@/app/types/products";
-import { SingleProduct } from "../products/SingleProduct";
+import { SingleProduct } from "@/app/components/products/SingleProduct";
 
 type Props = {
-  openModal: boolean;
-  setOpenModal: (open: boolean) => void;
+  openCartModal: boolean;
+  setOpenCartModal: (open: boolean) => void;
   header?: string;
   message?: string;
 	isModal?: boolean;
@@ -15,17 +14,18 @@ type Props = {
 
 
 export const AddToCartModal = ({
-	openModal,
-	setOpenModal,
-	header = "Успішно додано в кошик!",
-	message,
+	openCartModal,
+	setOpenCartModal,
 	product,
 }: Props) => {
+
+	if(!openCartModal) return null;
+
 	return (
 		<div
-      onClick={() => setOpenModal(false)}
+      onClick={() => setOpenCartModal(false)}
       className={`fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 ${
-        !openModal ? "hidden" : ""
+        !openCartModal ? "hidden" : ""
       }`}
     >
       <div
@@ -33,14 +33,19 @@ export const AddToCartModal = ({
         className="bg-white rounded-lg shadow-lg relative md:max-w-[1000px] max-w-sm mx-auto w-full p-6"
       >
         <button
-          onClick={() => setOpenModal(false)}
+          onClick={() => setOpenCartModal(false)}
           className="absolute right-4 top-2 text-gray-400 hover:text-gray-600"
         >
           ✕
         </button>
 
         <div className="flex flex-col items-center justify-between">
-          <SingleProduct product={product} isModal={true} />
+				<SingleProduct 
+					product={product} 
+					isModal={true} 
+					openCartModal={openCartModal} 
+					setOpenCartModal={setOpenCartModal}
+				/>
         </div>
       </div>
     </div>

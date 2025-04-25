@@ -1,13 +1,8 @@
 import { NextResponse } from "next/server";
-import { parse } from "querystring";
 import crypto from "crypto";
 import { getAllowedHosts } from "@/app/utils/getAllowedHosts";
 
  
-interface Product {
-	id: number;
-	[key: string]: any;
-}
 
 export async function POST(req: Request): Promise<Response> {
 	console.warn("⚠️ Products Webhook connected");
@@ -24,17 +19,17 @@ export async function POST(req: Request): Promise<Response> {
 		const secret = process.env.WC_PRODUCT_DELETE_WEBHOOK_SECRET as string;
 		const signature = req.headers.get("x-wc-webhook-signature");
 
-		let body: Record<string, any>;
+
 		let rawBody: string;
 
 		const contentType = req.headers.get("content-type") || "";
 
 		if (contentType.includes("application/json")) {
 			rawBody = await req.text();
-			body = JSON.parse(rawBody);
+
 		} else {
 			rawBody = await req.text();
-			body = parse(rawBody);
+
 		}
 		console.warn("Checking signature");
 		if (!signature) {

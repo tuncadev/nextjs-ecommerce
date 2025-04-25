@@ -2,21 +2,8 @@
 
 import { createContext, useContext, useState, useEffect } from "react";
 import toast from "react-hot-toast";
-
-type User = {
-  id: string;
-  email: string;
-  username: string;
-  role: string;
-};
-
-type AuthContextType = {
-  user: User | null;
-  loading: boolean;
-  refreshUser: () => Promise<void>;
-  setUser: (u: User | null) => void;
-  hydrated: boolean;
-};
+import { UserType } from "@/app/types/user";
+import { AuthContextType } from "@/app/types/authContext";
 
 const AuthContext = createContext<AuthContextType>({
   user: null,
@@ -27,7 +14,7 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserType | null>(null);
   const [loading, setLoading] = useState(true);
   const [hydrated, setHydrated] = useState(false);
 

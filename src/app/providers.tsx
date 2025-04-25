@@ -8,13 +8,15 @@ import { FavoritesProvider } from "./context/FavoritesContext";
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
 		<AuthProvider>
+			<CartProvider>
 			<ProductsProvider>
-				<CartProvider>
+				
 					<FavoritesProvider>
 						{children}
 					</FavoritesProvider>
-				</CartProvider>
+
 			</ProductsProvider>
+			</CartProvider>
 		</AuthProvider>
 	);
 }

@@ -3,7 +3,7 @@
 import { Drawer } from "flowbite-react";
 import Link from "next/link";
 import { Loading } from "@/app/components/actions/Loading";
-import { useProducts } from "../context/ProductsContext";
+import { useProducts } from "@/app/context/ProductsContext";
  
 type Props = {
   isOpen: boolean;
@@ -11,7 +11,7 @@ type Props = {
 };
 
 export const DrawerNav = ({ isOpen, setIsOpen }: Props) => {
-	const { loading, error, getCategoryTree } = useProducts();
+	const { loading, getCategoryTree } = useProducts();
   const handleClose = () => setIsOpen(false);
 	const categoryTree = getCategoryTree();
   return (

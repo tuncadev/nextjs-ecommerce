@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+
 import { fetchAllCategories } from "@/lib/fetchCategories";
-import prisma, { Prisma } from "@/lib/prisma";
-import { generateHash } from "@/lib/hashUtils";
+import prisma from "@/lib/prisma";
+
 
 export async function GET(): Promise<NextResponse> {
 

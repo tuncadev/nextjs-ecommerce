@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
-import { Loading } from "../actions/Loading";
+import { Loading } from "@/app/components/actions/Loading";
 import { WarningMessage } from "@/app/components/messages/WarningMessage";
 import { CategoryProductCard02 } from "@/app/components/cards/CategoryProductCard02";
 import { useProducts } from "@/app/context/ProductsContext";

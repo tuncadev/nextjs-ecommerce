@@ -14,11 +14,13 @@ type Props = {
 	product: Product;
 	requiredAttributes?: string[];
 	selectedAttributes?: Record<string, string>;
+	openCartModal: boolean;
+  setOpenCartModal?: (open: boolean) => void;
 };
 
-export const SingleProductActions = ({ selectedVariation, product, requiredAttributes, selectedAttributes }: Props) => {
+export const SingleProductActions = ({ selectedVariation, product, requiredAttributes, selectedAttributes, openCartModal, setOpenCartModal }: Props) => {
   const [quantity, setQuantity] = useState(1);
-  const [openModal, setOpenModal] = useState(false);
+  const [openSuccessModal, setOpenSuccessModal] = useState(false);
   const [cartLoading, setCartLoading] = useState(false);
 	const isAddDisabled = requiredAttributes?.some(attr => !selectedAttributes?.[attr]);
 
@@ -41,7 +43,7 @@ export const SingleProductActions = ({ selectedVariation, product, requiredAttri
     });
  
     setCartLoading(false);
-    setOpenModal(true);
+    setOpenSuccessModal(true);
   };
 
   return cartLoading ? (
@@ -91,8 +93,10 @@ export const SingleProductActions = ({ selectedVariation, product, requiredAttri
       </div>
 
       <SuccessModal
-        openModal={openModal}
-        setOpenModal={setOpenModal}
+				openSuccessModal={openSuccessModal}
+				setOpenSuccessModal={setOpenSuccessModal}
+				openCartModal={openCartModal || false}
+				setOpenCartModal={setOpenCartModal}
         header="Успішно!"
         message="Товар додано до кошика"
       />

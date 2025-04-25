@@ -1983,6 +1983,7 @@ export namespace Prisma {
     averageRating: number | null
     ratingCount: number | null
     stockStatus: string | null
+    inCart: boolean | null
   }
 
   export type ProductMaxAggregateOutputType = {
@@ -2016,6 +2017,7 @@ export namespace Prisma {
     averageRating: number | null
     ratingCount: number | null
     stockStatus: string | null
+    inCart: boolean | null
   }
 
   export type ProductCountAggregateOutputType = {
@@ -2058,6 +2060,7 @@ export namespace Prisma {
     metaData: number
     stockStatus: number
     brands: number
+    inCart: number
     _all: number
   }
 
@@ -2113,6 +2116,7 @@ export namespace Prisma {
     averageRating?: true
     ratingCount?: true
     stockStatus?: true
+    inCart?: true
   }
 
   export type ProductMaxAggregateInputType = {
@@ -2146,6 +2150,7 @@ export namespace Prisma {
     averageRating?: true
     ratingCount?: true
     stockStatus?: true
+    inCart?: true
   }
 
   export type ProductCountAggregateInputType = {
@@ -2188,6 +2193,7 @@ export namespace Prisma {
     metaData?: true
     stockStatus?: true
     brands?: true
+    inCart?: true
     _all?: true
   }
 
@@ -2317,6 +2323,7 @@ export namespace Prisma {
     metaData: JsonValue | null
     stockStatus: string
     brands: JsonValue | null
+    inCart: boolean
     _count: ProductCountAggregateOutputType | null
     _avg: ProductAvgAggregateOutputType | null
     _sum: ProductSumAggregateOutputType | null
@@ -2378,6 +2385,7 @@ export namespace Prisma {
     metaData?: boolean
     stockStatus?: boolean
     brands?: boolean
+    inCart?: boolean
     Variation?: boolean | Product$VariationArgs<ExtArgs>
     favorites?: boolean | Product$favoritesArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
@@ -2423,6 +2431,7 @@ export namespace Prisma {
     metaData?: boolean
     stockStatus?: boolean
     brands?: boolean
+    inCart?: boolean
   }, ExtArgs["result"]["product"]>
 
   export type ProductSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2465,6 +2474,7 @@ export namespace Prisma {
     metaData?: boolean
     stockStatus?: boolean
     brands?: boolean
+    inCart?: boolean
   }, ExtArgs["result"]["product"]>
 
   export type ProductSelectScalar = {
@@ -2507,9 +2517,10 @@ export namespace Prisma {
     metaData?: boolean
     stockStatus?: boolean
     brands?: boolean
+    inCart?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "wpId" | "name" | "slug" | "hash" | "permalink" | "dateCreated" | "dateModified" | "type" | "status" | "featured" | "catalogVisibility" | "description" | "shortDescription" | "sku" | "price" | "regularPrice" | "salePrice" | "onSale" | "purchasable" | "totalSales" | "manageStock" | "stockQuantity" | "weight" | "dimensions" | "shippingRequired" | "shippingTaxable" | "reviewsAllowed" | "averageRating" | "ratingCount" | "relatedIds" | "categories" | "tags" | "images" | "attributes" | "variations" | "metaData" | "stockStatus" | "brands", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "wpId" | "name" | "slug" | "hash" | "permalink" | "dateCreated" | "dateModified" | "type" | "status" | "featured" | "catalogVisibility" | "description" | "shortDescription" | "sku" | "price" | "regularPrice" | "salePrice" | "onSale" | "purchasable" | "totalSales" | "manageStock" | "stockQuantity" | "weight" | "dimensions" | "shippingRequired" | "shippingTaxable" | "reviewsAllowed" | "averageRating" | "ratingCount" | "relatedIds" | "categories" | "tags" | "images" | "attributes" | "variations" | "metaData" | "stockStatus" | "brands" | "inCart", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Variation?: boolean | Product$VariationArgs<ExtArgs>
     favorites?: boolean | Product$favoritesArgs<ExtArgs>
@@ -2564,6 +2575,7 @@ export namespace Prisma {
       metaData: Prisma.JsonValue | null
       stockStatus: string
       brands: Prisma.JsonValue | null
+      inCart: boolean
     }, ExtArgs["result"]["product"]>
     composites: {}
   }
@@ -3028,6 +3040,7 @@ export namespace Prisma {
     readonly metaData: FieldRef<"Product", 'Json'>
     readonly stockStatus: FieldRef<"Product", 'String'>
     readonly brands: FieldRef<"Product", 'Json'>
+    readonly inCart: FieldRef<"Product", 'Boolean'>
   }
     
 
@@ -13800,7 +13813,7 @@ export namespace Prisma {
     productId?: boolean
     createdAt?: boolean
     user?: boolean | Favorite$userArgs<ExtArgs>
-    product?: boolean | ProductDefaultArgs<ExtArgs>
+    product?: boolean | Favorite$productArgs<ExtArgs>
   }, ExtArgs["result"]["favorite"]>
 
   export type FavoriteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -13810,7 +13823,7 @@ export namespace Prisma {
     productId?: boolean
     createdAt?: boolean
     user?: boolean | Favorite$userArgs<ExtArgs>
-    product?: boolean | ProductDefaultArgs<ExtArgs>
+    product?: boolean | Favorite$productArgs<ExtArgs>
   }, ExtArgs["result"]["favorite"]>
 
   export type FavoriteSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -13820,7 +13833,7 @@ export namespace Prisma {
     productId?: boolean
     createdAt?: boolean
     user?: boolean | Favorite$userArgs<ExtArgs>
-    product?: boolean | ProductDefaultArgs<ExtArgs>
+    product?: boolean | Favorite$productArgs<ExtArgs>
   }, ExtArgs["result"]["favorite"]>
 
   export type FavoriteSelectScalar = {
@@ -13834,22 +13847,22 @@ export namespace Prisma {
   export type FavoriteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "sessionToken" | "productId" | "createdAt", ExtArgs["result"]["favorite"]>
   export type FavoriteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | Favorite$userArgs<ExtArgs>
-    product?: boolean | ProductDefaultArgs<ExtArgs>
+    product?: boolean | Favorite$productArgs<ExtArgs>
   }
   export type FavoriteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | Favorite$userArgs<ExtArgs>
-    product?: boolean | ProductDefaultArgs<ExtArgs>
+    product?: boolean | Favorite$productArgs<ExtArgs>
   }
   export type FavoriteIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | Favorite$userArgs<ExtArgs>
-    product?: boolean | ProductDefaultArgs<ExtArgs>
+    product?: boolean | Favorite$productArgs<ExtArgs>
   }
 
   export type $FavoritePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Favorite"
     objects: {
       user: Prisma.$UserPayload<ExtArgs> | null
-      product: Prisma.$ProductPayload<ExtArgs>
+      product: Prisma.$ProductPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -14252,7 +14265,7 @@ export namespace Prisma {
   export interface Prisma__FavoriteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends Favorite$userArgs<ExtArgs> = {}>(args?: Subset<T, Favorite$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    product<T extends ProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductDefaultArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    product<T extends Favorite$productArgs<ExtArgs> = {}>(args?: Subset<T, Favorite$productArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -14702,6 +14715,25 @@ export namespace Prisma {
   }
 
   /**
+   * Favorite.product
+   */
+  export type Favorite$productArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Product
+     */
+    select?: ProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Product
+     */
+    omit?: ProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductInclude<ExtArgs> | null
+    where?: ProductWhereInput
+  }
+
+  /**
    * Favorite without action
    */
   export type FavoriteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -14773,7 +14805,8 @@ export namespace Prisma {
     variations: 'variations',
     metaData: 'metaData',
     stockStatus: 'stockStatus',
-    brands: 'brands'
+    brands: 'brands',
+    inCart: 'inCart'
   };
 
   export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
@@ -15085,6 +15118,7 @@ export namespace Prisma {
     metaData?: JsonNullableFilter<"Product">
     stockStatus?: StringFilter<"Product"> | string
     brands?: JsonNullableFilter<"Product">
+    inCart?: BoolFilter<"Product"> | boolean
     Variation?: VariationListRelationFilter
     favorites?: FavoriteListRelationFilter
   }
@@ -15129,6 +15163,7 @@ export namespace Prisma {
     metaData?: SortOrderInput | SortOrder
     stockStatus?: SortOrder
     brands?: SortOrderInput | SortOrder
+    inCart?: SortOrder
     Variation?: VariationOrderByRelationAggregateInput
     favorites?: FavoriteOrderByRelationAggregateInput
   }
@@ -15176,6 +15211,7 @@ export namespace Prisma {
     metaData?: JsonNullableFilter<"Product">
     stockStatus?: StringFilter<"Product"> | string
     brands?: JsonNullableFilter<"Product">
+    inCart?: BoolFilter<"Product"> | boolean
     Variation?: VariationListRelationFilter
     favorites?: FavoriteListRelationFilter
   }, "id" | "wpId" | "slug">
@@ -15220,6 +15256,7 @@ export namespace Prisma {
     metaData?: SortOrderInput | SortOrder
     stockStatus?: SortOrder
     brands?: SortOrderInput | SortOrder
+    inCart?: SortOrder
     _count?: ProductCountOrderByAggregateInput
     _avg?: ProductAvgOrderByAggregateInput
     _max?: ProductMaxOrderByAggregateInput
@@ -15270,6 +15307,7 @@ export namespace Prisma {
     metaData?: JsonNullableWithAggregatesFilter<"Product">
     stockStatus?: StringWithAggregatesFilter<"Product"> | string
     brands?: JsonNullableWithAggregatesFilter<"Product">
+    inCart?: BoolWithAggregatesFilter<"Product"> | boolean
   }
 
   export type VariationWhereInput = {
@@ -15928,7 +15966,7 @@ export namespace Prisma {
     productId?: IntFilter<"Favorite"> | number
     createdAt?: DateTimeFilter<"Favorite"> | Date | string
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
+    product?: XOR<ProductNullableScalarRelationFilter, ProductWhereInput> | null
   }
 
   export type FavoriteOrderByWithRelationInput = {
@@ -15952,7 +15990,7 @@ export namespace Prisma {
     productId?: IntFilter<"Favorite"> | number
     createdAt?: DateTimeFilter<"Favorite"> | Date | string
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
+    product?: XOR<ProductNullableScalarRelationFilter, ProductWhereInput> | null
   }, "id" | "userId_productId">
 
   export type FavoriteOrderByWithAggregationInput = {
@@ -16018,6 +16056,7 @@ export namespace Prisma {
     metaData?: NullableJsonNullValueInput | InputJsonValue
     stockStatus: string
     brands?: NullableJsonNullValueInput | InputJsonValue
+    inCart?: boolean
     Variation?: VariationCreateNestedManyWithoutProductInput
     favorites?: FavoriteCreateNestedManyWithoutProductInput
   }
@@ -16062,6 +16101,7 @@ export namespace Prisma {
     metaData?: NullableJsonNullValueInput | InputJsonValue
     stockStatus: string
     brands?: NullableJsonNullValueInput | InputJsonValue
+    inCart?: boolean
     Variation?: VariationUncheckedCreateNestedManyWithoutProductInput
     favorites?: FavoriteUncheckedCreateNestedManyWithoutProductInput
   }
@@ -16105,6 +16145,7 @@ export namespace Prisma {
     metaData?: NullableJsonNullValueInput | InputJsonValue
     stockStatus?: StringFieldUpdateOperationsInput | string
     brands?: NullableJsonNullValueInput | InputJsonValue
+    inCart?: BoolFieldUpdateOperationsInput | boolean
     Variation?: VariationUpdateManyWithoutProductNestedInput
     favorites?: FavoriteUpdateManyWithoutProductNestedInput
   }
@@ -16149,6 +16190,7 @@ export namespace Prisma {
     metaData?: NullableJsonNullValueInput | InputJsonValue
     stockStatus?: StringFieldUpdateOperationsInput | string
     brands?: NullableJsonNullValueInput | InputJsonValue
+    inCart?: BoolFieldUpdateOperationsInput | boolean
     Variation?: VariationUncheckedUpdateManyWithoutProductNestedInput
     favorites?: FavoriteUncheckedUpdateManyWithoutProductNestedInput
   }
@@ -16193,6 +16235,7 @@ export namespace Prisma {
     metaData?: NullableJsonNullValueInput | InputJsonValue
     stockStatus: string
     brands?: NullableJsonNullValueInput | InputJsonValue
+    inCart?: boolean
   }
 
   export type ProductUpdateManyMutationInput = {
@@ -16234,6 +16277,7 @@ export namespace Prisma {
     metaData?: NullableJsonNullValueInput | InputJsonValue
     stockStatus?: StringFieldUpdateOperationsInput | string
     brands?: NullableJsonNullValueInput | InputJsonValue
+    inCart?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ProductUncheckedUpdateManyInput = {
@@ -16276,6 +16320,7 @@ export namespace Prisma {
     metaData?: NullableJsonNullValueInput | InputJsonValue
     stockStatus?: StringFieldUpdateOperationsInput | string
     brands?: NullableJsonNullValueInput | InputJsonValue
+    inCart?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type VariationCreateInput = {
@@ -16972,7 +17017,7 @@ export namespace Prisma {
     sessionToken?: string | null
     createdAt?: Date | string
     user?: UserCreateNestedOneWithoutFavoritesInput
-    product: ProductCreateNestedOneWithoutFavoritesInput
+    product?: ProductCreateNestedOneWithoutFavoritesInput
   }
 
   export type FavoriteUncheckedCreateInput = {
@@ -16987,7 +17032,7 @@ export namespace Prisma {
     sessionToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneWithoutFavoritesNestedInput
-    product?: ProductUpdateOneRequiredWithoutFavoritesNestedInput
+    product?: ProductUpdateOneWithoutFavoritesNestedInput
   }
 
   export type FavoriteUncheckedUpdateInput = {
@@ -17186,6 +17231,7 @@ export namespace Prisma {
     metaData?: SortOrder
     stockStatus?: SortOrder
     brands?: SortOrder
+    inCart?: SortOrder
   }
 
   export type ProductAvgOrderByAggregateInput = {
@@ -17229,6 +17275,7 @@ export namespace Prisma {
     averageRating?: SortOrder
     ratingCount?: SortOrder
     stockStatus?: SortOrder
+    inCart?: SortOrder
   }
 
   export type ProductMinOrderByAggregateInput = {
@@ -17262,6 +17309,7 @@ export namespace Prisma {
     averageRating?: SortOrder
     ratingCount?: SortOrder
     stockStatus?: SortOrder
+    inCart?: SortOrder
   }
 
   export type ProductSumOrderByAggregateInput = {
@@ -17874,6 +17922,11 @@ export namespace Prisma {
     visitCount?: SortOrder
   }
 
+  export type ProductNullableScalarRelationFilter = {
+    is?: ProductWhereInput | null
+    isNot?: ProductWhereInput | null
+  }
+
   export type FavoriteUserIdProductIdCompoundUniqueInput = {
     userId: string
     productId: number
@@ -18339,10 +18392,12 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutFavoritesInput, UserUpdateWithoutFavoritesInput>, UserUncheckedUpdateWithoutFavoritesInput>
   }
 
-  export type ProductUpdateOneRequiredWithoutFavoritesNestedInput = {
+  export type ProductUpdateOneWithoutFavoritesNestedInput = {
     create?: XOR<ProductCreateWithoutFavoritesInput, ProductUncheckedCreateWithoutFavoritesInput>
     connectOrCreate?: ProductCreateOrConnectWithoutFavoritesInput
     upsert?: ProductUpsertWithoutFavoritesInput
+    disconnect?: ProductWhereInput | boolean
+    delete?: ProductWhereInput | boolean
     connect?: ProductWhereUniqueInput
     update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutFavoritesInput, ProductUpdateWithoutFavoritesInput>, ProductUncheckedUpdateWithoutFavoritesInput>
   }
@@ -18775,6 +18830,7 @@ export namespace Prisma {
     metaData?: NullableJsonNullValueInput | InputJsonValue
     stockStatus: string
     brands?: NullableJsonNullValueInput | InputJsonValue
+    inCart?: boolean
     favorites?: FavoriteCreateNestedManyWithoutProductInput
   }
 
@@ -18818,6 +18874,7 @@ export namespace Prisma {
     metaData?: NullableJsonNullValueInput | InputJsonValue
     stockStatus: string
     brands?: NullableJsonNullValueInput | InputJsonValue
+    inCart?: boolean
     favorites?: FavoriteUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -18876,6 +18933,7 @@ export namespace Prisma {
     metaData?: NullableJsonNullValueInput | InputJsonValue
     stockStatus?: StringFieldUpdateOperationsInput | string
     brands?: NullableJsonNullValueInput | InputJsonValue
+    inCart?: BoolFieldUpdateOperationsInput | boolean
     favorites?: FavoriteUpdateManyWithoutProductNestedInput
   }
 
@@ -18919,6 +18977,7 @@ export namespace Prisma {
     metaData?: NullableJsonNullValueInput | InputJsonValue
     stockStatus?: StringFieldUpdateOperationsInput | string
     brands?: NullableJsonNullValueInput | InputJsonValue
+    inCart?: BoolFieldUpdateOperationsInput | boolean
     favorites?: FavoriteUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -19144,7 +19203,7 @@ export namespace Prisma {
   export type FavoriteCreateWithoutUserInput = {
     sessionToken?: string | null
     createdAt?: Date | string
-    product: ProductCreateNestedOneWithoutFavoritesInput
+    product?: ProductCreateNestedOneWithoutFavoritesInput
   }
 
   export type FavoriteUncheckedCreateWithoutUserInput = {
@@ -19507,6 +19566,7 @@ export namespace Prisma {
     metaData?: NullableJsonNullValueInput | InputJsonValue
     stockStatus: string
     brands?: NullableJsonNullValueInput | InputJsonValue
+    inCart?: boolean
     Variation?: VariationCreateNestedManyWithoutProductInput
   }
 
@@ -19550,6 +19610,7 @@ export namespace Prisma {
     metaData?: NullableJsonNullValueInput | InputJsonValue
     stockStatus: string
     brands?: NullableJsonNullValueInput | InputJsonValue
+    inCart?: boolean
     Variation?: VariationUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -19657,6 +19718,7 @@ export namespace Prisma {
     metaData?: NullableJsonNullValueInput | InputJsonValue
     stockStatus?: StringFieldUpdateOperationsInput | string
     brands?: NullableJsonNullValueInput | InputJsonValue
+    inCart?: BoolFieldUpdateOperationsInput | boolean
     Variation?: VariationUpdateManyWithoutProductNestedInput
   }
 
@@ -19700,6 +19762,7 @@ export namespace Prisma {
     metaData?: NullableJsonNullValueInput | InputJsonValue
     stockStatus?: StringFieldUpdateOperationsInput | string
     brands?: NullableJsonNullValueInput | InputJsonValue
+    inCart?: BoolFieldUpdateOperationsInput | boolean
     Variation?: VariationUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -19866,7 +19929,7 @@ export namespace Prisma {
   export type FavoriteUpdateWithoutUserInput = {
     sessionToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    product?: ProductUpdateOneRequiredWithoutFavoritesNestedInput
+    product?: ProductUpdateOneWithoutFavoritesNestedInput
   }
 
   export type FavoriteUncheckedUpdateWithoutUserInput = {

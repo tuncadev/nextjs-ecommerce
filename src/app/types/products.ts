@@ -39,4 +39,6 @@ export type Product = {
   stockStatus: string;
   brands?: any;
 	variationsData?: any;
+	inCart: boolean;
 };
+

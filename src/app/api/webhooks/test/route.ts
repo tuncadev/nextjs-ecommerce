@@ -10,17 +10,15 @@ export async function POST(req: Request): Promise<Response> {
   const contentType = req.headers.get("content-type") || "";
 
   let rawBody = await req.text();
-  let body: any;
-
-  try {
-    body = contentType.includes("application/json") ? JSON.parse(rawBody) : {};
-  } catch (e) {
-    console.warn("⚠️ Could not parse request body.");
-    return NextResponse.json({ message: "Invalid JSON." }, { status: 400 });
-  }
-
-
-
+	
+	try {
+		if (contentType.includes("application/json")) {
+			JSON.parse(rawBody); // Just validate
+		}
+	} catch (e) {
+		console.warn("⚠️ Could not parse request body.");
+		return NextResponse.json({ message: "Invalid JSON." }, { status: 400 });
+	}
   const expectedSignature = crypto
     .createHmac("sha256", secret)
     .update(rawBody, "utf8")

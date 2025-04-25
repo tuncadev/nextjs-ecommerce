@@ -1,12 +1,7 @@
 import { NextResponse } from "next/server";
-import { parse } from "querystring";
 import crypto from "crypto";
 import { getAllowedHosts } from "@/app/utils/getAllowedHosts";
 
-interface Category {
-  id: number;
-  [key: string]: any;
-}
 
 export async function POST(req: Request): Promise<Response> {
   const checkHost = getAllowedHosts(req);
@@ -22,16 +17,13 @@ export async function POST(req: Request): Promise<Response> {
     const secret = process.env.WC_CATEGORY_UPDATE_WEBHOOK_SECRET as string;
     const signature = req.headers.get("x-wc-webhook-signature");
 
-    let body: Record<string, any>;
     let rawBody: string;
     const contentType = req.headers.get("content-type") || "";
 
     if (contentType.includes("application/json")) {
       rawBody = await req.text();
-      body = JSON.parse(rawBody);
     } else {
       rawBody = await req.text();
-      body = parse(rawBody);
     }
 
     if (!signature) {
@@ -57,8 +49,6 @@ export async function POST(req: Request): Promise<Response> {
     const categoriesUpdate = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/products/categories`, {
       method: "GET",
     });
-
-		const json = await categoriesUpdate.json();
 
 
     if (!categoriesUpdate.ok) {

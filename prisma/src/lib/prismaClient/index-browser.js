@@ -156,7 +156,8 @@ exports.Prisma.ProductScalarFieldEnum = {
   variations: 'variations',
   metaData: 'metaData',
   stockStatus: 'stockStatus',
-  brands: 'brands'
+  brands: 'brands',
+  inCart: 'inCart'
 };
 
 exports.Prisma.VariationScalarFieldEnum = {

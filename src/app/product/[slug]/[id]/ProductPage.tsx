@@ -1,14 +1,14 @@
 "use client";
 import { useParams } from "next/navigation";
 import { useProducts } from "@/app/context/ProductsContext";
-import { useMemo, useState, useEffect } from "react";
+import { useMemo } from "react";
 import { SingleProduct } from "@/app/components/products/SingleProduct";
 import { Loading } from "@/app/components/actions/Loading";
 
 
 const ProductPage: React.FC = () => { 
 	const params = useParams();
-	const {loading, getProductBySlug, getProductById} = useProducts();
+	const {loading, getProductBySlug} = useProducts();
 	const product = useMemo(() => {
 		if (loading) return undefined;
 		

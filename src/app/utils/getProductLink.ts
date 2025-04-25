@@ -20,7 +20,7 @@ const getProductLink = (product: Product | null | undefined): string => {
   const categories = safelyParseCategories(product.categories ?? []);
   if (!categories.length) return "#";
 
-  const category = categories[0];
+  
   return `/product/${product.slug}/${product.id}`;
 };
 

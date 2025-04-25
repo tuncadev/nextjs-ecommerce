@@ -1,12 +1,12 @@
 "use client";
-import { Card } from "flowbite-react";
+
 import Link from "next/link";
 import { useState, useMemo } from "react";
 import { Product } from "@/app/types/products";
-import { useCart } from "@/app/context/CartContext";
-import Working from "../actions/Working";
-import { SingleProduct } from "../products/SingleProduct";
-import { AddToCartModal } from "../modals/AddToCartModal";
+
+import Working from "@/app/components/actions/Working";
+
+import { AddToCartModal } from "@/app/components/modals/AddToCartModal";
 import { useFavorites } from "@/app/context/FavoritesContext";
 
 type Props = {
@@ -15,12 +15,12 @@ type Props = {
 };
 
 export const ProductCard01 = ({ product }: Props) => {
-	const [isInCart, setIsInCart] = useState(false);
-	const [cartLoading, setCartLoading] = useState(false);
-	const { addToCart } = useCart();
+	
+	const [cartLoading] = useState(false);
 	const { handleFavoritesAction, isFavorite }= useFavorites();
 	const [openModal, setOpenModal] = useState(false);
- 
+
+	
 	const handleAddToCart = async () => {
 		product && setOpenModal(true);
 	}
@@ -49,18 +49,19 @@ return cartLoading ? (
 			</div>
 			{/** Cart */}
 			
-			<div className="group/inner  flex group-hover/outer:right-0 hover:cursor-pointer  hover:bg-red-500 justify-start items-center  w-8 h-[20px] transition-all	z-10 duration-500 bg-white absolute -right-6 top-[35px]		rounded-tl-md rounded-bl-md 			">
+			<div className={`${
+					product.inCart ? "bg-lime-500 text-white" : "bg-white text-red-500"
+				} group/inner  flex group-hover/outer:right-0 hover:cursor-pointer  hover:bg-red-500 justify-start items-center  w-8 h-[20px] transition-all	z-10 duration-500  absolute -right-6 top-[35px]		rounded-tl-md rounded-bl-md`}>
 				<i
 				 onClick={handleAddToCart}
-					className={`${
-						isInCart? "fa-cart-shopping" : "fa-cart-plus"
-					} fa-solid group-hover/inner:text-white pl-2 text-md  text-red-500`}
+				 className={`fa-solid fa-cart-plus group-hover/inner:text-white pl-2 text-md `}
 				></i>
+				
 			</div>
 				{/** Product Card */}
 			<div className="flex group flex-col flex-grow">
 			
- 							
+ 
 
 				<Link
 					href={`/product/${product.slug}/${product.wpId}`}
@@ -124,8 +125,8 @@ return cartLoading ? (
 			</div>
 		</div>
 		<AddToCartModal 
-			openModal={openModal}
-			setOpenModal={setOpenModal}
+			openCartModal={openModal}
+			setOpenCartModal={setOpenModal}
 			product={product} 
 		/>
 </>

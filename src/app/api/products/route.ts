@@ -27,7 +27,6 @@ export async function GET(): Promise<NextResponse> {
         select: { id: true, hash: true },
       });
 
-      const productId = existingProduct?.id;
       const skipProductUpdate = existingProduct?.hash === newHash;
 
       if (!skipProductUpdate) updatedCount++;

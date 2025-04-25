@@ -1,11 +1,10 @@
-import type { Metadata } from "next";
 import { Open_Sans, Oswald, Poppins, Work_Sans } from 'next/font/google';
 import "@/app/globals.css";
 import Script from "next/script";
 
 //import { Header } from "@/app/components/Header";
 import { Toaster } from "react-hot-toast";
-import { Header } from "./components/Header";
+import { Header } from "./components/globals/Header";
 import { Providers } from "./providers";
 import { generatePageMetadata } from "./utils/generatePageMetadata";
 

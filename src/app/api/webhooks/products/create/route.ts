@@ -3,12 +3,6 @@ import { parse } from "querystring";
 import crypto from "crypto";
 import { getAllowedHosts } from "@/app/utils/getAllowedHosts";
 
- 
-interface Product {
-	id: number;
-	[key: string]: any;
-}
-
 export async function POST(req: Request): Promise<Response> {
 	console.warn("⚠️ Products Webhook connected");
 	const checkHost = getAllowedHosts(req);

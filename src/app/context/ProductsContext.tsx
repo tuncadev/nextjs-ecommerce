@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { Product } from "@/app/types/products";
 import { Category } from "@/app/types/categories";
 import { Variation } from "@/app/types/variations";
+import { useCart } from "@/app/context/CartContext";
 
 type ProductsContextType = {
   categories: Category[];
@@ -31,6 +32,7 @@ const normalizeProduct = (p: any): Product => ({
   images: typeof p.images === "string" ? safelyParseArray(p.images) : p.images,
 	attributes: typeof p.attributes === "string" ? safelyParseArray(p.attributes) : p.attributes,
 	variationsData: p.variationsData || [],
+
 });
 
 const safelyParseArray = (json: string) => {
@@ -48,57 +50,69 @@ export const ProductsProvider = ({ children }: { children: React.ReactNode }) =>
   const [variations, setVariations] = useState<Variation[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
+	const [rawProductData, setRawProductData] = useState<any[]>([]);
+	const {cartItems} = useCart();
+	
   useEffect(() => {
-    const fetchAll = async () => {
-      setLoading(true);
-      try {
-        const [catRes, prodRes, varRes] = await Promise.all([
-          fetch("/api/products/categories/get-categories"),
-          fetch("/api/products/get-products"),
-          fetch("/api/products/get-variations"),
-        ]);
+		const fetchAll = async () => {
+			setLoading(true);
+			try {
+				const [catRes, prodRes, varRes] = await Promise.all([
+					fetch("/api/products/categories/get-categories"),
+					fetch("/api/products/get-products"),
+					fetch("/api/products/get-variations"),
+				]);
+	
+				const catData = await catRes.json();
+				const prodData = await prodRes.json();
+				const varData = await varRes.json();
+	
+				setCategories(catData?.status === "success" ? catData.data : []);
+				setVariations(varData?.status === "success" ? varData.data : []);
+	
+				// TEMP store raw for enrichment
+				setRawProductData(prodData?.status === "success" ? prodData.data : []);
+	
+				if (catData?.status !== "success")
+					setError(catData.message || "Не вдалося завантажити категорії.");
+				if (prodData?.status !== "success")
+					setError(prodData.message || "Не вдалося завантажити продукти.");
+			} catch {
+				setError("Мережева помилка під час завантаження продуктів або категорій.");
+				setCategories([]);
+				setProducts([]);
+				setVariations([]);
+			} finally {
+				setLoading(false);
+			}
+		};
+	
+		fetchAll();
+	}, []);
+	
 
-        const catData = await catRes.json();
-        const prodData = await prodRes.json();
-        const varData = await varRes.json();
-
-        const allVariations = varData?.status === "success" ? varData.data : [];
-
-        setCategories(catData?.status === "success" ? catData.data : []);
-        setVariations(allVariations);
-
-        const enrichedProducts =
-          prodData?.status === "success"
-            ? prodData.data.map((p: any) => {
-                const variationIds = typeof p.variations === "string"
-                  ? safelyParseArray(p.variations)
-                  : p.variations;
-                const variationsData = variationIds
-                  .map((vid: number) => allVariations.find((v: Variation) => v.wpId === vid))
-                  .filter(Boolean);
-                return { ...normalizeProduct(p), variationsData };
-              })
-            : [];
-
-        setProducts(enrichedProducts);
-
-        if (catData?.status !== "success")
-          setError(catData.message || "Не вдалося завантажити категорії.");
-        if (prodData?.status !== "success")
-          setError(prodData.message || "Не вдалося завантажити продукти.");
-      } catch {
-        setError("Мережева помилка під час завантаження продуктів або категорій.");
-        setCategories([]);
-        setProducts([]);
-        setVariations([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchAll();
-  }, []);
+	useEffect(() => {
+		if (!rawProductData.length || !variations.length) return;
+	
+		const enrichedProducts = rawProductData.map((p) => {
+			const variationIds = typeof p.variations === "string"
+				? safelyParseArray(p.variations)
+				: p.variations;
+	
+			const variationsData = variationIds
+				.map((vid: number) => variations.find((v: Variation) => v.wpId === vid))
+				.filter(Boolean);
+			console.log("cartItems: ", cartItems);
+			console.log("productId: ",  p.wpId);
+			return {
+				...normalizeProduct(p),
+				variationsData,
+				inCart: cartItems.some(item => item.productId === p.wpId),
+			};
+		});
+	
+		setProducts(enrichedProducts);
+	}, [rawProductData, variations, cartItems]);
 
   const getProductById = (id: number): Product | undefined => {
     return products.find((p) => p.wpId === id);

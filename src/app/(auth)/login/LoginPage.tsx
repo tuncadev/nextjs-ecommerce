@@ -9,7 +9,7 @@ import Working from "@/app/components/actions/Working";
 import { useAuth } from "@/app/context/AuthProvider";
 import { useCart } from "@/app/context/CartContext";
 import { usePasswordValidation } from "@/app/hooks/usePasswordValidation";
-import { Loading } from "@/app/components/actions/Loading";
+
 
 const LoginPage: React.FC = () => {
   const router = useRouter();
@@ -22,7 +22,7 @@ const LoginPage: React.FC = () => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [error, setError] = useState("");
-  const [visibility, setVisibility] = useState("");
+
 	const { refreshUser, user, loading: authLoading  } = useAuth();
 	const passwordCheck = usePasswordValidation(registerPassword);
 	const [passwordFocused, setPasswordFocused] = useState(false);
@@ -35,7 +35,6 @@ const LoginPage: React.FC = () => {
 	}, [mounted, user]);
 
   useEffect(() => {
-    setVisibility("");
 		setMounted(true);
   }, []);
 

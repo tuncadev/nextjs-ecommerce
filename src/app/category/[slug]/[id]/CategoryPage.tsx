@@ -4,11 +4,12 @@ import { useParams } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
 import { ProductCard01 } from "@/app/components/cards/ProductCard01";
 import Working from "@/app/components/actions/Working";
-
+ 
 const CategoryPage: React.FC = () => {
-  const { categories, getProductsByCatId, loading } = useProducts();
+  const { getProductsByCatId, loading } = useProducts();
   const params = useParams();
   const [hydrated, setHydrated] = useState(false);
+
 
   useEffect(() => {
     setHydrated(true);
