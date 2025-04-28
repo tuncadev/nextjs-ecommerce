@@ -102,8 +102,6 @@ export const ProductsProvider = ({ children }: { children: React.ReactNode }) =>
 			const variationsData = variationIds
 				.map((vid: number) => variations.find((v: Variation) => v.wpId === vid))
 				.filter(Boolean);
-			console.log("cartItems: ", cartItems);
-			console.log("productId: ",  p.wpId);
 			return {
 				...normalizeProduct(p),
 				variationsData,

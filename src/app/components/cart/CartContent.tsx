@@ -12,7 +12,7 @@ import { PopularCategories } from "@/app/components/sections/PopularCategories";
 
 type EnrichedProduct = Product & { quantity: number; price: number };
 
-export default function CartPage() {
+const CartContent = () => {
 	const { cartItems, updateQuantity, removeFromCart, loading, initialized } = useCart();
 	const { getProductById } = useProducts();
 
@@ -22,8 +22,12 @@ export default function CartPage() {
 	const [hydrated, setHydrated] = useState(false);
  
 	useEffect(() => {
+		if (!initialized) return; // Wait until cart fully initialized
+	
 		if (!cartItems.length) {
 			setCartProducts({});
+			setHydrated(true);
+			return;
 		}
 	
 		const enrich = () => {
@@ -31,10 +35,6 @@ export default function CartPage() {
 	
 			for (const item of cartItems) {
 				const product = getProductById(item.productId);
-
-
-
-	
 				if (product) {
 					enriched[item.productId] = {
 						product: {
@@ -42,7 +42,6 @@ export default function CartPage() {
 							quantity: item.quantity,
 							price: item.price,
 						},
-
 					};
 				}
 			}
@@ -52,7 +51,8 @@ export default function CartPage() {
 		};
 	
 		enrich();
-	}, [cartItems]);
+	}, [cartItems, initialized]);
+	
 	
 
 	const handleQuantityUpdate = async (productId: number, quantity: number) => {
@@ -88,6 +88,7 @@ export default function CartPage() {
 			<div className="bg-white rounded-lg overflow-hidden flex gap-4 flex-col">
 			{cartItems.map((item) => {
 				const data = cartProducts[item.productId];
+				console.log("Data", data);
 				if (!data) return null;
 				return (
 					<CartItem
@@ -110,3 +111,8 @@ export default function CartPage() {
 		</div>
 	);
 }
+
+export default CartContent
+
+
+

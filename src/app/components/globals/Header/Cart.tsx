@@ -1,17 +1,15 @@
+"use client";
+
 import React from 'react'
- import { CartItem } from '@/app/types/cart';
 import Link from 'next/link';
-
-type CartProps = {
-  loading:boolean;
-  hydrated: boolean;
-  cartItems: CartItem[];
-};
-
-const Cart = ({ hydrated, loading, cartItems }: CartProps) => {
- 
+import { useAuth } from "@/app/context/AuthProvider";
+import { useCart } from "@/app/context/CartContext";
+const Cart = () => {
+ 	const { user, loading, hydrated } = useAuth();
+	
+	const {cartItems} = useCart();
   return (
-    <Link href="/cart">
+    <Link href={user ? `/profile/${user.username}/cart` : "/cart"}>
       <div className={`${cartItems.length > 0 ? "text-lime-500 " : "text-gray-50 " } relative group`}>
         <i className="fa-solid fa-bag-shopping text-xl sm:text-3xl group-hover:text-red-500"></i>
         {hydrated && !loading && (

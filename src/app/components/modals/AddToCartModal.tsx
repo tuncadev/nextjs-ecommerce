@@ -1,6 +1,5 @@
 "use client";
-
-import { Product } from "@/app/types/products";
+ 
 import { SingleProduct } from "@/app/components/products/SingleProduct";
 
 type Props = {
@@ -9,14 +8,14 @@ type Props = {
   header?: string;
   message?: string;
 	isModal?: boolean;
-	product: Product;
+	productId: number;
 };
 
 
 export const AddToCartModal = ({
 	openCartModal,
 	setOpenCartModal,
-	product,
+	productId,
 }: Props) => {
 
 	if(!openCartModal) return null;
@@ -41,7 +40,7 @@ export const AddToCartModal = ({
 
         <div className="flex flex-col items-center justify-between">
 				<SingleProduct 
-					product={product} 
+					productId={productId} 
 					isModal={true} 
 					openCartModal={openCartModal} 
 					setOpenCartModal={setOpenCartModal}

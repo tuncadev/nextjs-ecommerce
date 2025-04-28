@@ -1,5 +1,5 @@
 import { globalMetadata } from "@/app/config/metadata";
- import CartContent from "../components/cart/CartContent";
+ import CartContent from "@/app/components/cart/CartContent";
 
 export const metadata = {
   title: `${globalMetadata.title} | Вхід`,

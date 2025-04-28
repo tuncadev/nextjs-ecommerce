@@ -2,9 +2,7 @@
 
 import { useState } from "react";
 import { useAuth } from "@/app/context/AuthProvider";
-import { useCart } from "@/app/context/CartContext";
 import { DrawerNav } from "@/app/components/globals/DrawerNav";
-import { useFavorites } from "@/app/context/FavoritesContext";
 import SiteLogo from "@/app/components/globals/SiteLogo";
 import HeaderSearch from "@/app/components/globals/HeaderSearch";
 import Favorites from "@/app/components/globals/Header/Favorites";
@@ -13,12 +11,9 @@ import UserMenu from "./Header/UserMenu";
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, loading, hydrated } = useAuth();
+  const { hydrated } = useAuth();
 
-	const {cartItems} = useCart();
- 	const { hasFavorites, favorites }= useFavorites();
-
-	if (!hydrated) return null;// 🧠 Prevent hydration mismatch
+	if (!hydrated) return null;
 
   return (
     <header className="w-full bg-[#022335] border-b border-b-gray-300 pt-4">
@@ -34,13 +29,13 @@ export const Header = () => {
           <div className="items-center justify-center sm:justify-between w-full md:flex md:w-auto md:order-1 pr-6 pb-4">
             <div className="flex gap-8 justify-center">
               {/* Favorites */}
-              <Favorites favorites={favorites} hasFavorites={hasFavorites} />
+              <Favorites />
 
               {/* Cart Icon */}
-              <Cart hydrated={hydrated} loading={loading} cartItems={cartItems} />
+              <Cart />
 
               {/* User Auth */}
-              <UserMenu user={user} />
+              <UserMenu />
             </div>
           </div>
         </div>

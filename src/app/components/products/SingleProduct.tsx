@@ -1,7 +1,6 @@
 "use client";
-
-import { Product } from "@/app/types/products";
-import { useProducts } from "@/app/context/ProductsContext";
+import { useParams } from "next/navigation";
+ import { useProducts } from "@/app/context/ProductsContext";
 import ProductTitleSection from "@/app/components/products/ProductTitleSection";
 import { ProductDescription } from "@/app/components/products/ProductDescription";
 import { ProductShortDescription } from "@/app/components/products/ProductShortDescription";
@@ -17,15 +16,26 @@ import { ProductVariationSelector } from "./ProductVariationSelector";
 import { Loading } from "@/app/components/actions/Loading";
 
 type SingleProductProps = {
-  product: Product;
+	productId?: number;
   isModal?: boolean;
   openCartModal?: boolean;
   setOpenCartModal?: (open: boolean) => void;
 };
 
-export const SingleProduct: React.FC<SingleProductProps> = ({ product, isModal, openCartModal, setOpenCartModal }) => {
-	const {loading } = useProducts();
+export const SingleProduct: React.FC<SingleProductProps> = ({ productId, isModal, openCartModal, setOpenCartModal }) => {
+
+	const params = useParams();
+	const {products, loading, getProductById} = useProducts();
 	const [selectedAttributes, setSelectedAttributes] = useState<Record<string, string>>({});
+	
+	const product = useMemo(() => {
+		if (loading) return undefined;
+		
+		const SingleproductId = productId ? productId : Number(params?.id);
+		
+		return getProductById(SingleproductId);
+		
+	}, [params.slug, products]);
 
 	const selectedVariation: Variation = useMemo(() => {
 		if (!product?.variationsData || !Array.isArray(product.variationsData)) return undefined;
@@ -43,7 +53,10 @@ export const SingleProduct: React.FC<SingleProductProps> = ({ product, isModal, 
 		});
 	}, [product?.variationsData, selectedAttributes]);
 
-	const attributeNames = useMemo(() => {
+
+
+	
+const attributeNames = useMemo(() => {
   if (!product?.attributes || !Array.isArray(product.attributes)) return [];
   return product.attributes.map((attr: any) => attr.name);
 }, [product]);
@@ -51,7 +64,7 @@ export const SingleProduct: React.FC<SingleProductProps> = ({ product, isModal, 
 if (loading || !product) return <Loading text="product details..." />;
 
 	return (
-<>
+		<>
 			<section>
 				<ProductTitleSection productName={product?.name} productSku={product?.sku} productUrl={"#"} />
 				<div className="flex flex-col sm:grid sm:grid-cols-5 w-full">
@@ -127,5 +140,5 @@ if (loading || !product) return <Loading text="product details..." />;
 			)}
 		</>
 
-			);
+	);
 };

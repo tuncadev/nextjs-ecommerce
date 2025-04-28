@@ -1,13 +1,9 @@
 import React from 'react'
- import { FavoritesType } from '@/app/types/favorites';
+import { useFavorites } from '@/app/context/FavoritesContext';
  
-type Props = {
-  favorites: FavoritesType[];
-  hasFavorites: boolean;
-};
 
-const Favorites = ({ favorites, hasFavorites }: Props) => {
- 
+const Favorites = () => {
+	const { hasFavorites, favorites }= useFavorites();
   return (
     <div className={`${hasFavorites ? "text-lime-500" : "text-gray-50"} relative group `}>
     <i className={` fa-regular fa-heart text-xl sm:text-3xl group-hover:text-red-500 group-hover:cursor-pointer`}></i>

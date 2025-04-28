@@ -1,5 +1,5 @@
 
-import ProductPage from "./ProductPage";
+import { SingleProduct } from "@/app/components/products/SingleProduct";
 
 import { generatePageMetadata } from "@/app/utils/generatePageMetadata";
 
@@ -21,5 +21,5 @@ export async function generateMetadata({
 
 
 export default function Page() {
-  return <ProductPage />;
+  return <SingleProduct />;
 }

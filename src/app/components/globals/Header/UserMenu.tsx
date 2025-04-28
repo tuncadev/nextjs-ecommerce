@@ -2,13 +2,10 @@
 import Link from "next/link";
 import React from "react";
 import useLogout from "@/app/hooks/useLogout";
-import { UserType } from "@/app/types/user";
+import { useAuth } from "@/app/context/AuthProvider";
 
-type UserMenuProps = {
-  user?: UserType | null
-}
-
-const UserMenu = ({user}: UserMenuProps) => {
+const UserMenu = () => {
+	const { user } = useAuth();
   const { handleLogout } = useLogout();
   return (
     <div className={`relative group ${user?.username ? "text-lime-500" : "text-gray-50"}`}>

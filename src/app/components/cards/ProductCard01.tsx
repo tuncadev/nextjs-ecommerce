@@ -68,11 +68,11 @@ return cartLoading ? (
 					className="h-full w-full "
 				>
 					{/** Product Image */}
-					<div className="flex relative items-center rounded-lg  justify-center mb-2  h-[140px] overflow-hidden">
+					<div className="flex relative items-center rounded-lg  justify-center mb-2  h-[200px] overflow-hidden">
 						<picture className="w-auto">
 							<source media="(max-width: 767px)" srcSet={`/api/media?url=${productImage}`} />
 							<source media="(min-width: 768px) and (max-width: 1024px)" srcSet={`/api/media?url=${productImage}`} />
-							<img src={`/api/media?url=${productImage}`} alt="Product" />
+							<img src={`/api/media?url=${productImage}`} alt="Product" className="rounded-lg " />
 						</picture>
 					</div>
 					{/** Product name */}
@@ -127,7 +127,7 @@ return cartLoading ? (
 		<AddToCartModal 
 			openCartModal={openModal}
 			setOpenCartModal={setOpenModal}
-			product={product} 
+			productId={product.wpId} 
 		/>
 </>
 	);
