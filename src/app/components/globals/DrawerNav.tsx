@@ -4,6 +4,7 @@ import { Drawer } from "flowbite-react";
 import Link from "next/link";
 import { Loading } from "@/app/components/actions/Loading";
 import { useProducts } from "@/app/context/ProductsContext";
+import getCategoryLink from "@/app/utils/getCategoryLink";
  
 type Props = {
   isOpen: boolean;
@@ -11,7 +12,7 @@ type Props = {
 };
 
 export const DrawerNav = ({ isOpen, setIsOpen }: Props) => {
-	const { loading, getCategoryTree } = useProducts();
+	const { productsLoading, getCategoryTree } = useProducts();
   const handleClose = () => setIsOpen(false);
 	const categoryTree = getCategoryTree();
   return (
@@ -20,7 +21,7 @@ export const DrawerNav = ({ isOpen, setIsOpen }: Props) => {
         <Drawer.Header title="все категорії" className="px-4 pt-2 bg-sky-100   " />
         <Drawer.Items>
           <div className="mb-4 flex text-left justify-start flex-col ">
-					{loading ? (
+					{productsLoading ? (
 						<Loading text="menu" />
 						) : categoryTree.length > 0 ? (
 									categoryTree.map(parentCategory => 
@@ -29,7 +30,7 @@ export const DrawerNav = ({ isOpen, setIsOpen }: Props) => {
 												<Link 
 														key={parentCategory.wpId}
 														onClick={() => setIsOpen(false)}
-														href={`/category/${parentCategory.slug}/${parentCategory.wpId}/`} 
+														href={getCategoryLink(parentCategory.wpId, parentCategory.slug)}
 														className=""
 													>
 												{/* Parent Category */}
@@ -49,7 +50,7 @@ export const DrawerNav = ({ isOpen, setIsOpen }: Props) => {
 															.map(subcategory => (
 																<Link
 																	key={subcategory.wpId}
-																	href={`/category/${subcategory.slug}/${subcategory.wpId}/`}
+																	href={getCategoryLink(subcategory.wpId, subcategory.slug)}
 																	onClick={() => setIsOpen(false)}
 																>
 																	<div className="w-full flex gap-2 items-center pl-12 py-1 hover:text-sky-100 hover:bg-sky-700 cursor-pointer text-gray-600 font-semibold text-sm border-b border-b-sky-300">

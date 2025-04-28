@@ -3,6 +3,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Category } from "@/app/types/categories";
+import getCategoryLink from "@/app/utils/getCategoryLink";
 
 type CategoryProductCard01Props = {
 	category: Category;
@@ -17,7 +18,7 @@ const CategoryProductCard01: React.FC<CategoryProductCard01Props> = ({ category 
 
   return (
 		<>
-			<Link href={`/${category.slug}/${category.id}`}>
+			<Link href={getCategoryLink(category.wpId, category.slug)}>
 				<div className="p-4 border border-gray-300 text-center flex flex-col justify-between h-full min-h-[180px]">
 					{/* Image Container */}
 					<div className="w-full lg:h-[180px] flex justify-center items-center">

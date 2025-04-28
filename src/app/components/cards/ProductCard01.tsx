@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState, useMemo } from "react";
 import { Product } from "@/app/types/products";
-
+import getProductLink from "@/app/utils/getProductLink";
 import Working from "@/app/components/actions/Working";
 
 import { AddToCartModal } from "@/app/components/modals/AddToCartModal";
@@ -64,7 +64,8 @@ return cartLoading ? (
  
 
 				<Link
-					href={`/product/${product.slug}/${product.wpId}`}
+				 	href={getProductLink(product?.wpId, product?.slug)}
+
 					className="h-full w-full "
 				>
 					{/** Product Image */}

@@ -5,8 +5,6 @@ import { SingleProduct } from "@/app/components/products/SingleProduct";
 type Props = {
   openCartModal: boolean;
   setOpenCartModal: (open: boolean) => void;
-  header?: string;
-  message?: string;
 	isModal?: boolean;
 	productId: number;
 };

@@ -12,6 +12,6 @@ export type CartContextType = {
 	updateQuantity: (variationId: number, quantity: number) => void;
 	clearCart: () => void;
 	refreshCart: () => Promise<void>;
-	loading: boolean;
-	initialized: boolean;
+	CartLoading: boolean;
+	CartInitialized: boolean;
 };

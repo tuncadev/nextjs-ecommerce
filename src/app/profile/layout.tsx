@@ -1,17 +1,36 @@
-import React from 'react'
-import SideBar from '@/app/components/profile/SideBar';
+import { prisma } from "@/lib/prisma";
+import { getSession } from "@/lib/session";
+import { redirect } from "next/navigation";
+import SideBar from "@/app/components/profile/SideBar";
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-	return (
-	<div className="flex flex-row justify-between">
-		<SideBar />
-		<div className="pl-4 w-full ">{children}</div>
-	</div>
-	)
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const session = await getSession();
+
+  if (!session.userId) {
+    redirect("/login");
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { id: session.userId },
+    select: {
+      id: true,
+      email: true,
+      username: true,
+      role: true,
+    },
+  });
+
+  if (!user) {
+    redirect("/login");
+  }
+
+  // If user exists, continue rendering
+  return (
+    <div className="flex flex-row justify-between">
+      <SideBar />
+      <div className="pl-4 w-full ">
+        {children}
+      </div>
+    </div>
+  );
 }
-
- 

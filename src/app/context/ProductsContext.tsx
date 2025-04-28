@@ -10,7 +10,7 @@ type ProductsContextType = {
   categories: Category[];
   products: Product[];
   variations: Variation[];
-  loading: boolean;
+  productsLoading: boolean;
   error: string | null;
   getProductById: (id: number) => Product | undefined;
   getProductBySlug: (slug: string) => Product | undefined;
@@ -48,14 +48,14 @@ export const ProductsProvider = ({ children }: { children: React.ReactNode }) =>
   const [categories, setCategories] = useState<Category[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [variations, setVariations] = useState<Variation[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [productsLoading, setProductsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 	const [rawProductData, setRawProductData] = useState<any[]>([]);
 	const {cartItems} = useCart();
 	
   useEffect(() => {
 		const fetchAll = async () => {
-			setLoading(true);
+			setProductsLoading(true);
 			try {
 				const [catRes, prodRes, varRes] = await Promise.all([
 					fetch("/api/products/categories/get-categories"),
@@ -83,7 +83,7 @@ export const ProductsProvider = ({ children }: { children: React.ReactNode }) =>
 				setProducts([]);
 				setVariations([]);
 			} finally {
-				setLoading(false);
+				setProductsLoading(false);
 			}
 		};
 	
@@ -172,7 +172,7 @@ export const ProductsProvider = ({ children }: { children: React.ReactNode }) =>
         categories,
         products,
         variations,
-        loading,
+        productsLoading,
         error,
         getProductById,
         getProductBySlug,

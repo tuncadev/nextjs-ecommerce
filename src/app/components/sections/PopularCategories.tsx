@@ -10,7 +10,7 @@ export const PopularCategories = () => {
   const {
     getFeaturedCategories,
     categories,
-    loading,
+    productsLoading,
     error,
     getSubCategoriesFromParentId,
   } = useProducts();
@@ -47,7 +47,7 @@ export const PopularCategories = () => {
     <div className="flex flex-col justify-center m-auto">
       <h2 className="">Найпопулярніші категорії місяця</h2>
       <div className="flex flex-col sm:grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-4">
-        {loading ? (
+        {productsLoading ? (
           <div className="flex flex-col justify-center gap-2">
             <Loading text="Завантаження категорій..." />
           </div>

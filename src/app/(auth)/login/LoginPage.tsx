@@ -23,7 +23,7 @@ const LoginPage: React.FC = () => {
   const [loginPassword, setLoginPassword] = useState("");
   const [error, setError] = useState("");
 
-	const { refreshUser, user, loading: authLoading  } = useAuth();
+	const { refreshUser, user, authLoading: authLoading  } = useAuth();
 	const passwordCheck = usePasswordValidation(registerPassword);
 	const [passwordFocused, setPasswordFocused] = useState(false);
 	const [mounted, setMounted] = useState(false);

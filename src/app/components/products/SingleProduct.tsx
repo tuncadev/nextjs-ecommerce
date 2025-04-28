@@ -25,11 +25,11 @@ type SingleProductProps = {
 export const SingleProduct: React.FC<SingleProductProps> = ({ productId, isModal, openCartModal, setOpenCartModal }) => {
 
 	const params = useParams();
-	const {products, loading, getProductById} = useProducts();
+	const {products, productsLoading, getProductById} = useProducts();
 	const [selectedAttributes, setSelectedAttributes] = useState<Record<string, string>>({});
 	
 	const product = useMemo(() => {
-		if (loading) return undefined;
+		if (productsLoading) return undefined;
 		
 		const SingleproductId = productId ? productId : Number(params?.id);
 		
@@ -61,7 +61,7 @@ const attributeNames = useMemo(() => {
   return product.attributes.map((attr: any) => attr.name);
 }, [product]);
 
-if (loading || !product) return <Loading text="product details..." />;
+if (productsLoading || !product) return <Loading text="product details..." />;
 
 	return (
 		<>

@@ -17,21 +17,21 @@ type CartContextType = {
 	updateQuantity: (variationId: number, quantity: number) => void;
 	clearCart: () => void;
 	refreshCart: () => Promise<void>;
-	loading: boolean;
-	initialized: boolean;
+	CartLoading: boolean;
+	CartInitialized: boolean;
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
-  const { hydrated } = useAuth();
+  const { authHydrated } = useAuth();
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [initialized, setInitialized] = useState(false);
+  const [CartLoading, setLoading] = useState<boolean>(true);
+  const [CartInitialized, setCartInitialized] = useState(false);
 
   // Load cart when auth is ready
   useEffect(() => {
-    if (!hydrated) return;
+    if (!authHydrated) return;
 
     const loadCart = async () => {
       setLoading(true);
@@ -45,12 +45,12 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         console.error("Failed to load cart", err);
       } finally {
         setLoading(false);
-        setInitialized(true);
+        setCartInitialized(true);
       }
     };
 
     loadCart();
-  }, [hydrated]);
+  }, [authHydrated]);
 
   const syncCart = async (items: CartItem[]) => {
     try {
@@ -84,7 +84,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 			console.error("Failed to refresh cart", err);
 		} finally {
 			setLoading(false);
-			setInitialized(true);
+			setCartInitialized(true);
 		}
 	};
   const removeFromCart = (variationId: number) => {
@@ -114,8 +114,8 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         removeFromCart,
         updateQuantity,
         clearCart,
-        loading,
-        initialized,
+        CartLoading,
+        CartInitialized,
 				refreshCart
       }}
     >

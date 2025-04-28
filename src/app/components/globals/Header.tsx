@@ -11,9 +11,9 @@ import UserMenu from "./Header/UserMenu";
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { hydrated } = useAuth();
+  const { authHydrated } = useAuth();
 
-	if (!hydrated) return null;
+	if (!authHydrated) return null;
 
   return (
     <header className="w-full bg-[#022335] border-b border-b-gray-300 pt-4">

@@ -9,7 +9,7 @@ import  FallBackProductCard  from "@/app/components/cards/FallBackProductCard";
 import type { Category } from "@/app/types/categories";
 
 export const ShopByCategory = () => {
-	const { categories, loading } = useProducts();
+	const { categories, productsLoading } = useProducts();
  
 
 	// Filter out categories with 0 products
@@ -27,7 +27,7 @@ export const ShopByCategory = () => {
 		<div className="py-6 border-y border-y-gray-300 my-4">
 			<h2 className="">Shop by Category</h2>
 			<div>
-				{loading ? (
+				{productsLoading ? (
 					<div className="flex flex-col justify-center gap-2">
 						<Loading text="categories..." />
 						<FallBackProductCard />

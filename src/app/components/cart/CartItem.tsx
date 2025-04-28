@@ -24,6 +24,8 @@ type CartItemProps = {
   handleQuantityUpdate: (variationId: number, quantity: number) => void;
 };
 
+
+
 export const CartItem: React.FC<CartItemProps> = ({
   product,
   item,
@@ -79,7 +81,7 @@ export const CartItem: React.FC<CartItemProps> = ({
       {/* Product Details */}
       <div className="flex flex-col flex-grow w-full md:ml-4 md:w-auto">
         <Link
-          href={getProductLink(product)}
+          href={getProductLink(product?.wpId, product?.slug)}
           className="text-lg md:text-xl font-semibold text-blue-600 hover:underline"
         >
           {product?.name || "Товар"}

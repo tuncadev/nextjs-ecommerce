@@ -7,20 +7,20 @@ import { AuthContextType } from "@/app/types/authContext";
 
 const AuthContext = createContext<AuthContextType>({
   user: null,
-  loading: true,
+  authLoading: true,
   refreshUser: async () => {},
   setUser: () => {},
-  hydrated: false,
+  authHydrated: false,
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<UserType | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [hydrated, setHydrated] = useState(false);
+  const [authLoading, setAuthLoading] = useState(true);
+  const [authHydrated, setAuthHydrated] = useState(false);
 
 
   const refreshUser = async () => {
-    setLoading(true);
+    setAuthLoading(true);
     try {
       const res = await fetch("/api/auth/me", { cache: "no-store" });
       const data = await res.json();
@@ -28,13 +28,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     } catch {
       setUser(null);
     } finally {
-      setLoading(false);
+      setAuthLoading(false);
     }
   };
 
   useEffect(() => {
     refreshUser();
-    setHydrated(true);
+    setAuthHydrated(true);
   }, []);
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loading, refreshUser, setUser, hydrated}}>
+    <AuthContext.Provider value={{ user, authLoading, refreshUser, setUser, authHydrated}}>
       {children}
     </AuthContext.Provider>
   );

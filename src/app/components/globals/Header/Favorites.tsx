@@ -1,18 +1,25 @@
 import React from 'react'
 import { useFavorites } from '@/app/context/FavoritesContext';
+import Link from 'next/link';
+import { getProfileLink } from '@/app/utils/getProfileLink';
+import { useAuth } from '@/app/context/AuthProvider';
  
 
 const Favorites = () => {
 	const { hasFavorites, favorites }= useFavorites();
+	const { user } = useAuth();
+
   return (
-    <div className={`${hasFavorites ? "text-lime-500" : "text-gray-50"} relative group `}>
-    <i className={` fa-regular fa-heart text-xl sm:text-3xl group-hover:text-red-500 group-hover:cursor-pointer`}></i>
-    <span className="text-white  absolute text-[10px] bg-red-500 leading-none rounded-full px-2 py-1 group-hover:cursor-pointer bottom-0 -right-3 group-hover:bg-white group-hover:text-red-600">
-        {favorites.length && (
-          <span> {favorites.length} </span>
-        )}
-    </span>
-  </div>
+		<Link href={user ? getProfileLink({username: user.username, page: "favorites"}) : "/favorites"} >
+			<div className={`${hasFavorites ? "text-lime-500" : "text-gray-50"} relative group `}>
+				<i className={` fa-regular fa-heart text-xl sm:text-3xl group-hover:text-red-500 group-hover:cursor-pointer`}></i>
+				<span className="text-white  absolute text-[10px] bg-red-500 leading-none rounded-full px-2 py-1 group-hover:cursor-pointer bottom-0 -right-3 group-hover:bg-white group-hover:text-red-600">
+						{favorites.length && (
+							<span> {favorites.length} </span>
+						)}
+				</span>
+			</div>
+		</Link>
   )
 }
 

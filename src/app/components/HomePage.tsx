@@ -12,9 +12,9 @@ import { ShopByCategory } from './sections/ShopByCategory';
 
 const HomePage = () => {
 
-	const {loading } = useAuth();
+	const { authLoading } = useAuth();
 
-	if (loading) return <Working />;
+	if (authLoading) return <Working />;
   return (
     <>
       <section className="container">

@@ -1,3 +1,4 @@
+import getCategoryLink from "@/app/utils/getCategoryLink";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -45,7 +46,7 @@ export const CategoryProductCard02: React.FC<Props> = ({ category = {} as Catego
           />
         </div>
         <div className={`${subCategories.length === 0 ? "flex items-center" : "py-4"}`}>
-          <Link href={`/category/${category.slug}/${category.wpId}`}>
+          <Link href={getCategoryLink(category.wpId, category.slug)}>
             <h3 className="text-gray-900 font-semibold hover:underline">{category.name || "Unnamed Category"}</h3>
           </Link>
           {subCategories.length > 0 && (
@@ -54,7 +55,7 @@ export const CategoryProductCard02: React.FC<Props> = ({ category = {} as Catego
                 .filter((subCategory) => subCategory.count > 0) // ✅ Ensure count > 0 before rendering
                 .map((subCategory) => (
                   <li key={subCategory.wpId}>
-                    <Link href={`/category/${subCategory.slug}/${subCategory.wpId}`} className="hover:underline">
+                    <Link href={getCategoryLink(category.wpId, category.slug)} className="hover:underline">
                       {subCategory.name || "Безіменна підкатегорія."}
                     </Link>
                   </li>

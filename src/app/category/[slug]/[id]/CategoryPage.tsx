@@ -6,7 +6,7 @@ import { ProductCard01 } from "@/app/components/cards/ProductCard01";
 import Working from "@/app/components/actions/Working";
  
 const CategoryPage: React.FC = () => {
-  const { getProductsByCatId, loading } = useProducts();
+  const { getProductsByCatId, productsLoading } = useProducts();
   const params = useParams();
   const [hydrated, setHydrated] = useState(false);
 
@@ -23,7 +23,7 @@ const CategoryPage: React.FC = () => {
     return getProductsByCatId(Number(params.id));
   }, [params.id, getProductsByCatId]);
 
-  if (!hydrated || loading) return <Working />;
+  if (!hydrated || productsLoading) return <Working />;
 
   if (!categoryProducts || categoryProducts.length === 0) {
     return (

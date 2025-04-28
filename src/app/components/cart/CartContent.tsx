@@ -9,24 +9,24 @@ import { Product } from "@/app/types/products";
 import { Variation } from "@/app/types/variations";
 import Working from "@/app/components/actions/Working";
 import { PopularCategories } from "@/app/components/sections/PopularCategories";
+import { useAuth } from "@/app/context/AuthProvider";
+//import { useAuth } from "@/app/context/AuthProvider";
 
 type EnrichedProduct = Product & { quantity: number; price: number };
 
 const CartContent = () => {
-	const { cartItems, updateQuantity, removeFromCart, loading, initialized } = useCart();
-	const { getProductById } = useProducts();
-
+	{/** const { user, authHydrated, authLoading } = useAuth(); */}
+	const { cartItems, updateQuantity, removeFromCart, CartLoading, CartInitialized } = useCart();
+	const { getProductById, products } = useProducts();
+	const { authHydrated, authLoading } = useAuth();
 	const [cartProducts, setCartProducts] = useState<
 			Record<number, { product: EnrichedProduct; variation?: Variation }>
 		>({});
-	const [hydrated, setHydrated] = useState(false);
- 
+	 
+
 	useEffect(() => {
-		if (!initialized) return; // Wait until cart fully initialized
-	
 		if (!cartItems.length) {
 			setCartProducts({});
-			setHydrated(true);
 			return;
 		}
 	
@@ -47,11 +47,10 @@ const CartContent = () => {
 			}
 	
 			setCartProducts(enriched);
-			setHydrated(true);
 		};
 	
 		enrich();
-	}, [cartItems, initialized]);
+	}, [cartItems, CartInitialized, authHydrated, products]);
 	
 	
 
@@ -63,8 +62,9 @@ const CartContent = () => {
 		removeFromCart(variationId);
 	};
 
+
  
-	if (!hydrated || !initialized) return <Working text="Завантаження кошика..." />;
+	if (!authHydrated || authLoading || !CartInitialized || CartLoading) return <Working text="Завантаження кошика..." />;
 
 	if (!cartItems.length) {
 		return (
@@ -78,7 +78,7 @@ const CartContent = () => {
 			</>
 		);
 	}
-	if (!initialized || loading) return null;
+	
 	const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
 	return (
