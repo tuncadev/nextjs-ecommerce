@@ -7,7 +7,7 @@ import SiteLogo from "@/app/components/globals/SiteLogo";
 import HeaderSearch from "@/app/components/globals/HeaderSearch";
 import Favorites from "@/app/components/globals/Header/Favorites";
 import Cart from "@/app/components/globals/Header/Cart";
-import UserMenu from "./Header/UserMenu";
+import UserMenu from "./UserMenu";
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);

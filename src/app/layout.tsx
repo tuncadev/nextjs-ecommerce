@@ -6,9 +6,10 @@ import Script from "next/script";
 
 //import { Header } from "@/app/components/Header";
 import { Toaster } from "react-hot-toast";
-import { Header } from "./components/globals/Header";
+import { Header } from "./components/globals/Header/Header";
 import { Providers } from "./providers";
 import { generatePageMetadata } from "./utils/generatePageMetadata";
+import { Footer } from './components/globals/Footer/Footer';
 
 const openSans = Open_Sans({ subsets: ["latin"], weight: ["400", "700"], variable: "--openSans", preload: true });
 const oswald = Oswald({ subsets: ["latin"], weight: ["400", "700"], variable: "--oswald", preload: false });
@@ -30,9 +31,10 @@ export default function RootLayout({
         <Toaster position="top-right" />
 				<Providers>
 					<Header />
-					<main className="container">
+					<main id="main" className="">
 						{children}
 					</main>
+					<Footer />
 				</Providers>
 				<Script
 				async

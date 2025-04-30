@@ -21,7 +21,7 @@ export const SuccessModal = ({
   header = "Успішно додано в кошик!",
   message,
 }: Props) => {
-	const {user} = useAuth();
+	const {user} = useAuth();6
   return (
     <div
 		onClick={() => {

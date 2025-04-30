@@ -38,7 +38,7 @@ return cartLoading ? (
   ) : (
 		<>
 		<div className="group/outer relative flex flex-col overflow-hidden justify-between h-full w-full min-h-[300px] md:min-w-[200px] sm:max-w-[150px]">
-				{/** Favorites */}
+			{/** Favorites */}
 			<div className={`${isFavorite(product.id) ? "bg-customRed text-white " : "bg-white text-customRed hover:cursor-pointer hover:text-white hover:bg-customRed"} group/inner flex group-hover/outer:right-0 justify-start items-center  w-8 h-[20px] transition-all duration-200	z-10 absolute right-0 lg:-right-6 top-[13px]		rounded-tl-md rounded-bl-md`}>
 				<i
 				onClick={handleFavorites}

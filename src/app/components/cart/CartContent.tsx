@@ -102,9 +102,9 @@ const CartContent = () => {
 			})}
 			</div>
 
-			<div className="mt-6 p-4 bg-gray-100 rounded-lg">
-				<p className="text-lg font-semibold">Загалом: {total.toFixed(2)} ₴</p>
-				<button className="bg-blue-600 text-white px-6 py-2 mt-4 rounded-lg w-full hover:bg-blue-700">
+			<div className="mt-6 p-4 bg-gray-100 rounded-lg shadow-md border border-gray-200 hover:shadow-lg">
+				<p className="text-md font-semibold">Загалом: {total.toFixed(2)} ₴</p>
+				<button className="bg-customGreen text-primary font-semibold px-6 py-2 mt-4 rounded-lg w-full hover:bg-customRed hover:text-gray-100">
 					Перейти до оплати
 				</button>
 			</div>

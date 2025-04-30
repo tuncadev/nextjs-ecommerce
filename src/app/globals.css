@@ -5,8 +5,11 @@
 
  /* Custom utility classes */
 @layer utilities {
+	#main {
+		@apply m-auto px-2 pt-2 pb-[100px] max-w-[1170px];
+	}
   .container {
-    @apply m-auto p-2 max-w-[1170px];
+    @apply m-auto p-2  max-w-[1170px];
   }
 	.container h2 {
 		@apply text-2xl font-semibold py-4;

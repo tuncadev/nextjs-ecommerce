@@ -6,12 +6,17 @@ import { InfoBadge } from '../badges/InfoBadge';
 import FavoriteCard from './FavoriteCard';
 import Link from 'next/link';
 import getProductLink from '@/app/utils/getProductLink';
+import { Product } from '@/app/types/products';
 
 
 const FavoritesList = () => {
 	
-	const { favorites } = useFavorites();
-	console.log("favorites", favorites);
+	const { favorites, handleFavoritesAction } = useFavorites();
+	
+	const handleFavorites = async (product: Product) => {
+		product && handleFavoritesAction(product);
+	}
+
 	if (favorites.length <= 0) return (
 		<section className="container">
 			<InfoBadge title="Нічого не знайдено!" text="Ваш список бажаних товарів порожній. Додайте товари до обраного!" />
@@ -21,36 +26,54 @@ const FavoritesList = () => {
 		<section>
 			<h1 className=''>Списки бажань</h1>
 			<div className="">
-				<FavoriteCard>
-					{favorites.map((favorite) => {
-						let images = [];
+			<FavoriteCard>
+  {(setHoveredName) =>
+    favorites.map((favorite) => {
+      const productName = favorite.product.name;
+      const images = Array.isArray(favorite.product.images)
+        ? favorite.product.images
+        : JSON.parse(favorite.product.images || "[]");
+      const firstImage = images?.[0];
 
-						try {
-							images = typeof favorite.product.images === "string"
-								? JSON.parse(favorite.product.images)
-								: favorite.product.images;
-						} catch (error) {
-							console.error("Error parsing product images", error);
-						}
+      return (
+				<div className='relative' key={favorite.id}>
+					<i onClick={() => handleFavorites(favorite.product)} title="Видалити зі списків бажань" className={`absolute hover:cursor-pointer hover:text-customRed text-customGreen bg-white rounded-full p-1 text-xs right-2 top-2 fa-solid fa-heart  `}></i>
 
-						const firstImage = images?.[0]; 
+        <Link
+          href={getProductLink(favorite.product?.wpId, favorite.product?.slug)}
+          className="hover:shadow-md hover:shadow-lime-500"
+          onMouseEnter={() => setHoveredName(productName)}
+          onMouseLeave={() => setHoveredName("")}
+        >
 
-						return (
-							<Link
-							 	key={favorite.id} href={getProductLink(favorite.product?.wpId, favorite.product?.slug)}
-								className=' hover:shadow-md hover:shadow-lime-500'
-							 >
-								<span key={favorite.product.id}>
-									{firstImage ? (
-										<img src={`/api/media?url=${firstImage.src}`} alt={firstImage.alt || favorite.product.name} className="w-20 h-20 object-cover rounded-lg shadow-md" />
-									) : (
-										<div>No image</div>
-									)}
-								</span>
-							</Link>
-						);
-					})}
-				</FavoriteCard>
+					{/** Favorites 
+					 * 
+					 * ${isFavorite(product.id) ? "bg-customRed text-white " : "bg-white text-customRed hover:cursor-pointer hover:text-white hover:bg-customRed"} 
+					 * onClick={handleFavorites}
+					 * ${
+									isFavorite(product.id) ? "fa-solid " : "fa-regular "
+								}
+					*/}						
+
+						
+														{firstImage ? (
+								<img
+									src={`/api/media?url=${firstImage.src}`}
+									alt={firstImage.alt || productName}
+									className="w-20 h-20 object-cover rounded-lg shadow-md z-40"
+								/>
+							) : (
+								<div>No image</div>
+							)}
+	
+
+        </Link>
+				</div>
+      );
+    })
+  }
+</FavoriteCard>
+
 				
 			</div>
 

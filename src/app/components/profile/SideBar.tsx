@@ -26,7 +26,7 @@ const SideBar = () => {
 						<div className="flex flex-col">
 							<span className="text-xs">{user.username}</span>
 							<span className="text-xs text-lime-700">
-									{user?.email || "No email"} {/* Fix email display */}
+									{user?.email || "No email"} {/* Fix email display */} 
 							</span>
 						</div>
 					</Sidebar.Item>
@@ -41,7 +41,7 @@ const SideBar = () => {
 					<Sidebar.Item as={Link}  href={user ? `${getProfileLink({username: user.username, page: "favorites"})}` : "/favorites"} icon={FaHeart} className="text-sm">
 							Списки бажань
 					</Sidebar.Item>
-					<Sidebar.Item   as={Link}  href="/users" icon={FaRectangleList} className="text-sm">
+					<Sidebar.Item   as={Link}  href={user ? `${getProfileLink({username: user.username, page: "orders"})}` : "/orders"} icon={FaRectangleList} className="text-sm">
 						Замовлення
 					</Sidebar.Item>
 					<Sidebar.Item  onClick={handleLogout} icon={FaArrowRightFromBracket} className="user-exit hover:cursor-pointer text-sm ">

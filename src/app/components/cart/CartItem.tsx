@@ -66,7 +66,7 @@ export const CartItem: React.FC<CartItemProps> = ({
 
 
   return (
-    <div className="flex flex-col md:flex-row items-center relative shadow-lg border border-gray-200 rounded-lg p-4 bg-white dark:bg-gray-800 mb-6">
+    <div className="flex flex-col md:flex-row items-center relative shadow-md border border-gray-200 rounded-lg p-4 bg-white dark:bg-gray-800 mb-6 hover:shadow-lg">
       {/* Product Image */}
       <div className="w-full md:w-32 flex-shrink-0">
         <Image
@@ -82,7 +82,7 @@ export const CartItem: React.FC<CartItemProps> = ({
       <div className="flex flex-col flex-grow w-full md:ml-4 md:w-auto">
         <Link
           href={getProductLink(product?.wpId, product?.slug)}
-          className="text-lg md:text-xl font-semibold text-blue-600 hover:underline"
+          className="text-md md:text-md font-semibold text-blue-600 hover:underline"
         >
           {product?.name || "Товар"}
         </Link>
