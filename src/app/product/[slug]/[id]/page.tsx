@@ -16,7 +16,7 @@ export async function generateMetadata({
   params: Promise<Params>;
 }): Promise<Metadata> {
   const { id } = await params;
-  return generatePageMetadata({ type: "category", id });
+  return generatePageMetadata({ type: "product", id });
 }
 
 

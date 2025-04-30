@@ -13,10 +13,10 @@ const Cart = () => {
 	const {cartItems} = useCart();
   return (
     <Link href={user ? getProfileLink({username: user.username, page:"cart"}): "/cart"}>
-      <div className={`${cartItems.length > 0 ? "text-lime-500 " : "text-gray-50 " } relative group`}>
-        <i className="fa-solid fa-bag-shopping text-xl sm:text-3xl group-hover:text-red-500"></i>
+      <div className={`${cartItems.length > 0 ? "text-customGreen " : "text-gray-50 " } relative group`}>
+        <i className="fa-solid fa-bag-shopping text-xl sm:text-3xl group-hover:text-customRed"></i>
         {authHydrated && !authLoading && (
-          <span className="absolute text-white text-[10px] bg-red-500 leading-none rounded-full px-2 py-1 bottom-0 -right-3 group-hover:bg-white group-hover:text-red-600">
+          <span className="absolute text-white text-[10px] bg-customRed leading-none rounded-full px-2 py-1 bottom-0 -right-3 group-hover:bg-white group-hover:text-red-600">
             {cartItems.reduce((sum, item) => sum + item.quantity, 0)}
           </span>
         )}

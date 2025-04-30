@@ -65,7 +65,7 @@ if (productsLoading || !product) return <Loading text="product details..." />;
 
 	return (
 		<>
-			<section>
+			<section className={`${isModal ? " w-full max-h-[80vh] overflow-y-auto " : ""}`}>
 				<ProductTitleSection productName={product?.name} productSku={product?.sku} productUrl={"#"} />
 				<div className="flex flex-col sm:grid sm:grid-cols-5 w-full">
 					<div className="col-span-2">
@@ -77,7 +77,11 @@ if (productsLoading || !product) return <Loading text="product details..." />;
 								<ProductImageHolder image={selectedVariation?.image} />
 
 							) : (
-								product?.images && <ImageCarousel images={product.images} />
+								product?.images && <ImageCarousel images={
+									product.images.map((img: { id: number; src: string; alt: string }) => ({
+									...img,
+									productName: product.name || "",
+								}))} />
 							)}
 							
 						</div>

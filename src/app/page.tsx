@@ -1,5 +1,5 @@
  
-import HomePage from "@/app/components/HomePage";
+import HomePage from "@/app/components/pages/HomePage";
 import { generatePageMetadata } from "@/app/utils/generatePageMetadata";
 import type { Metadata } from "next";
 

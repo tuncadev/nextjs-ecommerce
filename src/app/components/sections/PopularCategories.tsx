@@ -2,11 +2,15 @@
 
 import { useEffect, useState, useMemo } from "react";
 import { Loading } from "@/app/components/actions/Loading";
-import { WarningMessage } from "@/app/components/messages/WarningMessage";
+import { WarningMessage } from "@/app/components/notifications/WarningMessage";
 import { CategoryProductCard02 } from "@/app/components/cards/CategoryProductCard02";
 import { useProducts } from "@/app/context/ProductsContext";
 
-export const PopularCategories = () => {
+type PopularCategoriesProps= {
+	columns?: string
+}
+
+export const PopularCategories = ({columns}: PopularCategoriesProps) => {
   const {
     getFeaturedCategories,
     categories,
@@ -14,7 +18,7 @@ export const PopularCategories = () => {
     error,
     getSubCategoriesFromParentId,
   } = useProducts();
-
+	
   const [subCategoriesMap, setSubCategoriesMap] = useState<{ [key: number]: any[] }>({});
   const [randomizedCategories, setRandomizedCategories] = useState<any[]>([]);
 
@@ -46,7 +50,7 @@ export const PopularCategories = () => {
   return (
     <div className="flex flex-col justify-center m-auto">
       <h2 className="">Найпопулярніші категорії місяця</h2>
-      <div className="flex flex-col sm:grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-4">
+			<div className={`flex flex-col sm:grid sm:grid-cols-2 md:grid-cols-2 justify-items-center gap-4 ${columns ? `lg:grid-cols-${columns}` : "lg:grid-cols-3"}`}>
         {productsLoading ? (
           <div className="flex flex-col justify-center gap-2">
             <Loading text="Завантаження категорій..." />

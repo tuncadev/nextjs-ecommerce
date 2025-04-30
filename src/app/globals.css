@@ -2,22 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+
  /* Custom utility classes */
 @layer utilities {
   .container {
     @apply m-auto p-2 max-w-[1170px];
   }
-	#root {
-		@apply bg-white text-gray-600;
-	}
 	.container h2 {
 		@apply text-2xl font-semibold py-4;
 	}
 	span.price-green {
-		@apply text-[#669900] font-semibold;
+		@apply text-[customGreen] font-semibold;
 	}
 	span.price-red {
-		@apply text-[#ff3300] font-semibold ;
+		@apply text-[customRed] font-semibold ;
 	}
 	span.price-discount-gray {
 		@apply text-[#999999] text-xl line-through;
@@ -41,10 +39,10 @@
 		@apply max-w-[270px]  py-5 text-center;
 	}
 	span.instock {
-		@apply text-[#8bc500] font-bold;
+		@apply text-[customGreen] font-bold;
 	}
 	span.discount_price {
-		@apply text-[#ff3300] font-bold;
+		@apply text-[customRed] font-bold;
 	}
 	.product_desc ul {
 		@apply list-disc text-sm text-gray-500;
@@ -67,10 +65,19 @@ h2.header2 {
 button.a_btn:hover {
 	@apply bg-sky-900;
 }
+.border-default {
+	@apply border border-gray-200 rounded-lg px-2 py-1;
 }
+.hover__green-white:hover {
+	background-color: var(--customGreen);
+	color: #ffffff;
+}
+}
+
+
 body {
-  color: var(--foreground);
-  background: var(--background);
+  color: var(--primary-foreground);
+  background-color: var(--primary-background);
   font-family: var(--openSans), sans-serif;
 }
 h1 {
@@ -98,10 +105,14 @@ text {
   dominant-baseline: middle;
   text-anchor: middle;
 }
- 
+
 img {
 	height: auto;
  
+}
+ 
+.pointer:hover {
+	cursor: pointer;
 }
 .contact-btn {
 	font-family: var(--oswald);
@@ -131,7 +142,7 @@ img {
 .loader{
   width: 40px;
   aspect-ratio: 1;
-  --c:no-repeat linear-gradient(#8bc500 0 0);
+  --c:no-repeat linear-gradient(var(--customGreen) 0 0);
   background: 
     var(--c) 0    0,
     var(--c) 0    100%, 

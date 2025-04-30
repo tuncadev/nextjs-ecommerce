@@ -13,17 +13,20 @@ const CategoryPage: React.FC = () => {
 
   useEffect(() => {
     setHydrated(true);
-  }, []);
+  }, [getProductsByCatId]);
 
   if (!params?.id || typeof params.id !== "string") {
-    return <div className="text-center text-red-500">Невірна категорія</div>;
+    return <div className="text-center text-customRed">Невірна категорія</div>;
   }
 
+	
   const categoryProducts = useMemo(() => {
     return getProductsByCatId(Number(params.id));
   }, [params.id, getProductsByCatId]);
 
-  if (!hydrated || productsLoading) return <Working />;
+  if (!hydrated || !params?.id || typeof params.id !== "string" || productsLoading) {
+		return <Working />;
+	}
 
   if (!categoryProducts || categoryProducts.length === 0) {
     return (

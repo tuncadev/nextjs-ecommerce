@@ -1,7 +1,7 @@
 "use client";
 
 import { Tabs } from "flowbite-react";
-import { HiOutlineUserAdd, HiUserCircle } from "react-icons/hi";
+import { FaRegUser, FaUserPlus } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
@@ -111,7 +111,7 @@ const LoginPage: React.FC = () => {
   return (
 		<section id="authSection" className="pt-8 pb-0 border border-gray-300/60 rounded px-8 mx-auto mt-8">
 		<Tabs aria-label="Default tabs" variant="default" id="authTabs" className="justify-center pb-8">
-			<Tabs.Item active title="Login" icon={HiUserCircle}>
+			<Tabs.Item active title="Login" icon={FaRegUser}>
 				<div className="flex flex-col items-center justify-center ">
 					<div className="w-full max-w-md bg-white shadow-lg rounded-lg p-6">
 						{loading ? (
@@ -144,12 +144,12 @@ const LoginPage: React.FC = () => {
 								</div>
 							</form>
 						)}
-						{error && <p className="text-red-500 text-sm py-2">{error}</p>}
+						{error && <p className="text-customRed text-sm py-2">{error}</p>}
 					</div>
 				</div>
 			</Tabs.Item>
 
-			<Tabs.Item title="Register" icon={HiOutlineUserAdd}>
+			<Tabs.Item title="Register" icon={FaUserPlus}>
 				<div className="flex flex-col items-center justify-center p-4 gap-3">
 					<div className="w-full max-w-md bg-white shadow-lg rounded-lg p-6 flex flex-col gap-2">
 						{loading ? (
@@ -185,13 +185,13 @@ const LoginPage: React.FC = () => {
 								/>
 								{passwordFocused && (
 									<ul className="text-xs space-y-1 mt-2">
-										<li className={passwordCheck.length ? "text-green-600" : "text-red-500"}>
+										<li className={passwordCheck.length ? "text-green-600" : "text-customRed"}>
 											Мінімум 8 символів
 										</li>
-										<li className={passwordCheck.capital ? "text-green-600" : "text-red-500"}>
+										<li className={passwordCheck.capital ? "text-green-600" : "text-customRed"}>
 											Принаймні одна велика літера
 										</li>
-										<li className={passwordCheck.special ? "text-green-600" : "text-red-500"}>
+										<li className={passwordCheck.special ? "text-green-600" : "text-customRed"}>
 											Один спеціальний символ
 										</li>
 									</ul>

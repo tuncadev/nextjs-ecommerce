@@ -66,7 +66,7 @@ export const CartItem: React.FC<CartItemProps> = ({
 
 
   return (
-    <div className="flex flex-col md:flex-row items-center relative shadow-lg rounded-lg p-4 bg-white dark:bg-gray-800 mb-6">
+    <div className="flex flex-col md:flex-row items-center relative shadow-lg border border-gray-200 rounded-lg p-4 bg-white dark:bg-gray-800 mb-6">
       {/* Product Image */}
       <div className="w-full md:w-32 flex-shrink-0">
         <Image
@@ -113,19 +113,15 @@ export const CartItem: React.FC<CartItemProps> = ({
               onQuantityChange={(newQty) => handleQuantityUpdate(item.variationId, newQty)}
             />
           </div>
-
-          <p className="text-lg font-semibold text-gray-500 dark:text-white">
-            {(item.price / 100).toFixed(2)} ₴
-          </p>
-        </div>
+       </div>
       </div>
 
       {/* Remove & Total */}
-      <div className="flex flex-col md:flex-row items-end md:items-center justify-end md:justify-between w-full md:w-auto md:ml-4 mt-3 md:mt-0">
+      <div className="absolute top-3 right-3 sm:relative flex flex-col md:flex-row items-end md:items-center justify-end md:justify-between w-full md:w-auto md:ml-4 mt-3 md:mt-0">
         <div className="text-lg md:text-xl font-bold text-green-600">{total} ₴</div>
         <button
           onClick={() => handleRemoveFromCart(item.variationId)}
-          className="text-red-500 hover:text-red-700 transition-all text-2xl ml-4"
+          className="text-customRed hover:text-red-700 transition-all text-2xl ml-4"
           title="Видалити товар"
         >
           <i className="fa-solid fa-trash"></i>

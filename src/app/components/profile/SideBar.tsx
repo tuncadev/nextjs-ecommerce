@@ -3,7 +3,8 @@ import { Badge, Sidebar } from "flowbite-react";
 import React, { useState } from 'react'
 import { useAuth } from '@/app/context/AuthProvider'
 import { useCart } from '@/app/context/CartContext'
-import { HiLogout, HiOutlineUser, HiShoppingBag, HiUser, HiHeart } from "react-icons/hi";
+import { FaArrowRightFromBracket, FaRegUser, FaBagShopping, FaHeart, FaRectangleList } from "react-icons/fa6";
+
 import useLogout from "@/app/hooks/useLogout";
 import {getProfileLink} from "@/app/utils/getProfileLink";
 import Link from "next/link";
@@ -18,10 +19,10 @@ const SideBar = () => {
 
  if(!user) return null;
 		return (
-		<Sidebar aria-label="Personal Information" className="hidden sm:block">
-			<Sidebar.Items>
-				<Sidebar.ItemGroup>
-					<Sidebar.Item as={Link} href={getProfileLink({username: user.username, page: ""})} icon={HiOutlineUser}>
+		<Sidebar aria-label="Personal Information" className=" " id="sidebar">
+			<Sidebar.Items  aria-label="Sidebar Items" className="  " >
+				<Sidebar.ItemGroup  aria-label="Sidebar item group" className=" profile_menu">
+					<Sidebar.Item as={Link} href={getProfileLink({username: user.username, page: ""})} icon={FaRegUser}>
 						<div className="flex flex-col">
 							<span className="text-xs">{user.username}</span>
 							<span className="text-xs text-lime-700">
@@ -29,29 +30,26 @@ const SideBar = () => {
 							</span>
 						</div>
 					</Sidebar.Item>
-					<Sidebar.Item as={Link}  href={getProfileLink({username: user.username, page:"cart"})} icon={HiShoppingBag}>
-						<div className="flex flex-col relative text-sm">
+					<Sidebar.Item as={Link}  href={getProfileLink({username: user.username, page:"cart"})} icon={FaBagShopping}  className="w-full">
+						<div className="flex items-center w-full justify-between relative text-sm">
 							<span>Кошик</span>
-							<span className={`absolute text-[10px] ${cartItems.length > 0 ? "bg-lime-500 text-gray-900 border border-gray-600 font-semibold" : "bg-red-500"}  leading-none border px-2 py-1 group-hover:cursor-pointer bottom-0 -right-3 group-hover:bg-white group-hover:text-red-600`}>
+							<span className={`text-white p-5 max-w-5 text-center flex justify-center text-[10px] ${cartItems.length > 0 ? "bg-customGreen text-gray-900 border border-gray-600 font-semibold" : "bg-customRed"}  leading-none border px-2 py-1 group-hover:cursor-pointer bottom-0 right-0 group-hover:bg-white group-hover:text-red-600`}>
 								{cartItems.reduce((sum, item) => sum + item.quantity, 0)}
 							</span>
 						</div>
 					</Sidebar.Item>
-					<Sidebar.Item as={Link}  href={user ? `${getProfileLink({username: user.username, page: "favorites"})}` : "/favorites"} icon={HiHeart} className="text-sm">
+					<Sidebar.Item as={Link}  href={user ? `${getProfileLink({username: user.username, page: "favorites"})}` : "/favorites"} icon={FaHeart} className="text-sm">
 							Списки бажань
 					</Sidebar.Item>
-					<Sidebar.Item   as={Link}  href="/users" icon={HiUser} className="text-sm">
-							Users
+					<Sidebar.Item   as={Link}  href="/users" icon={FaRectangleList} className="text-sm">
+						Замовлення
 					</Sidebar.Item>
-					<Sidebar.Item as={Link}  href={user ? `/profile/${user.username}/userdata` : "/auth"} icon={HiShoppingBag} className="text-sm">
-							All User Data
-					</Sidebar.Item>
-					<Sidebar.Item  onClick={handleLogout} icon={HiLogout} className="hover:cursor-pointer text-sm">
+					<Sidebar.Item  onClick={handleLogout} icon={FaArrowRightFromBracket} className="user-exit hover:cursor-pointer text-sm ">
 							Вихід
 					</Sidebar.Item>
 				</Sidebar.ItemGroup>
 			</Sidebar.Items>
-			<Sidebar.CTA className={`${badge ? "" : "hidden"}`}>
+			<Sidebar.CTA className={`${badge ? "" : "hidden"} hidden sm:block`}>
 					<div className="mb-3 flex items-center">
 							<Badge color="warning">Beta</Badge>
 							<button

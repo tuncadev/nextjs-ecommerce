@@ -8,7 +8,7 @@ import { BannerLeft, BannerDouble } from "@/app/components/banners";
 
 import BannerSpace from '@/app/assets/banners/banner-space-bg.png';
 import BannerLarge from '@/app/assets/banners/banner-large.jpg';
-import { ShopByCategory } from './sections/ShopByCategory';
+import { ShopByCategory } from '../sections/ShopByCategory';
 
 const HomePage = () => {
 

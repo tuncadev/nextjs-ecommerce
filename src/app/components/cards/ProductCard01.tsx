@@ -15,7 +15,7 @@ type Props = {
 };
 
 export const ProductCard01 = ({ product }: Props) => {
-	
+	const [imgLoaded, setImgLoaded] = useState(false);
 	const [cartLoading] = useState(false);
 	const { handleFavoritesAction, isFavorite }= useFavorites();
 	const [openModal, setOpenModal] = useState(false);
@@ -39,7 +39,7 @@ return cartLoading ? (
 		<>
 		<div className="group/outer relative flex flex-col overflow-hidden justify-between h-full w-full min-h-[300px] md:min-w-[200px] sm:max-w-[150px]">
 				{/** Favorites */}
-			<div className={`${isFavorite(product.id) ? "bg-red-500 text-white " : "bg-white text-red-500 hover:cursor-pointer hover:text-white hover:bg-red-500"} group/inner flex group-hover/outer:right-0 justify-start items-center  w-8 h-[20px] transition-all duration-200	z-10 absolute -right-6 top-[13px]		rounded-tl-md rounded-bl-md`}>
+			<div className={`${isFavorite(product.id) ? "bg-customRed text-white " : "bg-white text-customRed hover:cursor-pointer hover:text-white hover:bg-customRed"} group/inner flex group-hover/outer:right-0 justify-start items-center  w-8 h-[20px] transition-all duration-200	z-10 absolute right-0 lg:-right-6 top-[13px]		rounded-tl-md rounded-bl-md`}>
 				<i
 				onClick={handleFavorites}
 					className={`${
@@ -50,8 +50,8 @@ return cartLoading ? (
 			{/** Cart */}
 			
 			<div className={`${
-					product.inCart ? "bg-lime-500 text-white" : "bg-white text-red-500"
-				} group/inner  flex group-hover/outer:right-0 hover:cursor-pointer  hover:bg-red-500 justify-start items-center  w-8 h-[20px] transition-all	z-10 duration-500  absolute -right-6 top-[35px]		rounded-tl-md rounded-bl-md`}>
+					product.inCart ? "bg-customGreen text-white" : "bg-white text-customRed"
+				} group/inner  flex group-hover/outer:right-0 hover:cursor-pointer  hover:bg-customRed justify-start items-center  w-8 h-[20px] transition-all	z-10 duration-500  absolute right-0 lg:-right-6 top-[35px]		rounded-tl-md rounded-bl-md`}>
 				<i
 				 onClick={handleAddToCart}
 				 className={`fa-solid fa-cart-plus group-hover/inner:text-white pl-2 text-md `}
@@ -70,11 +70,23 @@ return cartLoading ? (
 				>
 					{/** Product Image */}
 					<div className="flex relative items-center rounded-lg  justify-center mb-2  h-[200px] overflow-hidden">
-						<picture className="w-auto">
-							<source media="(max-width: 767px)" srcSet={`/api/media?url=${productImage}`} />
-							<source media="(min-width: 768px) and (max-width: 1024px)" srcSet={`/api/media?url=${productImage}`} />
-							<img src={`/api/media?url=${productImage}`} alt="Product" className="rounded-lg " />
-						</picture>
+						<div className="flex relative items-center rounded-lg justify-center mb-2 h-[200px] overflow-hidden">
+							{!imgLoaded && (
+								<div className="absolute inset-0 z-10 flex items-center justify-center bg-white/70">
+									<Working />
+								</div>
+							)}
+							<picture className="w-auto">
+								<source media="(max-width: 767px)" srcSet={`/api/media?url=${productImage}`} />
+								<source media="(min-width: 768px) and (max-width: 1024px)" srcSet={`/api/media?url=${productImage}`} />
+								<img
+									src={`/api/media?url=${productImage}`}
+									alt="Product"
+									className={`rounded-lg transition-opacity duration-300 ${imgLoaded ? "opacity-100" : "opacity-0"}`}
+									onLoad={() => setImgLoaded(true)}
+								/>
+							</picture>
+						</div>
 					</div>
 					{/** Product name */}
 					<h5 className="text-sm font-semibold tracking-tight line-clamp-2  pl-1">

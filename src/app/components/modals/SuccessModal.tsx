@@ -1,5 +1,7 @@
 "use client";
 
+import { useAuth } from "@/app/context/AuthProvider";
+import { getProfileLink } from "@/app/utils/getProfileLink";
 import Link from "next/link";
 
 type Props = {
@@ -14,13 +16,12 @@ type Props = {
 export const SuccessModal = ({
   openSuccessModal,
 	setOpenSuccessModal,
-	
 	openCartModal,
 	setOpenCartModal,
-  
   header = "Успішно додано в кошик!",
   message,
 }: Props) => {
+	const {user} = useAuth();
   return (
     <div
 		onClick={() => {
@@ -53,7 +54,7 @@ export const SuccessModal = ({
 
           <div className="flex flex-row gap-3 mt-4">
             <Link
-              href="/cart"
+              href={`${user ? getProfileLink({username: user?.username, page: "cart"}) : "/cart"}`}
               className="w-full rounded bg-[#DD2400] hover:bg-blue-700 text-white font-semibold px-4 py-2 transition text-sm sm:text-normal text-center"
             >
               в кошик

@@ -1,0 +1,42 @@
+:root {
+  --customGreen: #84cc16;
+	--customRed: #f05252;
+	--primary-background: #ffffff; /* this is gray-100 */
+  --primary-foreground: #1f2937; /* this is gray-800 */
+  --secondary-background: #f3f4f6; /* this is gray-100 */
+  --secondary-foreground: #1f2937; /* this is gray-800 */
+	--primary: #1f2937;
+	--primary-hover: #84cc16;
+	--primary-text: #1f2937;
+}
+.defaultButton {
+  @apply px-4 py-2 rounded-lg text-white;  
+
+  background-color: var(--primary);
+  
+  &:hover {
+    background-color: var(--primary-hover);
+		color: var(--primary-text)
+  }
+}
+
+nav#sidebar {
+
+	@apply w-full sm:max-w-[300px] border-b border-b-gray-300 mb-8 sm:border-none;
+
+
+	ul.profile_menu {
+		@apply flex flex-wrap justify-start;
+	}
+	ul.profile_menu li {
+		@apply w-[170px] flex justify-start;
+	}
+	ul.profile_menu li a.user-exit svg {
+		@apply fill-customRed;
+ 
+	}
+	ul.profile_menu li:first-child {
+		width: 100%;
+	
+}
+}

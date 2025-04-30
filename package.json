@@ -7,7 +7,7 @@
     "start": "next start",
     "lint": "next lint",
     "dev-watch": "NEXT_DISABLE_TURBOPACK=1 concurrently \"next dev -p 3001\" \"npm run typecheck:watch\"",
-		"dev": "NEXT_DISABLE_TURBOPACK=1 next dev -p 3001",
+    "dev": "NEXT_DISABLE_TURBOPACK=1 next dev -p 3001",
     "typecheck": "tsc --noEmit",
     "typecheck:watch": "tsc --noEmit --watch"
   },
@@ -23,6 +23,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hot-toast": "^2.5.2",
+    "sass": "^1.87.0",
     "uuid": "^11.1.0"
   },
   "devDependencies": {

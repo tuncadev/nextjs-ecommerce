@@ -73,7 +73,7 @@ const CartContent = () => {
 					<InfoBadge title="Упс!" text="Ваш кошик порожній. Перейдіть до покупок!" />
 				</section>
 				<section className="container">
-					<PopularCategories />
+					<PopularCategories columns="2" />
 				</section>
 			</>
 		);

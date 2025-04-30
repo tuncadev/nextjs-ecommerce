@@ -1,3 +1,4 @@
+
 import { NextRequest, NextResponse } from "next/server";
 import { getAllowedHosts } from "@/app/utils/getAllowedHosts";
 

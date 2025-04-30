@@ -1,10 +1,10 @@
-import { globalMetadata } from "@/app/config/metadata";
- import CartContent from "../components/cart/CartContent";
+import CartContent from "../components/cart/CartContent";
+import { getMetadata } from "@/app/utils/getMetadata";
 
-export const metadata = {
-  title: `${globalMetadata.title} | Вхід`,
-  description: "Увійдіть у свій обліковий запис, щоб переглядати та керувати замовленнями.",
-};
+export const metadata = getMetadata({
+  title: "Кошик",
+  description: "Перевірте товари у вашому кошику",
+});
 
 export default function Page() {
   return <CartContent />;

@@ -42,7 +42,7 @@ export const ProductPrice: React.FC<ProductPriceProps> = ({
 					<span className="text-red-600 text-md line-through">
 						{formatPrice(regularPrice)} ₴
 					</span>
-					<span className="text-red-500 font-bold text-sm">
+					<span className="text-customRed font-bold text-sm">
 						(-{discountPercentage}%)
 					</span>
 				</div>

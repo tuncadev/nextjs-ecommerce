@@ -1,5 +1,7 @@
 import { Open_Sans, Oswald, Poppins, Work_Sans } from 'next/font/google';
 import "@/app/globals.css";
+import "@/app/assets/css/global.scss";
+
 import Script from "next/script";
 
 //import { Header } from "@/app/components/Header";

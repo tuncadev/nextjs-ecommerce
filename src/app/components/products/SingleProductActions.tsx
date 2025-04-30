@@ -72,7 +72,7 @@ export const SingleProductActions = ({ selectedVariation, product, requiredAttri
           <button
             type="button"
             onClick={handleFavorites}
-            className={`${isFavorite(product.id) ? "bg-red-500 text-white border-red-500 " : "bg-white border-red-500 text-red-500 hover:bg-red-500 hover:text-white" } disabled:opacity-75 w-12 h-12 flex items-center justify-center border rounded-lg transition`}
+            className={`${isFavorite(product.id) ? "bg-customRed text-white border-customRed " : "bg-white border-customRed text-customRed hover:bg-customRed hover:text-white" } disabled:opacity-75 w-12 h-12 flex items-center justify-center border rounded-lg transition`}
           >
             <svg
               className="w-6 h-6"

@@ -28,7 +28,7 @@ const ProductTitleSection: React.FC<ProductTitleSectionProps> = ({ productName, 
 				<a href={productUrl} className="flex items-center text-gray-100 w-8 h-8 text-center justify-center rounded bg-red-600 hover:text-red-800 shadow-lg">
 					<i className="fab fa-pinterest text-lg"></i>
 				</a>
-				<a href={productUrl} className="flex items-center text-gray-100 w-8 h-8 text-center justify-center rounded bg-red-500 hover:text-red-700 shadow-lg">
+				<a href={productUrl} className="flex items-center text-gray-100 w-8 h-8 text-center justify-center rounded bg-customRed hover:text-red-700 shadow-lg">
 					<i className="fab fa-google-plus-g text-lg"></i>
 				</a>
 			</div>

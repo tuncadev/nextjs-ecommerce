@@ -4,6 +4,8 @@ import { useFavorites } from '@/app/context/FavoritesContext';
 import React from 'react'
 import { InfoBadge } from '../badges/InfoBadge';
 import FavoriteCard from './FavoriteCard';
+import Link from 'next/link';
+import getProductLink from '@/app/utils/getProductLink';
 
 
 const FavoritesList = () => {
@@ -34,13 +36,18 @@ const FavoritesList = () => {
 						const firstImage = images?.[0]; 
 
 						return (
-							<span key={favorite.product.id}>
-								{firstImage ? (
-									<img src={`/api/media?url=${firstImage.src}`} alt={firstImage.alt || favorite.product.name} className="w-20 h-20 object-cover rounded-lg shadow-md" />
-								) : (
-									<div>No image</div>
-								)}
-							</span>
+							<Link
+							 	key={favorite.id} href={getProductLink(favorite.product?.wpId, favorite.product?.slug)}
+								className=' hover:shadow-md hover:shadow-lime-500'
+							 >
+								<span key={favorite.product.id}>
+									{firstImage ? (
+										<img src={`/api/media?url=${firstImage.src}`} alt={firstImage.alt || favorite.product.name} className="w-20 h-20 object-cover rounded-lg shadow-md" />
+									) : (
+										<div>No image</div>
+									)}
+								</span>
+							</Link>
 						);
 					})}
 				</FavoriteCard>
@@ -50,5 +57,6 @@ const FavoritesList = () => {
 		</section>
 	)
 }
+
 
 export default FavoritesList

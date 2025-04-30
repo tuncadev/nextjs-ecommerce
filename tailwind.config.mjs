@@ -7,7 +7,15 @@ export default {
     content(),
   ],
   theme: {
-    extend: {},
+    extend: {
+			colors: {
+        primaryBackground: "var(--primary-background)",
+        primaryForeground: "var(--primary-foreground)",
+				customGreen: "var(--customGreen)",
+				customRed: "var(--customRed)",
+      },
+
+		},
   },
   plugins: [
     plugin(),
