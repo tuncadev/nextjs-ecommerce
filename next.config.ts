@@ -1,4 +1,10 @@
 import type { NextConfig } from "next";
+const withPWA = require('next-pwa')({
+  dest: 'public',
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === 'development',
+});
 
 const nextConfig: NextConfig = {
   images: {
@@ -9,10 +15,10 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-	compress: true,
-	eslint: {
+  compress: true,
+  eslint: {
     ignoreDuringBuilds: true,
   },
 };
 
-export default nextConfig;
+export default withPWA(nextConfig);

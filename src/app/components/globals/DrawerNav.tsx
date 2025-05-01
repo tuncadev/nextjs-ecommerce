@@ -6,7 +6,7 @@ import { Loading } from "@/app/components/actions/Loading";
 import { useProducts } from "@/app/context/ProductsContext";
 import getCategoryLink from "@/app/utils/getCategoryLink";
 import { TbCategory } from "react-icons/tb";
-import { link } from "fs";
+
 
 
 type Props = {

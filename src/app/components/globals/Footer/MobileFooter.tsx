@@ -30,7 +30,7 @@ const MobileFooter = () => {
 						<span className='text-xs'>Пошук</span>
 					</Link>
 					 */}
-					<Link href={`${getProfileLink({ user: user as User, page: "cart" })}`}className="flex flex-col items-center gap-y-1">
+					<Link href={`${getProfileLink({ user: user as User, page: "cart" })}`} className="flex flex-col items-center gap-y-1">
 						<FaCartShopping />
 						<span className='text-xs'>Кошик</span>
 					</Link>

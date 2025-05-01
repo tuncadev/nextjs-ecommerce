@@ -17,7 +17,7 @@ export const Header = () => {
 
   return (
     <header className="w-full bg-[#022335] border-b border-b-gray-300 pt-4 ">
-			<div className="mx-auto max-w-[1170px]">
+			<div className={`mx-auto max-w-[1170px] ${user ? "pb-6 lg:pb-0" : "pb-0"}`}>
       <div className="container border-gray-200 px-4 ">
         <div className="flex flex-wrap items-center justify-center sm:justify-between">
           {/* Logo */}
@@ -27,7 +27,7 @@ export const Header = () => {
           <HeaderSearch />
 
           {/* User Menu */}
-          <div className="items-center justify-center sm:justify-between w-full md:flex md:w-auto md:order-1 mt-2 pr-10">
+          <div className={`items-center justify-center sm:justify-between w-full md:flex md:w-auto md:order-1 mt-2 pr-10`}>
             <div className="flex text-2xl gap-8 justify-center">
               {/* Favorites */}
               <Favorites />

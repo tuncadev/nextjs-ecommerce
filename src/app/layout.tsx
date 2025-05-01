@@ -26,6 +26,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="uk" className={`${openSans.variable} ${oswald.variable}  ${workSans.variable} ${poppins.variable}`} suppressHydrationWarning>
+			<link rel="manifest" href="/manifest.json" />
+			<link rel="icon" href="/icons/icon-192x192.png" />
+			<meta name="theme-color" content="#000000" />
       <body id="root" className={`sm:flex sm:min-h-screen flex-col antialiased`}>
 				
         <Toaster position="top-right" />

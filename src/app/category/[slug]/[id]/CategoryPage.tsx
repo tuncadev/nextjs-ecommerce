@@ -37,11 +37,11 @@ const CategoryPage: React.FC = () => {
   }
 
   return (
-    <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+		<section className="container justify-between mt-4 grid grid-cols-2 gap-6 md:gap-10 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
       {categoryProducts.map((product) => (
         <ProductCard01 key={product.id} product={product} />
       ))}
-    </div>
+		</section>
   );
 };
 

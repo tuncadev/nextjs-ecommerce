@@ -7,7 +7,7 @@ type ProductTitleSectionProps = {
 };
 const ProductTitleSection: React.FC<ProductTitleSectionProps> = ({ productName, productSku, productUrl }) => {
 	return (
-		<div className='flex lg:flex-row flex-col md:justify-between pl-4  lg:items-center py-6 border-b border-b-gray-200'>
+		<div className='flex lg:flex-row flex-col md:justify-between md:pl-4  lg:items-center py-6 border-b border-b-gray-200'>
 			<div className="text-center sm:text-left">
 				<h1 className='text-xl font-semibold text-center sm:text-left'>{productName}</h1>
 				<span className='text-xs text-center sm:text-left'>

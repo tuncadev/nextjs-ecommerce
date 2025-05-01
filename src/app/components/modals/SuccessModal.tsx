@@ -2,6 +2,7 @@
 
 import { useAuth } from "@/app/context/AuthProvider";
 import { getProfileLink } from "@/app/utils/getProfileLink";
+import { User } from "@prisma/client";
 import Link from "next/link";
 
 type Props = {
@@ -54,7 +55,7 @@ export const SuccessModal = ({
 
           <div className="flex flex-row gap-3 mt-4">
             <Link
-              href={`${user ? getProfileLink({username: user?.username, page: "cart"}) : "/cart"}`}
+              href={`${getProfileLink({ user: user as User, page: "cart" })}`}
               className="w-full rounded bg-[#DD2400] hover:bg-blue-700 text-white font-semibold px-4 py-2 transition text-sm sm:text-normal text-center"
             >
               в кошик
