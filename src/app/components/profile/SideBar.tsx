@@ -21,7 +21,7 @@ const SideBar = () => {
 
 	if(authLoading && !authHydrated) return null;
 		return (
-		<Sidebar aria-label="Personal Information" className=" " id="sidebar">
+		<Sidebar aria-label="Personal Information" className="" id="sidebar">
 			<Sidebar.Items  aria-label="Sidebar Items" className="  " >
 				<Sidebar.ItemGroup  aria-label="Sidebar item group" className=" profile_menu">
 					<Sidebar.Item as={Link} href={`${getProfileLink({ user: user as User, page: "" })}`} data-testid={`${currentPage === "profile" ? "current_page" : ""}`} onClick={()=>setCurrentPage("profile")} icon={FaRegUser}  >
@@ -33,20 +33,20 @@ const SideBar = () => {
 						</div>
 					</Sidebar.Item>
 					<Sidebar.Item as={Link} href={`${getProfileLink({ user: user as User, page: "cart" })}`} data-testid={`${currentPage === "cart" ? "current_page" : ""}`} onClick={()=>setCurrentPage("cart")}  icon={FaBagShopping}  className="w-full">
-						<div className="flex items-center w-full justify-between relative text-sm">
+						<div className="flex items-center w-full justify-between relative">
 							<span>Кошик</span>
 							<span className={`text-white p-5 max-w-5 text-center flex justify-center text-[10px] ${cartItems.length > 0 ? "bg-customGreen text-gray-900 border border-gray-600 font-semibold" : "bg-customRed"}  leading-none border px-2 py-1 group-hover:cursor-pointer bottom-0 right-0 group-hover:bg-white group-hover:text-red-600`}>
 								{cartItems.reduce((sum, item) => sum + item.quantity, 0)}
 							</span>
 						</div>
 					</Sidebar.Item>
-					<Sidebar.Item as={Link} href={`${getProfileLink({ user: user as User, page: "favorites" })}`} data-testid={`${currentPage === "favorites" ? "current_page" : ""}`} onClick={()=>setCurrentPage("favorites")}   icon={FaHeart} className="text-sm">
+					<Sidebar.Item as={Link} href={`${getProfileLink({ user: user as User, page: "favorites" })}`} data-testid={`${currentPage === "favorites" ? "current_page" : ""}`} onClick={()=>setCurrentPage("favorites")}  icon={FaHeart} className="">
 							Списки бажань
 					</Sidebar.Item>
-					<Sidebar.Item   as={Link} href={`${getProfileLink({ user: user as User, page: "orders" })}`} data-testid={`${currentPage === "orders" ? "current_page" : ""}`} onClick={()=>setCurrentPage("orders")}   icon={FaRectangleList} className="text-sm">
+					<Sidebar.Item   as={Link} href={`${getProfileLink({ user: user as User, page: "orders" })}`} data-testid={`${currentPage === "orders" ? "current_page" : ""}`} onClick={()=>setCurrentPage("orders")}   icon={FaRectangleList} className="">
 						Замовлення
 					</Sidebar.Item>
-					<Sidebar.Item   onClick={handleLogout} icon={FaArrowRightFromBracket} className="hover:cursor-pointer user-exit text-sm ">
+					<Sidebar.Item   onClick={handleLogout} icon={FaArrowRightFromBracket} className="hover:cursor-pointer user-exit  ">
 							Вихід
 					</Sidebar.Item>
 				</Sidebar.ItemGroup>

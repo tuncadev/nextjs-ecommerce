@@ -26,7 +26,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   // If user exists, continue rendering
   return (
-    <section className="container flex flex-col   sm:flex-row  justify-between">
+    <section className="container !p-0 flex flex-col sm:flex-row  justify-between">
       <SideBar />
       <div className="sm:pl-4 w-full ">
         {children}

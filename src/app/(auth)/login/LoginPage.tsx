@@ -117,7 +117,7 @@ const LoginPage: React.FC = () => {
 	if (!mounted || authLoading || user) return null;
 
   return (
-		<section id="authSection" className="w-screen max-w-[500px] mx-auto px-4  p-4 relative left-1/2 right-1/2 -translate-x-1/2">
+		<section id="authSection" className="max-w-xl pt-8 pb-0 border border-gray-300/60 rounded px-8 mx-auto mt-8">
 		<Tabs aria-label="Default tabs" variant="default" id="authTabs" className="justify-center pb-8" >
 			<Tabs.Item active={defaultTab === 0} title="Login" icon={FaRegUser}>
 				<div className="flex flex-col items-center justify-center ">

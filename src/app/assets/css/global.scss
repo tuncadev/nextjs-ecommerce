@@ -29,18 +29,20 @@ nav#sidebar {
 		@apply flex flex-wrap justify-start;
 	}
 	ul.profile_menu li {
-		@apply w-[170px] flex justify-start;
+		@apply w-[150px] flex justify-start;
 	}
 	ul.profile_menu li a {
-		@apply hover:bg-customGreen hover:bg-gray-200;
+		@apply  text-xs sm:text-sm hover:bg-customGreen hover:bg-gray-200;
 	}
 	ul.profile_menu li a[data-testid="current_page"] {
 		@apply bg-customGreen cursor-default;
 	}
 	ul.profile_menu li a.user-exit svg {
 		@apply fill-customRed;
- 
-	}
+ 	}
+	 ul.profile_menu li a svg {
+		@apply w-4 h-4;
+	 }
 	ul.profile_menu li:first-child {
 		width: 100%;
 }
