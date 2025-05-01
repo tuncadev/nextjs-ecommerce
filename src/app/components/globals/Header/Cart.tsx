@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useAuth } from "@/app/context/AuthProvider";
 import { useCart } from "@/app/context/CartContext";
 import {getProfileLink} from '@/app/utils/getProfileLink';
+import { User } from '@prisma/client';
 
 
 const Cart = () => {
@@ -12,7 +13,7 @@ const Cart = () => {
 	
 	const {cartItems} = useCart();
   return (
-    <Link href={user ? getProfileLink({username: user.username, page:"cart"}): "/cart"}>
+    <Link href={`${getProfileLink({ user: user as User, page: "cart" })}`}>
       <div className={`${cartItems.length > 0 ? "text-customGreen " : "text-gray-50 " } relative group`}>
         <i className="fa-solid fa-bag-shopping text-xl sm:text-3xl group-hover:text-customRed"></i>
         {authHydrated && !authLoading && (

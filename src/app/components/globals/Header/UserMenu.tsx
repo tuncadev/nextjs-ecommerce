@@ -4,6 +4,7 @@ import React from "react";
 import useLogout from "@/app/hooks/useLogout";
 import { useAuth } from "@/app/context/AuthProvider";
 import {getProfileLink} from "@/app/utils/getProfileLink";
+import { User } from "@prisma/client";
 
 const UserMenu = () => {
 	const { user } = useAuth();
@@ -27,7 +28,7 @@ const UserMenu = () => {
             </Link>
           </span>
           <span className="text-[11px] leading-none text-sky-100">
-            <Link href={getProfileLink({username: user.username, page:""})} className="hover:text-gray-800 hover:bg-white text-gray-800 rounded bg-customGreen px-2 py-0.5 h-[22px]">
+            <Link href={`${getProfileLink({ user: user as User, page: "" })}`} className="hover:text-gray-800 hover:bg-white text-gray-800 rounded bg-customGreen px-2 py-0.5 h-[22px]">
               Профіль
             </Link>
           </span>

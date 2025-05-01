@@ -1,15 +1,13 @@
+
 type GetProfileLinkParams = {
-  username: string;
-  page?: string; // optional
+	user: { username: string } | null; // Only care about username
+  page?: string;
 };
 
-export function getProfileLink({ username, page }: GetProfileLinkParams): string {
-  if (!username) return "#";
-
-  let base = `/profile/${username}`;
-  if (page) {
-    base += `/${page}`;
+export function getProfileLink({ user, page }: GetProfileLinkParams): string {
+  if (user) {
+    return `/profile/${user.username}${page ? `/${page}` : ''}`;
   }
 
-  return base;
+  return `/${page || '#'}`;
 }

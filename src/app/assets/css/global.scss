@@ -31,6 +31,12 @@ nav#sidebar {
 	ul.profile_menu li {
 		@apply w-[170px] flex justify-start;
 	}
+	ul.profile_menu li a {
+		@apply hover:bg-customGreen hover:bg-gray-200;
+	}
+	ul.profile_menu li a[data-testid="current_page"] {
+		@apply bg-customGreen cursor-default;
+	}
 	ul.profile_menu li a.user-exit svg {
 		@apply fill-customRed;
  
@@ -40,3 +46,5 @@ nav#sidebar {
 	
 }
 }
+
+ 
