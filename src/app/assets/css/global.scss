@@ -43,8 +43,29 @@ nav#sidebar {
 	}
 	ul.profile_menu li:first-child {
 		width: 100%;
-	
 }
 }
 
  
+[data-testid="mainNav_title"] h5 {
+	@apply mb-0;
+}
+
+button[data-testid="close-drawer"] {
+	@apply relative end-0 top-0;
+}
+button[data-testid="close-drawer"]:hover {
+	@apply bg-customGreen;
+}
+[data-testid="mainNav_title"]  {
+	@apply flex items-center justify-between;
+}
+
+#authTabs {
+	@apply gap-4;
+}
+#authTabs button:focus {
+	
+	@apply ring-offset-2 ring-2 ring-customGreen;
+  
+}

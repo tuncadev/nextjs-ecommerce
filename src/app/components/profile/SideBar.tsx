@@ -8,6 +8,7 @@ import { FaArrowRightFromBracket, FaRegUser, FaBagShopping, FaHeart, FaRectangle
 import useLogout from "@/app/hooks/useLogout";
 import {getProfileLink} from "@/app/utils/getProfileLink";
 import Link from "next/link";
+import { User } from "@prisma/client";
  
 
 
@@ -23,11 +24,11 @@ const SideBar = () => {
 		<Sidebar aria-label="Personal Information" className=" " id="sidebar">
 			<Sidebar.Items  aria-label="Sidebar Items" className="  " >
 				<Sidebar.ItemGroup  aria-label="Sidebar item group" className=" profile_menu">
-					<Sidebar.Item as={Link} href="profile" data-testid={`${currentPage === "profile" ? "current_page" : ""}`} onClick={()=>setCurrentPage("profile")} icon={FaRegUser}  >
+					<Sidebar.Item as={Link} href={`${getProfileLink({ user: user as User, page: "" })}`} data-testid={`${currentPage === "profile" ? "current_page" : ""}`} onClick={()=>setCurrentPage("profile")} icon={FaRegUser}  >
 						<div className="flex flex-col">
 							<span className="text-xs">{user.username}</span>
 							<span className="text-xs text-lime-700">
-									{user?.email || "No email"} {/* Fix email display */} 
+									{user?.email || ""} {/* Fix email display */} 
 							</span>
 						</div>
 					</Sidebar.Item>

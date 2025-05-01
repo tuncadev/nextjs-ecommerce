@@ -22,6 +22,8 @@ const LoginPage: React.FC = () => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [error, setError] = useState("");
+	const [defaultTab, setDefaultTab] = useState(0);
+
 
 	const { refreshUser, user, authLoading: authLoading  } = useAuth();
 	const passwordCheck = usePasswordValidation(registerPassword);
@@ -35,8 +37,14 @@ const LoginPage: React.FC = () => {
 	}, [mounted, user]);
 
   useEffect(() => {
+				if (window?.location.hash === "#register") {
+					console.log("register")
+						setDefaultTab(1);
+		}
 		setMounted(true);
+	
   }, []);
+ 
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -109,17 +117,17 @@ const LoginPage: React.FC = () => {
 	if (!mounted || authLoading || user) return null;
 
   return (
-		<section id="authSection" className="pt-8 pb-0 border border-gray-300/60 rounded px-8 mx-auto mt-8">
-		<Tabs aria-label="Default tabs" variant="default" id="authTabs" className="justify-center pb-8">
-			<Tabs.Item active title="Login" icon={FaRegUser}>
+		<section id="authSection" className="w-screen max-w-[500px] mx-auto px-4  p-4 relative left-1/2 right-1/2 -translate-x-1/2">
+		<Tabs aria-label="Default tabs" variant="default" id="authTabs" className="justify-center pb-8" >
+			<Tabs.Item active={defaultTab === 0} title="Login" icon={FaRegUser}>
 				<div className="flex flex-col items-center justify-center ">
-					<div className="w-full max-w-md bg-white shadow-lg rounded-lg p-6">
+					<div className="w-full  bg-white shadow-lg rounded-lg p-6">
 						{loading ? (
 							<Working text="Обробка даних..." />
 						) : (
 							<form id="loginForm" onSubmit={handleSubmit} className="space-y-4 text-xs">
 								<div className="flex flex-col items-center justify-center">
-									<div className="w-full max-w-md bg-white shadow-lg rounded-lg p-6 flex flex-col gap-2">
+									<div className="w-full  bg-white shadow-lg rounded-lg p-6 flex flex-col gap-2">
 										<h2 className="text-lg font-semibold text-center text-gray-800">Вхід</h2>
 										<input
 											type="email"
@@ -149,9 +157,9 @@ const LoginPage: React.FC = () => {
 				</div>
 			</Tabs.Item>
 
-			<Tabs.Item title="Register" icon={FaUserPlus}>
+			<Tabs.Item active={defaultTab === 1} title="Register" icon={FaUserPlus}>
 				<div className="flex flex-col items-center justify-center p-4 gap-3">
-					<div className="w-full max-w-md bg-white shadow-lg rounded-lg p-6 flex flex-col gap-2">
+					<div className="w-full  bg-white shadow-lg rounded-lg p-6 flex flex-col gap-2">
 						{loading ? (
 							<Working text="Обробка даних..." />
 						) : (

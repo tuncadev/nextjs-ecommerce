@@ -13,7 +13,7 @@ const Favorites = () => {
   return (
 		<Link href={`${getProfileLink({ user: user as User, page: "favorites" })}`} >
 			<div className={`${hasFavorites ? "text-customGreen" : "text-gray-50"} relative group `}>
-				<i className={` fa-regular fa-heart text-xl sm:text-3xl group-hover:text-customRed group-hover:cursor-pointer`}></i>
+				<i className={` fa-regular fa-heart  group-hover:text-customRed group-hover:cursor-pointer`}></i>
 				<span className="text-white  absolute text-[10px] bg-customRed leading-none rounded-full px-2 py-1 group-hover:cursor-pointer bottom-0 -right-3 group-hover:bg-white group-hover:text-red-600">
 						{favorites.length && (
 							<span> {favorites.length} </span>

@@ -26,12 +26,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="uk" className={`${openSans.variable} ${oswald.variable}  ${workSans.variable} ${poppins.variable}`} suppressHydrationWarning>
-      <body id="root" className={`antialiased `}>
+      <body id="root" className={`sm:flex sm:min-h-screen flex-col antialiased`}>
 				
         <Toaster position="top-right" />
 				<Providers>
 					<Header />
-					<main id="main" className="">
+					<main id="main" className="flex-grow">
 						{children}
 					</main>
 					<Footer />

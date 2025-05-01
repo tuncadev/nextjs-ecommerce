@@ -13,7 +13,7 @@ const UserMenu = () => {
     <div className={`relative group ${user?.username ? "text-customGreen" : "text-gray-50"}`}>
       <Link href={user?.username ? `/profile/${user.username}` : "/login"}>
         <div>
-          <i className="fa-regular fa-user text-xl sm:text-3xl group-hover:text-customRed"></i>
+          <i className="fa-regular fa-user  group-hover:text-customRed"></i>
           <span className={`${user?.username ? "bg-customGreen text-gray-900 border border-gray-800 font-semibold left-3" : "bg-customRed left-3"} absolute text-[10px] leading-none rounded-full px-2 py-1 bottom-0`}>
             {user?.username || "логін"}
           </span>
