@@ -30,25 +30,25 @@ export const DrawerNav = ({ isOpen, setIsOpen, user }: Props) => {
 					) : categoryTree.length > 0 ? (
 						<>
 							{/* All Categories Link */}
-							<Link href="/shop" onClick={() => setIsOpen(false)} className="mt-2">
+							<a href="/shop" onClick={() => setIsOpen(false)} className="mt-2">
 								<div className="flex hover:text-customGreen	 items-center justify-start gap-4 text-gray-50 pl-4 mb-4 border-y border-y-gray-200/30 py-1">
 									<TbCategory className="text-sky-300" />всі категорії
 								</div>
 								
-							</Link>
+							</a>
 
 							{/* Category Loop */}
 							{categoryTree.map(parentCategory =>
 								parentCategory?.count > 0 ? (
 									<div key={parentCategory.wpId}>
-										<Link
+										<a
 											onClick={() => setIsOpen(false)}
 											href={getCategoryLink(parentCategory.wpId, parentCategory.slug)}
 											className="hover:text-customGreen	w-full flex gap-2 items-center px-4  text-sm p-1 border-b border-b-sky-500/40"
 										>
 											<i className="fa-solid fa-caret-right text-sky-600"></i>
 											{parentCategory.name} ({parentCategory.count})
-										</Link>
+										</a>
 
 										{/* Subcategories */}
 										{parentCategory.subcategories.length > 0 && (
@@ -56,14 +56,14 @@ export const DrawerNav = ({ isOpen, setIsOpen, user }: Props) => {
 												{parentCategory.subcategories
 													.filter(sub => sub?.count > 0)
 													.map(subcategory => (
-														<Link
+														<a
 															key={subcategory.wpId}
 															href={getCategoryLink(subcategory.wpId, subcategory.slug)}
 															onClick={() => setIsOpen(false)}
 															className="hover:text-customGreen	w-full flex gap-2 items-center pl-12 py-1 cursor-pointer text-sm border-b border-b-sky-100/20"
 														>
 															{subcategory.name} ({subcategory.count})	
-														</Link>
+														</a>
 													))}
 											</div>
 										)}

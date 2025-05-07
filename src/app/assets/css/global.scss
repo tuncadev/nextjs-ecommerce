@@ -10,9 +10,8 @@
 	--primary-text: #1f2937;
 }
 .defaultButton {
-  @apply px-4 py-2 rounded-lg text-white;  
 
-  background-color: var(--primary);
+  @apply px-4 py-2 rounded-lg text-white bg-primaryBackground;  
   
   &:hover {
     background-color: var(--primary-hover);
@@ -20,19 +19,37 @@
   }
 }
 
+.page {
+	&_container {
+			@apply m-auto p-2  max-w-[1170px];
+	}
+}
+
+.drawer {
+	&_navigation {
+		&-container {
+			@apply p-2  max-w-[1170px];
+		}
+	}
+}
+ 
+section {
+	@extend .page_container;
+}
+
 nav#sidebar {
-
 	@apply w-full sm:max-w-[300px] border-b border-b-gray-300 mb-8 sm:border-none;
-
-
 	ul.profile_menu {
 		@apply flex flex-wrap justify-start;
 	}
 	ul.profile_menu li {
-		@apply w-[150px] flex justify-start;
+		@apply w-[150px]  flex justify-start;
 	}
 	ul.profile_menu li a {
 		@apply  text-xs sm:text-sm hover:bg-customGreen hover:bg-gray-200;
+	}
+	ul.profile_menu li a:hover {
+		@apply cursor-pointer;
 	}
 	ul.profile_menu li a[data-testid="current_page"] {
 		@apply bg-customGreen cursor-default;
@@ -45,10 +62,9 @@ nav#sidebar {
 	 }
 	ul.profile_menu li:first-child {
 		width: 100%;
-}
+	}
 }
 
- 
 [data-testid="mainNav_title"] h5 {
 	@apply mb-0;
 }
@@ -56,9 +72,11 @@ nav#sidebar {
 button[data-testid="close-drawer"] {
 	@apply relative end-0 top-0;
 }
+
 button[data-testid="close-drawer"]:hover {
 	@apply bg-customGreen;
 }
+
 [data-testid="mainNav_title"]  {
 	@apply flex items-center justify-between;
 }
@@ -66,8 +84,7 @@ button[data-testid="close-drawer"]:hover {
 #authTabs {
 	@apply gap-4;
 }
+
 #authTabs button:focus {
-	
 	@apply ring-offset-2 ring-2 ring-customGreen;
-  
 }

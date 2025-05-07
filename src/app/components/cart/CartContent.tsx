@@ -69,10 +69,10 @@ const CartContent = () => {
 	if (!cartItems.length) {
 		return (
 			<>
-				<section className="container">
+				<section>
 					<InfoBadge title="Упс!" text="Ваш кошик порожній. Перейдіть до покупок!" />
 				</section>
-				<section className="container">
+				<section>
 					<PopularCategories columns="2" />
 				</section>
 			</>
@@ -82,7 +82,7 @@ const CartContent = () => {
 	const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
 	return (
-		<div className="container mx-auto px-4 py-8">
+		<div className="page_container mx-auto px-4 py-8">
 			<h1 className="text-2xl font-bold mb-6">Кошик</h1>
 
 			<div className="bg-white rounded-lg overflow-hidden flex gap-4 flex-col">

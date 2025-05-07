@@ -8,7 +8,7 @@ const FavoriteCard = ({ children }: FavoritesCardProps) => {
 	const [hoveredName, setHoveredName] = useState("");
 
 	return (
-		<div className='px-4 border border-gray-300 rounded-lg '>
+		<div className='page_container px-4 border border-gray-300 rounded-lg '>
 			<div className="py-2">
 				<span className='text-sm text-gray-500'>Список (Основний)</span>
 				{hoveredName && <span className='ml-2 text-xs text-gray-600 font-semibold'>({hoveredName})</span>}

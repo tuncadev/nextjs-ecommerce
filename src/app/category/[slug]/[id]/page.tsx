@@ -17,5 +17,8 @@ export async function generateMetadata({
 }
 
 export default function Page() {
-  return <CategoryPage />;
+  return (
+		<CategoryPage />
+	)
+	;
 }

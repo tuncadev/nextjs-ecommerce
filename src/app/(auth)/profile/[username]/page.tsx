@@ -11,7 +11,9 @@ const page = () => {
 	if (!authHydrated || authLoading || !CartInitialized || CartLoading) return <Working />;
 
 	return (
-		<div>Profile Page {user?.username}</div>
+		<section>
+			Profile Page {user?.username}
+		</section>
 	)
 }
 

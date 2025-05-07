@@ -5,7 +5,7 @@ export function getAllowedHosts(req: Request): boolean {
 
 		const allowedHosts = process.env.ALLOWED_HOSTS?.split(",").map(h => h.trim()) || [];
 		const clientHost = req.headers.get("host") || req.headers.get("x-forwarded-host") || "";
-		
+		console.log("allowedHosts: " + allowedHosts, " | clientHost: " + clientHost);
 		if (!allowedHosts.includes(clientHost.split(":")[0])) { 
 			
 			return false;

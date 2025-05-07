@@ -8,10 +8,8 @@
 	#main {
 		@apply px-2 pt-2 pb-[100px];
 	}
-  .container {
-    @apply m-auto p-2  max-w-[1170px];
-  }
-	.container h2 {
+
+	.page_container h2 {
 		@apply text-2xl font-semibold py-4;
 	}
 	span.price-green {

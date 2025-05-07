@@ -10,7 +10,7 @@ const UserMenu = () => {
 	const { user } = useAuth();
   const { handleLogout } = useLogout();
   return (
-    <div className={`relative group ${user?.username ? "text-customGreen" : "text-gray-50"}`}>
+    <div className={`relative group ${user?.username ? "text-customGreen pr-14" : "text-gray-50"}`}>
       <Link href={user?.username ? `/profile/${user.username}` : "/login"}>
         <div>
           <i className="fa-regular fa-user  group-hover:text-customRed"></i>

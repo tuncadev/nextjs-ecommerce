@@ -1,4 +1,4 @@
-import CartContent from "../components/cart/CartContent";
+import CartContent from "../../components/cart/CartContent";
 import { getMetadata } from "@/app/utils/getMetadata";
 
 export const metadata = getMetadata({

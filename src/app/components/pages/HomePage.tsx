@@ -17,10 +17,10 @@ const HomePage = () => {
 	if (authLoading) return <Working />;
   return (
     <>
-      <section className="container">
+      <section>
         <PopularCategories />
 			</section>
-			<section className="container">
+			<section>
 				<BannerLeft 
 					title="Кровать-машина  SPACE" 
 					text="Ох какая хорошая кровать" 
@@ -29,14 +29,14 @@ const HomePage = () => {
 				/>
 			</section>
 
-			<section className="container">
+			<section>
 				<BannerDouble 
 					bannerClass=""
 					bannerImageSmall={BannerSpace} 
 					bannerImageLarge={BannerLarge} 
 				/>
 			</section>
-			<section className="container">
+			<section>
         <ShopByCategory />
 		</section>
     </>

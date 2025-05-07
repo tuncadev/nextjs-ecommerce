@@ -65,7 +65,7 @@ if (productsLoading || !product) return <Loading text="product details..." />;
 
 	return (
 		<>
-			<section className={`${isModal ? " w-full max-h-[80vh] overflow-y-auto " : ""} container`}>
+			<section className={`${isModal ? " w-full max-h-[80vh] overflow-y-auto " : ""}`}>
 				<ProductTitleSection productName={product?.name} productSku={product?.sku} productUrl={"#"} />
 				<div className="flex flex-col sm:grid sm:grid-cols-5 w-full">
 					<div className="col-span-2">

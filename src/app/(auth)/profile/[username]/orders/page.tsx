@@ -9,7 +9,9 @@ export const metadata = getMetadata({
 
 const page = () => {
 	return (
-		<div className="">Orders page</div>
+		<div className="">
+			Orders page
+		</div>
 	)
 }
 

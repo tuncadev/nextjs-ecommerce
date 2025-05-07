@@ -1,34 +1,42 @@
 "use client";
 import { Badge, Sidebar } from "flowbite-react";
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useAuth } from '@/app/context/AuthProvider'
 import { useCart } from '@/app/context/CartContext'
 import { FaArrowRightFromBracket, FaRegUser, FaBagShopping, FaHeart, FaRectangleList } from "react-icons/fa6";
+import { usePathname } from 'next/navigation';
 
 import useLogout from "@/app/hooks/useLogout";
 import {getProfileLink} from "@/app/utils/getProfileLink";
 import Link from "next/link";
 import { User } from "@prisma/client";
+import { getPathPart } from "@/app/utils/getPathPart";
  
 
 
 const SideBar = () => {
+	const pathname = usePathname();
+	const page = getPathPart(pathname, 2);
 	const {cartItems} = useCart();
 	const {user, authHydrated, authLoading} = useAuth();
 	const { handleLogout } = useLogout();
 	const [badge, setBadge] = useState(true);
-	const [currentPage, setCurrentPage] = useState("profile");
+	const [currentPage, setCurrentPage] = useState(page);
+
+	useEffect(() => {
+		setCurrentPage(getPathPart(pathname, 2));
+	}, [pathname]);
 
 	if(authLoading && !authHydrated) return null;
 		return (
 		<Sidebar aria-label="Personal Information" className="" id="sidebar">
 			<Sidebar.Items  aria-label="Sidebar Items" className="  " >
 				<Sidebar.ItemGroup  aria-label="Sidebar item group" className=" profile_menu">
-					<Sidebar.Item as={Link} href={`${getProfileLink({ user: user as User, page: "" })}`} data-testid={`${currentPage === "profile" ? "current_page" : ""}`} onClick={()=>setCurrentPage("profile")} icon={FaRegUser}  >
+					<Sidebar.Item as={Link} href={`${getProfileLink({ user: user as User, page: "" })}`} data-testid={`${currentPage === "" ? "current_page" : ""}`} onClick={()=>setCurrentPage("profile")} icon={FaRegUser}  >
 						<div className="flex flex-col">
 							<span className="text-xs">{user?.username}</span>
 							<span className="text-xs text-lime-700">
-									{user?.email || ""} {/* Fix email display */} 
+									{user?.email || ""} {/* Fix email display */}
 							</span>
 						</div>
 					</Sidebar.Item>
@@ -47,7 +55,9 @@ const SideBar = () => {
 						Замовлення
 					</Sidebar.Item>
 					<Sidebar.Item   onClick={handleLogout} icon={FaArrowRightFromBracket} className="hover:cursor-pointer user-exit  ">
-							Вихід
+							<span className="hover:cursor-pointer">
+								Вихід
+							</span>
 					</Sidebar.Item>
 				</Sidebar.ItemGroup>
 			</Sidebar.Items>
