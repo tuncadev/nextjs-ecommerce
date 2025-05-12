@@ -16,7 +16,9 @@ const ProductTitleSection: React.FC<ProductTitleSectionProps> = ({ productName, 
 			</div>
 
 			<div className="flex justify-center md:justify-end  items-center space-x-4 mt-4 sm:mt-0">
-				<a href={productUrl} className="flex items-center text-gray-100 w-8 h-8 text-center justify-center rounded bg-blue-600 hover:text-blue-800 shadow-lg">
+			<a href={`https://www.facebook.com/sharer/sharer.php?u=${productUrl}`} target="_blank" className='flex items-center text-gray-100 w-8 h-8 text-center justify-center rounded bg-blue-600 hover:text-blue-800 shadow-lg'>
+
+			
 					<i className="fab fa-facebook-f text-lg"></i>
 				</a>
 				<a href={productUrl} className="flex items-center text-gray-100 w-8 h-8 text-center justify-center rounded bg-pink-500 hover:text-pink-700 shadow-lg">

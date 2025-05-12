@@ -88,7 +88,7 @@ const CartContent = () => {
 			<div className="bg-white rounded-lg overflow-hidden flex gap-4 flex-col">
 			{cartItems.map((item) => {
 				const data = cartProducts[item.productId];
-				console.log("Data", data);
+				
 				if (!data) return null;
 				return (
 					<CartItem

@@ -63,7 +63,7 @@ export const CategoryProductCard02: React.FC<Props> = ({ category = {} as Catego
                 .filter((subCategory) => subCategory.count > 0) // ✅ Ensure count > 0 before rendering
                 .map((subCategory) => (
                   <li key={subCategory.wpId}>
-                    <Link href={getCategoryLink(category.wpId, category.slug)} className="hover:underline">
+                    <Link href={getCategoryLink(subCategory.wpId, subCategory.slug)} className="hover:underline">
                       {subCategory.name || "Безіменна підкатегорія."}
                     </Link>
                   </li>

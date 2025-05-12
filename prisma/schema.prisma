@@ -1,7 +1,6 @@
 
 generator client {
   provider = "prisma-client-js"
-	output   = "app/generated/prisma/client"
 }
 
 datasource db {
@@ -31,7 +30,7 @@ model Product {
   salePrice       String?
   onSale          Boolean
   purchasable     Boolean
-  totalSales      Int
+  totalSales      Int?
   manageStock     Boolean
   stockQuantity   Int?
   weight          String?

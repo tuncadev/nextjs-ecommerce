@@ -4,11 +4,14 @@ import React from 'react'
 import { useAuth } from '@/app/context/AuthProvider';
 import Working from '@/app/components/actions/Working';
 import { PopularCategories } from '@/app/components/sections/PopularCategories';
-import { BannerLeft, BannerDouble } from "@/app/components/banners";
+import { Banner, BannerDouble } from "@/app/components/banners";
 
 import BannerSpace from '@/app/assets/banners/banner-space-bg.png';
-import BannerLarge from '@/app/assets/banners/banner-large.jpg';
-import { ShopByCategory } from '../sections/ShopByCategory';
+
+import BannerBrooklyn from '@/app/assets/banners/brookly01-2.webp';
+import BannerSmall from '@/app/assets/banners/banner-small.jpeg';
+import BannerSofia from '@/app/assets/banners/sofia-03.webp';
+import { ShopByCategory } from '@/app/components/sections/ShopByCategory';
 
 const HomePage = () => {
 
@@ -21,19 +24,48 @@ const HomePage = () => {
         <PopularCategories />
 			</section>
 			<section>
-				<BannerLeft 
-					title="Кровать-машина  SPACE" 
-					text="Ох какая хорошая кровать" 
+				<Banner 
+					position='left'
+					regularPrice='з 10.500 ₴'
+					discountPrice='10.064 ₴'
+					title="Ліжко-автомобіль  SPACE" 
+					subtitle="Для виготовлення даного виробу використовується плита ЛДСП класу «Е1» товщиною 16мм."
 					bannerClass="bg-gray-200 sm:py-16 border border-gray-300 shadow-md" 
 					bannerImage={BannerSpace} 
+					link='/category/lizhka-avtomobili-space/27/'
 				/>
 			</section>
-
+			<section>
+				<Banner 
+					position='right'
+					regularPrice='7500'
+					discountPrice='7300'
+					title="Крісло 'Малятко'" 
+					subtitle="Для даної моделі використовується тканина Etna «Рогожка» у кольоровій гаммі згідно каталогу." 
+					bannerClass="bg-gray-200 sm:py-16 border border-gray-300 shadow-md" 
+					bannerImage={BannerSmall} 
+					link='/product/krislo-malyatko/242'
+				/>
+			</section>
 			<section>
 				<BannerDouble 
+					bigBannerPosition='left'
 					bannerClass=""
-					bannerImageSmall={BannerSpace} 
-					bannerImageLarge={BannerLarge} 
+
+					regularPriceLarge='12000'
+					discountPriceLarge='10190'
+					titleLarge="Ліжко 'Brooklyn' (Із захисним бортиком)" 
+					subtitleLarge="Монтаж ліжка можливий як на лівий та і правий кут, що дуже зручно при розташуванні у квартирі чи будинку" 
+					bannerImageLarge={BannerBrooklyn} 
+					linkLarge='category/lizhko-brooklyn/29'
+
+
+					regularPriceSmall='8365'
+					bannerImageSmall={BannerSofia} 
+					titleSmall="Ліжко 'Sofia'" 
+					subtitleSmall="Стильна спальня для затишку" 
+					linkSmall='category/lizhko-sofia/32'
+										
 				/>
 			</section>
 			<section>

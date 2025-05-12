@@ -18,14 +18,14 @@
 	span.price-red {
 		@apply text-[customRed] font-semibold ;
 	}
-	span.price-discount-gray {
+	span.price-gray {
 		@apply text-[#999999] text-xl line-through;
 	}
 	div.banner-left {
 		@apply max-w-[1170px] mx-auto my-6 rounded-md bg-no-repeat bg-[right_100px_top] bg-contain;
 	}
 	div.banner-left-content {
-		@apply max-w-[300px] m-auto py-5;
+		@apply max-w-[350px] m-auto py-5;
 	}
 	div.banner-left-price {
 		@apply max-w-[270px]    text-center;

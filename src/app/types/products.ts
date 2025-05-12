@@ -19,7 +19,7 @@ export type Product = {
   salePrice?: string;
   onSale: boolean;
   purchasable: boolean;
-  totalSales: number;
+  totalSales?: number;
   manageStock: boolean;
   stockQuantity?: number;
   weight?: string;

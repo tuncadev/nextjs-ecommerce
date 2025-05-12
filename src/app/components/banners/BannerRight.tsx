@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+import { Button } from 'flowbite-react';
 
 type BannerRightProps = {
 
@@ -30,10 +31,9 @@ export const BannerRight: React.FC<BannerRightProps> = ({bannerClass, bannerImag
 				<div className="banner-right-price m-auto  lg:pr-16 flex flex-col">
 					<span className='price-discount-gray'> $900</span>
 					<span className='price-green  text-2xl'>$219</span>
-					<button
-					className='bg-[#fb7c00] text-white text-sm font-semibold px-6 py-2 rounded mt-4'>
-						Shop Now
-					</button>
+					<Button color="green" pill>
+						Купуйте зараз
+					</Button>
 				</div>
 			</div>
 		</div>

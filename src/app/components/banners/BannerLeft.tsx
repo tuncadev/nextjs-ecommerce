@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+import { Button } from 'flowbite-react';
 
 type BannerLeftProps = {
   bannerClass?: string;
@@ -38,10 +39,9 @@ export const BannerLeft: React.FC<BannerLeftProps> = ({bannerClass, bannerImage,
 				<div className="banner-left-price m-auto text-center   py-4 px-4 flex flex-col">
 					<span className='price-discount-gray'> $900</span>
 					<span className='price-green text-2xl'>$219</span>
-					<button
-						className='bg-[#fb7c00] text-white text-sm font-semibold px-6 py-2 rounded mt-4'>
-						Shop Now
-					</button>
+					<Button  pill className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:bg-gradient-to-bl focus:ring-cyan-300 dark:focus:ring-cyan-800">
+						Купуйте зараз
+					</Button>
 				</div>
 			</div>
 		</div>

@@ -18,8 +18,11 @@ type ProductsContextType = {
   getCategoryBySlug: (slug: string) => Category | undefined;
   getProductsByCatId: (catId: number) => Product[];
   getProductVariationById: (id: number) => Variation | undefined;
+	getProductVariationsById: (id: number) => Variation[]
   getFeaturedCategories: () => Category[];
   getSubCategoriesFromParentId: (parentId: number) => Category[];
+	isParentCategory: (id: number) => boolean;
+	hasParent: (id: number) => boolean;
   getCategoryTree: () => (Category & { subcategories: Category[] })[];
 };
 
@@ -116,6 +119,16 @@ export const ProductsProvider = ({ children }: { children: React.ReactNode }) =>
     return products.find((p) => p.wpId === id);
   };
 
+	const isParentCategory = (id: number): boolean => {
+ 
+		return categories.some((c) => ( c?.wpId === id && c?.parent === null  ) || c?.parent === id);
+	};
+
+	const hasParent = (id: number): boolean => {
+
+ 		return categories.some((c) => c?.wpId === id && c?.parent !== null );
+	};
+
   const getProductBySlug = (slug: string): Product | undefined =>
     products.find((p) => p.slug === slug);
 
@@ -125,12 +138,17 @@ export const ProductsProvider = ({ children }: { children: React.ReactNode }) =>
   const getCategoryBySlug = (slug: string): Category | undefined =>
     categories.find((c) => c.slug === slug);
 
+	const getProductVariationsById = (id: number): Variation[] =>
+		variations.filter((v) => v.productId === id);
+
   const getProductsByCatId = (catId: number): Product[] => {
     return products.filter((product) => {
       const cats = product.categories;
       return Array.isArray(cats) && cats.some((cat) => cat.id === catId);
     });
   };
+
+
 
   const getProductVariationById = (id: number): Variation | undefined =>
     variations.find((v) => v.wpId === id);
@@ -183,6 +201,9 @@ export const ProductsProvider = ({ children }: { children: React.ReactNode }) =>
         getFeaturedCategories,
         getSubCategoriesFromParentId,
         getCategoryTree,
+				getProductVariationsById,
+				isParentCategory,
+				hasParent,
       }}
     >
       {children}

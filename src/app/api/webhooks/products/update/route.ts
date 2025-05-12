@@ -1,62 +1,44 @@
 import { NextResponse } from "next/server";
-import crypto from "crypto";
 import { getAllowedHosts } from "@/app/utils/getAllowedHosts";
-
+import { verifyWooSignature } from "@/lib/verifyWooSignature";
 
 export async function POST(req: Request): Promise<Response> {
-	console.warn("⚠️ Products Webhook connected");
+
+ 
+
 	const checkHost = getAllowedHosts(req);
+
 	if (!checkHost) {
-		return new Response("403 Forbidden - Access Denied", {
-			status: 403,
-			headers: { "Content-Type": "text/plain" },
-		});
+		return new Response("403 Forbidden - Access Denied", { status: 403 });
 	}
-	console.warn("Host Allowed");
+
 	try {
-		console.warn("Trying");
-		const secret = process.env.WC_PRODUCT_UPDATE_WEBHOOK_SECRET as string;
-		const signature = req.headers.get("x-wc-webhook-signature");
 
 
-		let rawBody: string;
+		const secret = process.env.WC_PRODUCT_CREATE_WEBHOOK_SECRET!;
+		const { valid } = await verifyWooSignature({ req, secret });
 
-		const contentType = req.headers.get("content-type") || "";
+		if (!valid) {
+			console.warn("❌ Invalid WooCommerce webhook signature");
 
-		if (contentType.includes("application/json")) {
-			rawBody = await req.text();
-
-		} else {
-			rawBody = await req.text();
-			
-		}
-		console.warn("Checking signature");
-		if (!signature) {
-			console.warn("⚠️ Webhook received without signature. Ignoring.");
-			return NextResponse.json({ message: "No signature. Ignored." }, { status: 200 });
+			return NextResponse.json({ message: "Invalid signature" }, { status: 200 });
 		}
 
-		const expectedSignature = crypto
-			.createHmac("sha256", secret)
-			.update(rawBody, "utf8")
-			.digest("base64");
-			console.warn("Checking expectedSignature signature");
-		if (signature !== expectedSignature) {
-			console.warn("⚠️ Invalid webhook signature. Ignoring.");
-			return NextResponse.json({ message: "Invalid signature. Ignored." }, { status: 200 });
-		}
-		console.warn(`Fetching products from ${process.env.NEXT_PUBLIC_SITE_URL}/api/products/`);
 		
-		const productsUpdate = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/products/`, {
-      method: "GET",
-    });
+		const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/products/`);
 
-		if (!productsUpdate.ok) {
-			console.warn("Product update fetch error 500");
+		if (!res.ok) {
 			return NextResponse.json({ message: "Product update fetch error" }, { status: 500 });
 		}
-		console.warn("Product updated successfully");
-		return NextResponse.json({ message: "Product updated successfully" }, { status: 200 });
+		let catMessage;
+		
+		const resCat = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/products/categories`);
+		if (!resCat.ok) {
+			catMessage = "Category update fetch error";
+		}
+		catMessage =  "Category update success";
+ 
+		return NextResponse.json({ message: `Product updated successfully with ${catMessage}` }, { status: 200 });
 
 	} catch (error) {
 		console.error("❌ Error processing product update webhook:", error);

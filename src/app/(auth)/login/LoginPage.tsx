@@ -38,7 +38,7 @@ const LoginPage: React.FC = () => {
 
   useEffect(() => {
 				if (window?.location.hash === "#register") {
-					console.log("register")
+
 						setDefaultTab(1);
 		}
 		setMounted(true);
