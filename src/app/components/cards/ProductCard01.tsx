@@ -27,7 +27,9 @@ export const ProductCard01 = ({ product, catHasParent }: Props) => {
 		product && setOpenModal(true);
 	}
 
-	const handleFavorites = async () => {
+	const handleFavorites = async (e: React.MouseEvent) => {
+		e.stopPropagation();
+		e.preventDefault();
 		product && handleFavoritesAction(product);
 	}
 	console.log("product", product)
@@ -41,17 +43,23 @@ return cartLoading ? (
 		<>
 		<div className="group/outer border hover:shadow-md border-gray-300 rounded-md px-2 py-1 relative flex flex-col overflow-hidden justify-between h-full w-full min-h-[300px] md:min-w-[200px] sm:max-w-[150px]">
 			{/** Favorites */}
-			<div className={`${isFavorite(product.id) ? "bg-customRed  border-customRed text-white " : "bg-white border-customRed border-y border-l  text-customRed hover:cursor-pointer hover:text-white hover:bg-customRed"} group/inner flex group-hover/outer:right-0 justify-start items-center  w-8 h-[20px] transition-all duration-200	z-10 absolute right-0 lg:-right-6 top-[13px]		rounded-tl-md rounded-bl-md`}>
-				<button onClick={handleFavorites}>
+			<div
+				className={`${
+					isFavorite(product.id)
+						? "bg-customRed border-customRed text-white"
+						: "bg-white border-customRed border-y border-l text-customRed hover:text-white hover:bg-customRed"
+				} group/inner flex justify-start items-center w-8 h-[20px] transition-all duration-200 z-50 absolute right-0 top-[13px] rounded-tl-md rounded-bl-md`}
+				style={{ touchAction: "manipulation" }}
+			>
+				<button onClick={handleFavorites} className="w-full h-full">
 					<i
-
 						className={`${
-							isFavorite(product.id) ? "fa-solid " : "fa-regular "
-						}  pl-2 text-md hover:cursor-pointer fa-heart  `}
+							isFavorite(product.id) ? "fa-solid" : "fa-regular"
+						} pl-2 text-md fa-heart`}
 					></i>
 				</button>
 			</div>
-			
+						
 			{/** Cart */}
 			
 			<div className={`${
