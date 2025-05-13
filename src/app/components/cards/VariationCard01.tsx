@@ -67,7 +67,7 @@ return cartLoading ? (
 				} group/inner flex justify-start items-center w-8 h-[20px] transition-all duration-200 z-40 absolute right-0 top-[13px] rounded-tl-md rounded-bl-md`}
 				style={{ touchAction: "manipulation" }}
 			>
-				<button onClick={handleFavorites} className="w-full h-full">
+				<button onClick={handleFavorites} className="w-full h-full flex items-center">
 					<i
 						className={`${
 							isFavorite(product.id) ? "fa-solid" : "fa-regular"
