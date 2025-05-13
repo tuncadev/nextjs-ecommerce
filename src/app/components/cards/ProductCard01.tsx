@@ -48,10 +48,10 @@ return cartLoading ? (
 					isFavorite(product.id)
 						? "bg-customRed border-customRed text-white"
 						: "bg-white border-customRed border-y border-l text-customRed hover:text-white hover:bg-customRed"
-				} group/inner flex justify-start items-center w-8 h-[20px] transition-all duration-200 z-50 absolute right-0 top-[13px] rounded-tl-md rounded-bl-md`}
+				} group/inner flex justify-start items-center w-8 h-[20px] transition-all duration-200 z-40 absolute right-0 top-[13px] rounded-tl-md rounded-bl-md`}
 				style={{ touchAction: "manipulation" }}
 			>
-				<button onClick={handleFavorites} className="w-full h-full">
+				<button onClick={handleFavorites} className="w-full h-full items-center flex">
 					<i
 						className={`${
 							isFavorite(product.id) ? "fa-solid" : "fa-regular"
