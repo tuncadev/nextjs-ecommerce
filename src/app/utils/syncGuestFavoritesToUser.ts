@@ -8,20 +8,22 @@ export async function syncGuestFavoritesToUser(userId: string, sessionToken: str
 	for (const fav of guestFavorites) {
 		await prisma.favorite.upsert({
 			where: {
-				userId_productId: {
+				userId_productId_variationId: {
 					userId,
 					productId: fav.productId,
+					variationId: (fav.variationId ?? null) as any,
 				},
 			},
 			update: {},
 			create: {
 				userId,
 				productId: fav.productId,
+				variationId: fav.variationId ?? null,
 			},
 		});
+		
 	}
 
-	// optionally: delete guest entries
 	await prisma.favorite.deleteMany({
 		where: { sessionToken },
 	});
