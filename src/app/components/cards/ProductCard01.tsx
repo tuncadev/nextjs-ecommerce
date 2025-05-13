@@ -39,9 +39,9 @@ return cartLoading ? (
     <Working />
   ) : (
 		<>
-		<div className="group/outer relative flex flex-col overflow-hidden justify-between h-full w-full min-h-[300px] md:min-w-[200px] sm:max-w-[150px]">
+		<div className="group/outer border hover:shadow-md border-gray-300 rounded-md px-2 py-1 relative flex flex-col overflow-hidden justify-between h-full w-full min-h-[300px] md:min-w-[200px] sm:max-w-[150px]">
 			{/** Favorites */}
-			<div className={`${isFavorite(product.id) ? "bg-customRed text-white " : "bg-white text-customRed hover:cursor-pointer hover:text-white hover:bg-customRed"} group/inner flex group-hover/outer:right-0 justify-start items-center  w-8 h-[20px] transition-all duration-200	z-10 absolute right-0 lg:-right-6 top-[13px]		rounded-tl-md rounded-bl-md`}>
+			<div className={`${isFavorite(product.id) ? "bg-customRed  border-customRed text-white " : "bg-white border-customRed border-y border-l  text-customRed hover:cursor-pointer hover:text-white hover:bg-customRed"} group/inner flex group-hover/outer:right-0 justify-start items-center  w-8 h-[20px] transition-all duration-200	z-10 absolute right-0 lg:-right-6 top-[13px]		rounded-tl-md rounded-bl-md`}>
 				<button onClick={handleFavorites}>
 					<i
 
@@ -55,8 +55,8 @@ return cartLoading ? (
 			{/** Cart */}
 			
 			<div className={`${
-					product.inCart ? "bg-customGreen text-white" : "bg-white text-customRed"
-				} group/inner  flex group-hover/outer:right-0 hover:cursor-pointer  hover:bg-customRed justify-start items-center  w-8 h-[20px] transition-all	z-10 duration-500  absolute right-0 lg:-right-6 top-[35px]		rounded-tl-md rounded-bl-md`}>
+					product.inCart ? "bg-customGreen border-customGreen hover:bg-customGreen  text-white" : "bg-white text-customRed"
+				} group/inner  flex group-hover/outer:right-0 hover:cursor-pointer border-customRed border-y border-l  hover:bg-customRed justify-start items-center  w-8 h-[20px] transition-all	z-10 duration-500  absolute right-0 lg:-right-6 top-[35px]		rounded-tl-md rounded-bl-md`}>
 				<i
 				 onClick={handleAddToCart}
 				 className={`fa-solid fa-cart-plus group-hover/inner:text-white pl-2 text-md `}
