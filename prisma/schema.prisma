@@ -75,6 +75,7 @@ model Variation {
 	attributes			Json?
 
 	product      Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
+	favorites  Favorite[]
 }	
 
 model Category {
@@ -182,10 +183,12 @@ model Favorite {
   userId    String?  
 	sessionToken String?  
   productId Int
+	variationId Int?
   createdAt DateTime @default(now())
 
   user     User?    @relation(fields: [userId], references: [id])
   product  Product? @relation(fields: [productId], references: [id])
+	variation  Variation? @relation(fields: [variationId], references: [id])
 
-  @@unique([userId, productId]) // no duplicate favorites per user
+  @@unique([userId, productId, variationId]) // no duplicate favorites per user
 }

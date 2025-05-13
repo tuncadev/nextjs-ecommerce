@@ -8,23 +8,29 @@ import { ProductTags } from "@/app/components/products/ProductTags";
 import { ProductStock } from "@/app/components/products/ProductStock";
 import ImageCarousel from "@/app/components/products/ImageCarousel";
 import { SingleProductActions } from "@/app/components/products/SingleProductActions";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Variation } from "@/app/types/variations";
 import { ProductImageHolder } from "./ProductImageHolder";
 import { ProductPrice } from "./ProductPrice";
 import { ProductVariationSelector } from "./ProductVariationSelector";
 import { Loading } from "@/app/components/actions/Loading";
+import { useSearchParams } from "next/navigation";
+
 
 type SingleProductProps = {
 	productId?: number;
+	variationId?: number;
   isModal?: boolean;
   openCartModal?: boolean;
   setOpenCartModal?: (open: boolean) => void;
 };
 
-export const SingleProduct: React.FC<SingleProductProps> = ({ productId, isModal, openCartModal, setOpenCartModal }) => {
+export const SingleProduct: React.FC<SingleProductProps> = ({ productId, isModal, openCartModal,variationId, setOpenCartModal }) => {
 
 	const params = useParams();
+
+	const searchParams = useSearchParams();
+	const urlVariationId = Number(searchParams.get("variationId")) || variationId;
 	const {products, productsLoading, getProductById} = useProducts();
 	const [selectedAttributes, setSelectedAttributes] = useState<Record<string, string>>({});
 	
@@ -53,7 +59,24 @@ export const SingleProduct: React.FC<SingleProductProps> = ({ productId, isModal
 		});
 	}, [product?.variationsData, selectedAttributes]);
 
-
+	useEffect(() => {
+		if (!product || !urlVariationId) return;
+	
+		const variation = product.variationsData?.find((v: Variation) => v.id === urlVariationId);
+		if (!variation) return;
+	
+		const attrs = Array.isArray(variation.attributes)
+			? variation.attributes
+			: JSON.parse(variation.attributes || "[]");
+	
+		const initialAttrs: Record<string, string> = {};
+		attrs.forEach((attr: any) => {
+			initialAttrs[attr.name] = attr.option;
+		});
+	
+		setSelectedAttributes(initialAttrs);
+	}, [product, urlVariationId]);
+	
 
 	
 const attributeNames = useMemo(() => {

@@ -9,6 +9,7 @@ import Working from "@/app/components/actions/Working";
 import { AddToCartModal } from "@/app/components/modals/AddToCartModal";
 import { useFavorites } from "@/app/context/FavoritesContext";
 import { Variation } from "@/app/types/variations";
+import { useCart } from "@/app/context/CartContext";
 
 type Props = {
   product: Product;
@@ -32,6 +33,7 @@ export const VariationCard01 = ({ product, variation }: Props) => {
 	const [cartLoading] = useState(false);
 	const { handleFavoritesAction, isFavorite }= useFavorites();
 	const [openModal, setOpenModal] = useState(false);
+	const {variationInCart} = useCart();
 
 	let parsedImage: ImageType | null = null;
 
@@ -45,27 +47,31 @@ export const VariationCard01 = ({ product, variation }: Props) => {
 	}
 
 	const handleFavorites = async () => {
-		product && handleFavoritesAction(product);
+		product && handleFavoritesAction(product, variation)
+		;
 	}
-	
+const inCart = variationInCart(variation.wpId)
+
 return cartLoading ? (
     <Working />
   ) : (
 		<>
 		<div className="group/outer relative flex flex-col overflow-hidden justify-between h-full w-full min-h-[300px] md:min-w-[200px] sm:max-w-[150px]">
 			{/** Favorites */}
-			<div className={`${isFavorite(product.id) ? "bg-customRed text-white " : "bg-white text-customRed hover:cursor-pointer hover:text-white hover:bg-customRed"} group/inner flex group-hover/outer:right-0 justify-start items-center  w-8 h-[20px] transition-all duration-200	z-10 absolute right-0 lg:-right-6 top-[13px]		rounded-tl-md rounded-bl-md`}>
-				<i
-				onClick={handleFavorites}
-					className={`${
-						isFavorite(product.id) ? "fa-solid " : "fa-regular "
-					}  pl-2 text-md hover:cursor-pointer fa-heart  `}
-				></i>
+			<div className={`${isFavorite(product.id, variation.id) ? "bg-customRed text-white " : "bg-white text-customRed hover:cursor-pointer hover:text-white hover:bg-customRed"} group/inner flex group-hover/outer:right-0 justify-start items-center  w-8 h-[20px] transition-all duration-200	z-10 absolute right-0 lg:-right-6 top-[13px]		rounded-tl-md rounded-bl-md`}>
+			<button onClick={handleFavorites}>
+					<i
+						className={`${
+							isFavorite(product.id, variation.id)
+						 ? "fa-solid " : "fa-regular "
+						}  pl-2 text-md hover:cursor-pointer fa-heart  `}
+					></i>
+				</button>
 			</div>
 			{/** Cart */}
 			
 			<div className={`${
-					product.inCart ? "bg-customGreen text-white" : "bg-white text-customRed"
+					inCart ? "bg-customGreen text-white" : "bg-white text-customRed"
 				} group/inner  flex group-hover/outer:right-0 hover:cursor-pointer  hover:bg-customRed justify-start items-center  w-8 h-[20px] transition-all	z-10 duration-500  absolute right-0 lg:-right-6 top-[35px]		rounded-tl-md rounded-bl-md`}>
 				<i
 				 onClick={handleAddToCart}
@@ -79,7 +85,7 @@ return cartLoading ? (
  
 
 				<Link
-				 	href={getProductLink(product?.wpId, product?.slug)}
+				 	href={`${getProductLink(product?.wpId, product?.slug)}?variationId=${variation.id}`}
 
 					className="h-full w-full "
 				>
@@ -126,7 +132,8 @@ return cartLoading ? (
 		<AddToCartModal 
 			openCartModal={openModal}
 			setOpenCartModal={setOpenModal}
-			productId={product.wpId} 
+			productId={product.wpId}
+			variationId={variation.id} 
 		/>
 </>
 	);

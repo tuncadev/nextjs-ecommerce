@@ -6,7 +6,8 @@ import { cookies } from "next/headers";
 
 export async function POST(req: NextRequest) {
   try {
-    const { productId } = await req.json();
+    const { productId, variationId = null } = await req.json();
+
     if (!productId) {
       return NextResponse.json({ message: "Missing productId" }, { status: 400 });
     }
@@ -15,9 +16,10 @@ export async function POST(req: NextRequest) {
     const sessionToken = (await cookieStore).get("session_token")?.value ?? null;
     const session = await getSession();
 
-    const existing = await prisma.favorite.findFirst({
+		const existing = await prisma.favorite.findFirst({
 			where: {
 				productId,
+				variationId,
 				OR: [
 					{ userId: session.userId ?? undefined },
 					{ sessionToken },
@@ -30,13 +32,14 @@ export async function POST(req: NextRequest) {
     }
 
     const created = await prisma.favorite.create({
-      data: {
-        userId: session.userId ?? null,
-        sessionToken,
-        productId,
-      },
-      include: { product: true },
-    });
+			data: {
+				userId: session.userId ?? null,
+				sessionToken,
+				productId,
+				variationId,
+			},
+			include: { product: true, variation: true },
+		});
 
     return NextResponse.json({ message: "Added to favorites", favorite: created });
   } catch (err) {
@@ -49,6 +52,9 @@ export async function DELETE(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
     const productId = Number(searchParams.get("productId"));
+		const variationId = searchParams.has("variationId")
+			? Number(searchParams.get("variationId"))
+			: null;
     if (!productId) {
       return NextResponse.json({ message: "Missing productId" }, { status: 400 });
     }
@@ -58,14 +64,15 @@ export async function DELETE(req: NextRequest) {
     const session = await getSession();
 
     const deleted = await prisma.favorite.deleteMany({
-      where: {
-        productId,
-        OR: [
-          { userId: session.userId ?? undefined },
-          { sessionToken },
-        ],
-      },
-    });
+			where: {
+				productId,
+				variationId,
+				OR: [
+					{ userId: session.userId ?? undefined },
+					{ sessionToken },
+				],
+			},
+		});
 
     return NextResponse.json({ message: "Removed from favorites", deleted });
   } catch (err) {

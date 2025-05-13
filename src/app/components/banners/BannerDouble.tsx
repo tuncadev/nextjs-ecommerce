@@ -48,7 +48,7 @@ export const BannerDouble: React.FC<BannerDoubleProps> = ({
     >
 			{/** Left Banner */}
       <div
-        className="bg-sky-200 col-span-2 max-w-[65%]  overflow-hidden pl-14 py-10 sm:py-0 bg-no-repeat bg-cover flex justify-center items-left flex-col"
+        className="bg-sky-200 col-span-2 sm:max-w-[65%]  overflow-hidden pl-14 py-10 sm:py-0 bg-no-repeat bg-cover flex justify-center items-left flex-col"
         style={{ backgroundImage: `url('${bannerImageLarge.src}')` }}
       >
 				<div className="max-w-[80%]">
@@ -68,7 +68,7 @@ export const BannerDouble: React.FC<BannerDoubleProps> = ({
 					</Button>
       </div>
 			{/** Right Banner */}
-      <div className="bg-[#eef0f1] max-w-[30%]  flex flex-col relative  py-4  overflow-hidden items-center justify-center mt-8 sm:mt-0">
+      <div className="bg-[#eef0f1] sm:max-w-[30%]  flex flex-col relative  py-4  overflow-hidden items-center justify-center mt-8 sm:mt-0">
         <h3 className="font-bold py-3">
 					{titleSmall}
 				</h3>

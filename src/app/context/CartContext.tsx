@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAuth } from "@/app/context/AuthProvider";
+import { toast } from "react-hot-toast";
 
 type CartItem = {
 	variationId: number,
@@ -19,6 +20,8 @@ type CartContextType = {
 	refreshCart: () => Promise<void>;
 	CartLoading: boolean;
 	CartInitialized: boolean;
+	variationInCart: (variationId: number) => boolean;
+
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -78,6 +81,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 			const res = await fetch("/api/cart/load");
 			const data = await res.json();
 			if (data?.status === "success") {
+				toast.success("Додано до кошика");
 				setCartItems(data.cartItems);
 			}
 		} catch (err) {
@@ -87,11 +91,18 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 			setCartInitialized(true);
 		}
 	};
+
   const removeFromCart = (variationId: number) => {
     const updated = cartItems.filter((i) => i.variationId !== variationId);
     setCartItems(updated);
     syncCart(updated);
   };
+
+	const variationInCart = (variationId: number) => {
+    const inCart = cartItems.some(item => item.variationId === variationId);
+    return inCart;
+  };
+
 
   const updateQuantity = (variationId: number, quantity: number) => {
     const updated = cartItems.map((i) =>
@@ -116,7 +127,8 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         clearCart,
         CartLoading,
         CartInitialized,
-				refreshCart
+				refreshCart,
+				variationInCart,
       }}
     >
       {children}

@@ -7,6 +7,7 @@ type Props = {
   setOpenCartModal: (open: boolean) => void;
 	isModal?: boolean;
 	productId: number;
+	variationId?: number;
 };
 
 
@@ -14,6 +15,7 @@ export const AddToCartModal = ({
 	openCartModal,
 	setOpenCartModal,
 	productId,
+	variationId
 }: Props) => {
 
 	if(!openCartModal) return null;
@@ -39,6 +41,7 @@ export const AddToCartModal = ({
         <div className="flex flex-col items-center justify-between">
 				<SingleProduct 
 					productId={productId} 
+					variationId={variationId}
 					isModal={true} 
 					openCartModal={openCartModal} 
 					setOpenCartModal={setOpenCartModal}
