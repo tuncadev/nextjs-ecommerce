@@ -11,6 +11,7 @@ import BannerSpace from '@/app/assets/banners/banner-space-bg.png';
 import BannerBrooklyn from '@/app/assets/banners/brookly01-2.webp';
 import BannerSmall from '@/app/assets/banners/banner-small.jpeg';
 import BannerSofia from '@/app/assets/banners/sofia-03.webp';
+import BannerBedroom5 from '@/app/assets/banners/bedroom-05-gray.webp';
 import { ShopByCategory } from '@/app/components/sections/ShopByCategory';
 
 const HomePage = () => {
@@ -66,6 +67,18 @@ const HomePage = () => {
 					subtitleSmall="Стильна спальня для затишку" 
 					linkSmall='category/lizhko-sofia/32'
 										
+				/>
+			</section>
+			<section>
+				<Banner 
+					position='left'
+					regularPrice='з 14783 ₴'
+					
+					title="BED-ROOM №5 (Білий корпус)" 
+					subtitle="Компактне та стильне рішення з білосніжним корпусом і фасадами в палітрі на вибір."
+					bannerClass="bg-gray-200 sm:py-16 border border-gray-300 shadow-md" 
+					bannerImage={BannerBedroom5} 
+					link='/category/bed-room-№5/23'
 				/>
 			</section>
 			<section>
