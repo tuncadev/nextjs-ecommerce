@@ -15,14 +15,15 @@ const MobileFooter = () => {
 	const { user, authHydrated, authLoading} = useAuth();
 	const {favorites }= useFavorites();
 	const {cartItems, CartLoading, CartInitialized} = useCart();
+	const [cartLength, setCartLength] = useState(0);
+	const [favLength, setFavLength] = useState(0);
 	useEffect(()=> {
 		setCartLength(cartItems.length);
 		setFavLength(favorites.length);
 	}, [cartItems, favorites])
 
 	if(authLoading && !authHydrated || CartLoading || !CartInitialized) return null;
-	const [cartLength, setCartLength] = useState(0);
-	const [favLength, setFavLength] = useState(0);
+
 
 
 
