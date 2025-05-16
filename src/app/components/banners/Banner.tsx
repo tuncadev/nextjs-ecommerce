@@ -66,7 +66,7 @@ export const Banner: React.FC<BannerProps>  = (
 							{discountPrice}
 						</span>
 					)}
-					<Button  as={Link} href={BannerLink}  pill className="mt-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:bg-gradient-to-bl focus:ring-cyan-300 dark:focus:ring-cyan-800">
+					<Button  as={Link} href={BannerLink}  pill className=" font-semibold mt-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:bg-gradient-to-bl focus:ring-cyan-300 dark:focus:ring-cyan-800">
 						{ buttonText || "Купуйте зараз" }
 					</Button>
 				</div>
@@ -101,7 +101,7 @@ export const Banner: React.FC<BannerProps>  = (
 								{discountPrice}
 							</span>
 						)}						
-						<Button as={Link} href={BannerLink} pill className="bg-gradient-to-br from-pink-500 to-orange-400 text-white hover:bg-gradient-to-bl focus:ring-pink-200 dark:focus:ring-pink-800">
+						<Button as={Link} href={BannerLink} pill className="font-semibold bg-gradient-to-br from-pink-500 to-orange-400 text-white hover:bg-gradient-to-bl focus:ring-pink-200 dark:focus:ring-pink-800">
 							{ buttonText || "Купуйте зараз" }
 						</Button>
 					</div>

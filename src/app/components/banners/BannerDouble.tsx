@@ -48,10 +48,10 @@ export const BannerDouble: React.FC<BannerDoubleProps> = ({
     >
 			{/** Left Banner */}
       <div
-        className="bg-sky-200 col-span-2 max-w-full sm:max-w-[65%]  overflow-hidden pl-14 py-10 sm:py-0 bg-no-repeat bg-cover flex justify-center items-left flex-col"
+        className="bg-sky-200 col-span-2 max-w-full sm:max-w-[65%]  overflow-hidden sm:pl-14 px-4 py-10 sm:py-0 bg-no-repeat bg-cover flex justify-center items-left flex-col"
         style={{ backgroundImage: `url('${bannerImageLarge.src}')` }}
       >
-				<div className="max-w-[80%]">
+				<div className="sm:max-w-[80%] text-white bg-gray-900/50 px-6 py-4 rounded">
 					<h3 className="text-2xl">
 						{titleLarge}
 					</h3>
@@ -59,13 +59,15 @@ export const BannerDouble: React.FC<BannerDoubleProps> = ({
 						{subtitleLarge}
 					</h4>
 				</div>
-        <span className="font-semibold">РОЗПРОДАЖ ДО</span>
-        <span className="text-white font-semibold bg-red-400  border border-gray-400/50 px-2 py-1 rounded-full max-w-fit">
-					{Math.round(((Number(regularPriceLarge) - Number(discountPriceLarge)) / Number(regularPriceLarge)) * 100)}%
-					</span>
-					<Button  as={Link} href={linkLarge}  pill className="mt-4  max-w-full sm:max-w-[200px] bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:bg-gradient-to-bl focus:ring-cyan-300 dark:focus:ring-cyan-800">
-						{ buttonTextLarge || "Купуйте зараз" }
-					</Button>
+				<div className="sm:max-w-[40%] mt-4 text-white bg-gray-900/50 px-6 py-4 rounded">
+					<span className="font-semibold mr-4">РОЗПРОДАЖ ДО</span>
+					<span className="text-white font-semibold bg-red-400  border border-gray-400/50 px-2 py-1 rounded-full max-w-fit">
+						{Math.round(((Number(regularPriceLarge) - Number(discountPriceLarge)) / Number(regularPriceLarge)) * 100)}%
+						</span>
+				</div>
+				<Button  as={Link} href={linkLarge}  pill className="mt-4 font-semibold max-w-full sm:max-w-[200px] bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:bg-gradient-to-bl focus:ring-cyan-300 dark:focus:ring-cyan-800">
+					{ buttonTextLarge || "Купуйте зараз" }
+				</Button>
       </div>
 			{/** Right Banner */}
       <div className="bg-[#eef0f1]  max-w-full sm:max-w-[30%]  flex flex-col relative  py-4  overflow-hidden items-center justify-center mt-8 sm:mt-0">
@@ -89,7 +91,7 @@ export const BannerDouble: React.FC<BannerDoubleProps> = ({
 						sizes="(max-width: 640px) 100vw, 200px"
 					/>
 				</div>
-				<Button  as={Link} href={linkSmall}  pill className="max-w-[200px] mt-4 bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 text-white hover:bg-gradient-to-br focus:ring-pink-300 dark:focus:ring-pink-800">
+				<Button  as={Link} href={linkSmall}  pill className="max-w-[200px] font-semibold mt-4 bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 text-white hover:bg-gradient-to-br focus:ring-pink-300 dark:focus:ring-pink-800">
 					{ buttonTextSmall || "Купуйте зараз" }
 				</Button>
       </div>
