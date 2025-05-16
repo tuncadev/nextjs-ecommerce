@@ -48,7 +48,7 @@ return cartLoading ? (
 					isFavorite(product.id)
 						? "bg-customRed border-customRed text-white"
 						: "bg-white border-customRed border-y border-l text-customRed hover:text-white hover:bg-customRed"
-				} group/inner flex justify-start items-center w-8 h-[20px] transition-all duration-200 z-40 absolute right-0 top-[13px] rounded-tl-md rounded-bl-md`}
+				} group/inner  flex group-hover/outer:right-0 hover:cursor-pointer border-customRed border-y border-l hover:bg-customRed justify-start items-center  w-8 h-[20px] transition-all	z-10 duration-200  absolute right-0 lg:-right-6 top-[13px]		rounded-tl-md rounded-bl-md`}
 				style={{ touchAction: "manipulation" }}
 			>
 				<button onClick={handleFavorites} className="w-full h-full items-center flex">
@@ -63,8 +63,8 @@ return cartLoading ? (
 			{/** Cart */}
 			
 			<div className={`${
-					product.inCart ? "bg-customGreen border-customGreen hover:bg-customGreen  text-white" : "bg-white text-customRed"
-				} group/inner  flex group-hover/outer:right-0 hover:cursor-pointer border-customRed border-y border-l  hover:bg-customRed justify-start items-center  w-8 h-[20px] transition-all	z-10 duration-500  absolute right-0 lg:-right-6 top-[35px]		rounded-tl-md rounded-bl-md`}>
+					product.inCart ? "bg-customGreen  border-customGreen border text-white" : "bg-white border-customRed text-customRed"
+				} group/inner  flex group-hover/outer:right-0 hover:cursor-pointer  border-y border-l  hover:bg-customRed justify-start items-center  w-8 h-[20px] transition-all	z-10 duration-500  absolute right-0 lg:-right-6 top-[35px]		rounded-tl-md rounded-bl-md`}>
 				<i
 				 onClick={handleAddToCart}
 				 className={`fa-solid fa-cart-plus group-hover/inner:text-white pl-2 text-md `}

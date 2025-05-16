@@ -50,10 +50,14 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   }, []);
 
 	const isFavorite = useCallback(
-		(productId: number, variationId?: number) =>
-			favorites.some((f) => f.productId === productId && f.variationId === (variationId ?? null)),
+		(productId: number, variationId?: number) => {
+			return favorites.some(
+				(f) => f.productId === productId && f.variationId === (variationId ?? null)
+			);
+		},
 		[favorites]
 	);
+	
 	
   const addToFavorites = async (product: Product, variation?: Variation) => {
 		try {

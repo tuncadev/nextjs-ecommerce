@@ -30,10 +30,10 @@ type ImageType = {
 
 export const VariationCard01 = ({ product, variation }: Props) => {
 	const [imgLoaded, setImgLoaded] = useState(false);
-	const [cartLoading] = useState(false);
+ 
 	const { handleFavoritesAction, isFavorite }= useFavorites();
 	const [openModal, setOpenModal] = useState(false);
-	const {variationInCart} = useCart();
+	const {variationInCart, CartLoading} = useCart();
 
 	let parsedImage: ImageType | null = null;
 
@@ -47,13 +47,17 @@ export const VariationCard01 = ({ product, variation }: Props) => {
 	}
 
 	const handleFavorites = async (e: React.MouseEvent) => {
+		console.log("product.id",product.id);
+		console.log("variation.wpId",variation.wpId);
 		e.stopPropagation();
 		e.preventDefault();
 		product && handleFavoritesAction(product, variation);
 	}
 const inCart = variationInCart(variation.wpId)
 
-return cartLoading ? (
+ 
+
+return CartLoading || !product ? (
     <Working />
   ) : (
 		<>
@@ -61,24 +65,24 @@ return cartLoading ? (
 			{/** Favorites */}
 			<div
 				className={`${
-					isFavorite(product.id)
+					isFavorite(product.id, variation.id)
 						? "bg-customRed border-customRed text-white"
 						: "bg-white border-customRed border-y border-l text-customRed hover:text-white hover:bg-customRed"
-				} group/inner flex justify-start items-center w-8 h-[20px] transition-all duration-200 z-40 absolute right-0 top-[13px] rounded-tl-md rounded-bl-md`}
+				} group/inner  flex group-hover/outer:right-0 hover:cursor-pointer border-customRed border-y border-l hover:bg-customRed justify-start items-center  w-8 h-[20px] transition-all	z-10 duration-500  absolute right-0 lg:-right-6 top-[13px]		rounded-tl-md rounded-bl-md`}
 				style={{ touchAction: "manipulation" }}
 			>
 				<button onClick={handleFavorites} className="w-full h-full flex items-center">
 					<i
 						className={`${
-							isFavorite(product.id) ? "fa-solid" : "fa-regular"
+							isFavorite(product.id, variation.id) ? "fa-solid" : "fa-regular"
 						} pl-2 text-md fa-heart`}
 					></i>
 				</button>
 			</div>
 			{/** Cart */}
 			<div className={`${
-					inCart ? "bg-customGreen  text-white" : "bg-white text-customRed"
-				} group/inner  flex group-hover/outer:right-0 hover:cursor-pointer border-customRed border-y border-l hover:bg-customRed justify-start items-center  w-8 h-[20px] transition-all	z-10 duration-500  absolute right-0 lg:-right-6 top-[35px]		rounded-tl-md rounded-bl-md`}>
+					inCart ? "bg-customGreen  border-customGreen  text-white" : "bg-white text-customRed border-customRed"
+				} group/inner  flex group-hover/outer:right-0 hover:cursor-pointer  border-y border-l hover:bg-customRed justify-start items-center  w-8 h-[20px] transition-all	z-10 duration-500  absolute right-0 lg:-right-6 top-[35px]		rounded-tl-md rounded-bl-md`}>
 				<i
 				 onClick={handleAddToCart}
 				 className={`fa-solid fa-cart-plus group-hover/inner:text-white pl-2 text-md `}
