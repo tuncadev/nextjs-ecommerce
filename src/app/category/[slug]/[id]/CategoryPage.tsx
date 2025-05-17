@@ -8,9 +8,10 @@ import Working from "@/app/components/actions/Working";
 import { useAuth } from "@/app/context/AuthProvider";
 import { Variation } from "@/app/types/variations";
 import { VariationCard01 } from "@/app/components/cards/VariationCard01";
+import { BaseCard } from "@/app/components/cards/BaseCard";
 
 const CategoryPage: React.FC = () => {
-  const { getProductsByCatId, productsLoading, getProductVariationsById, isParentCategory, hasParent } = useProducts();
+  const { getProductsByCatId, productsLoading, getProductVariationsById, isParentCategory, hasParent, getCategoryById } = useProducts();
   const params = useParams();
   const [hydrated, setHydrated] = useState(false);
   const { authHydrated, authLoading } = useAuth();
@@ -26,8 +27,9 @@ const CategoryPage: React.FC = () => {
   const categoryDetails = useMemo(() => {
     const isParent = isParentCategory(Number(params.id));
     const categoryProducts = getProductsByCatId(Number(params.id));
+		const category = getCategoryById(Number(params.id));
 
-    return { isParent, categoryProducts };
+    return { isParent, categoryProducts,category };
   }, [params.id, getProductsByCatId]);
 
   const categoryProducts = categoryDetails.categoryProducts;
@@ -47,26 +49,29 @@ const CategoryPage: React.FC = () => {
   }
 
   return (
-    <section className="justify-between mt-4 grid grid-cols-2 gap-6 md:gap-10 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+    <div className="page_container">
+			<h1  className="pl-4 ">{categoryDetails.category?.name}</h1>
+			<section className="justify-between mt-4 grid grid-cols-2 gap-y-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
       {categoryProducts.map((product) => {
-
-				const catHasParent = hasParent(product.categories[0].id)
+ 
         const variations = (getProductVariationsById(product.id) || []) as Variation[];
         return (
           <React.Fragment key={product.id}>
             {
 						variations.length > 0 && !isParent ? (
               variations.map((variation: Variation) => (
-                <VariationCard01 key={variation.id} product={product} variation={variation} />
+								<BaseCard  key={`${product.id}-${variation.id}`} product={product} variation={variation} />
+
               ))
             ) : (
-              <ProductCard01 catHasParent={catHasParent} product={product} />
+              <BaseCard product={product} catHasParent={true} />
             )
 						}
           </React.Fragment>
         );
       })}
     </section>
+		</div>
   );
 };
 

@@ -149,7 +149,6 @@ export const ProductsProvider = ({ children }: { children: React.ReactNode }) =>
   };
 
 
-
   const getProductVariationById = (id: number): Variation | undefined =>
     variations.find((v) => v.wpId === id);
 

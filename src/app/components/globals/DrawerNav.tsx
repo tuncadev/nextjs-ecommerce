@@ -30,7 +30,7 @@ export const DrawerNav = ({ isOpen, setIsOpen, user }: Props) => {
           <a
             href={getCategoryLink(sub.wpId, sub.slug)}
             onClick={() => setIsOpen(false)}
-            className={`subcat-${depth} hover:text-customGreen w-full flex gap-2 items-center ${depth == 1 ? "pl-10"  : "pl-16"} py-1 cursor-pointer text-sm border-b border-b-sky-100/20`}
+            className={`subcat-${depth} hover:text-customGreen w-full flex gap-2 items-center ${depth == 1 ? "pl-10"  : "pl-16"} py-1 cursor-pointer text-xs border-b border-b-sky-100/20`}
           >
             {sub.name} ({sub.count})
           </a>
@@ -80,7 +80,7 @@ export const DrawerNav = ({ isOpen, setIsOpen, user }: Props) => {
                           parentCategory.wpId,
                           parentCategory.slug
                         )}
-                        className="hover:text-customGreen w-full flex gap-2 items-center px-4 text-sm p-1 border-b border-b-sky-500/40"
+                        className="hover:text-customGreen w-full flex gap-2 items-center px-4 text-xs p-1 border-b border-b-sky-500/40"
                       >
                         <i className="fa-solid fa-caret-right text-sky-600"></i>
                         {parentCategory.name} ({parentCategory.count})
@@ -103,7 +103,7 @@ export const DrawerNav = ({ isOpen, setIsOpen, user }: Props) => {
               <Link
                 href="login#register"
                 onClick={() => setIsOpen(false)}
-                className="rounded-lg text-sm text-center w-full bg-white border py-2 text-primaryForeground hover:bg-secondaryBackground hover:border hover:border-primaryBackground hover:text-secondaryForeground"
+                className="rounded-lg text-xs text-center w-full bg-white border py-2 text-primaryForeground hover:bg-secondaryBackground hover:border hover:border-primaryBackground hover:text-secondaryForeground"
               >
                 Реєстрація
               </Link>

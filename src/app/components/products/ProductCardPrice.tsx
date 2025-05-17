@@ -10,7 +10,7 @@ type ProductCardPriceType = {
 const ProductCardPrice = ({variationsCount, productPrice, min, max}: ProductCardPriceType) => {
 
 	return (
-		<h5 className="text-sm font-semibold tracking-tight line-clamp-2  pl-1">
+		<h5 className="text-lg text-right  font-semibold tracking-tight line-clamp-2  pl-1">
 			{variationsCount > 0 ? (
 				<span className=" text-gray-900">
 					{min === max ? `${min} ₴` : `${min} ₴ – ${max} ₴`} 
