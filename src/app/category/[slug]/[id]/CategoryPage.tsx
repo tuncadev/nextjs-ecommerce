@@ -3,15 +3,15 @@
 import { useProducts } from "@/app/context/ProductsContext";
 import { useParams } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
-import { ProductCard01 } from "@/app/components/cards/ProductCard01";
+
 import Working from "@/app/components/actions/Working";
 import { useAuth } from "@/app/context/AuthProvider";
 import { Variation } from "@/app/types/variations";
-import { VariationCard01 } from "@/app/components/cards/VariationCard01";
+
 import { BaseCard } from "@/app/components/cards/BaseCard";
 
 const CategoryPage: React.FC = () => {
-  const { getProductsByCatId, productsLoading, getProductVariationsById, isParentCategory, hasParent, getCategoryById } = useProducts();
+  const { getProductsByCatId, productsLoading, getProductVariationsById, isParentCategory, getCategoryById } = useProducts();
   const params = useParams();
   const [hydrated, setHydrated] = useState(false);
   const { authHydrated, authLoading } = useAuth();
