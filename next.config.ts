@@ -10,9 +10,13 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
+        protocol: 'http',
+        hostname: 'backend.tunca.local',
+      },
+      {
         protocol: 'https',
         hostname: 'backend.tunca.site',
-      },
+      }
     ],
   },
   compress: true,

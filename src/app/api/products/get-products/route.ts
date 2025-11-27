@@ -8,7 +8,7 @@ export async function GET(req: Request): Promise<NextResponse> {
  
 		const checkHost = getAllowedHosts(req);
 		if (!checkHost) {
-			console.warn("⛔ Forbidden host tried to access.  " + req.headers.get("host"));
+			console.warn(" Forbidden host tried to access.  " + req.headers.get("host"));
 			return NextResponse.json({ 
 				status: "fail",
 				message: `Not allowed!, `+   req.headers.get("host"),
