@@ -14,6 +14,11 @@ const nextConfig: NextConfig = {
     ],
   },
   compress: true,
+   webpack: (config) => {
+    // Disable Webpack persistent disk cache
+    config.cache = false;
+    return config;
+  },
 };
 
 export default withPWA(nextConfig);
