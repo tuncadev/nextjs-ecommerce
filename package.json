@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "start": "next start",
+    "start": "next start --hostname 127.1.6.216",
     "lint": "next lint",
     "dev-watch": "NEXT_DISABLE_TURBOPACK=1 concurrently \"next dev -p 3001\" \"npm run typecheck:watch\"",
     "dev": "NEXT_DISABLE_TURBOPACK=1 next dev -p 3001",
