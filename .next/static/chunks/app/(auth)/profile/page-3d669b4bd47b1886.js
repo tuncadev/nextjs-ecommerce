@@ -1,1 +1,0 @@
-(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[3468],{2805:(e,s,a)=>{Promise.resolve().then(a.bind(a,7135))},7135:(e,s,a)=>{"use strict";a.d(s,{default:()=>r});var l=a(5155);let r=()=>(0,l.jsx)("div",{className:"",children:"Profile Page"})}},e=>{var s=s=>e(e.s=s);e.O(0,[8441,1684,7358],()=>s(2805)),_N_E=e.O()}]);

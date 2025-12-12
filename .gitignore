@@ -39,7 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
+/.next/*
 
 # ignore everything in prisma except schema.prisma
 /prisma/*
