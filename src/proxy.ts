@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 
 function generateUUID() {
-  return globalThis.crypto.randomUUID(); // ✅ works in Edge
+  return globalThis.crypto.randomUUID();
 }
 
-export async function middleware(req: NextRequest) {
+export default async function proxy(req: NextRequest) {
   const res = NextResponse.next();
   const sessionToken = req.cookies.get("session_token")?.value;
 
