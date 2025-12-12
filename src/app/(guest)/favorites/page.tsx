@@ -1,4 +1,4 @@
-import React from 'react'
+
 import FavoritesList from '@/app/components/favorites/FavoritesList'
 import { getMetadata } from "@/app/utils/getMetadata";
 

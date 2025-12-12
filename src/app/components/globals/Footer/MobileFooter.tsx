@@ -5,7 +5,6 @@ import { useFavorites } from '@/app/context/FavoritesContext';
 import { getProfileLink } from '@/app/utils/getProfileLink';
 import { User } from '@prisma/client';
 import Link from 'next/link';
-import React  from 'react'
 import { FaHouse, FaCartShopping, FaHeart, FaUserGear } from "react-icons/fa6";
 import { TbCategory } from "react-icons/tb";
 

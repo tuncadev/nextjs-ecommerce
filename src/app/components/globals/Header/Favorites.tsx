@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { useFavorites } from '@/app/context/FavoritesContext';
 import Link from 'next/link';
 import { getProfileLink } from '@/app/utils/getProfileLink';

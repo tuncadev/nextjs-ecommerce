@@ -1,4 +1,4 @@
-import React from "react";
+
 import { FallBackImageHolder } from "./FallBackImageHolder";
 
 type ProductImageHolderProps = {

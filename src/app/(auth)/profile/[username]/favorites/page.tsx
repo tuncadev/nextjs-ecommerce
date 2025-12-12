@@ -1,5 +1,5 @@
 import FavoritesList from '@/app/components/favorites/FavoritesList'
-import React from 'react'
+
 import { getMetadata } from "@/app/utils/getMetadata";
 
 export const metadata = getMetadata({

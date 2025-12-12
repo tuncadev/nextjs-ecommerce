@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../src/app/search/page.tsx"],"sourcesContent":["\n\nconst SearchPage = () => {\n\treturn (\n\t\t<div>SearchPage</div>\n\t)\n}\n\nexport default SearchPage"],"names":[],"mappings":"sWAEmB,IAEjB,CAAA,EAAA,EAAA,GAAA,EAAC,MAAA,UAAI"}

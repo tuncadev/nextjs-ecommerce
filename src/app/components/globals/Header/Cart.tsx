@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react'
+
 import Link from 'next/link';
 import { useAuth } from "@/app/context/AuthProvider";
 import { useCart } from "@/app/context/CartContext";

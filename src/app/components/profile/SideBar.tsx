@@ -1,6 +1,6 @@
 "use client";
 import { Badge, Sidebar } from "flowbite-react";
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useAuth } from '@/app/context/AuthProvider'
 import { useCart } from '@/app/context/CartContext'
 import { FaArrowRightFromBracket, FaRegUser, FaBagShopping, FaHeart, FaRectangleList } from "react-icons/fa6";

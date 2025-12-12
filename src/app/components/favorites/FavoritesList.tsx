@@ -1,7 +1,7 @@
 "use client";
 
 import { useFavorites } from '@/app/context/FavoritesContext';
-import React from 'react'
+
 import { InfoBadge } from '../badges/InfoBadge';
 import FavoriteCard from './FavoriteCard';
 import Link from 'next/link';

@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { FaRegImages } from "react-icons/fa6";
 
 export const FallBackImageHolder = () => {

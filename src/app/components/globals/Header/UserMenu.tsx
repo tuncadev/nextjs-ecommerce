@@ -1,6 +1,6 @@
 
 import Link from "next/link";
-import React from "react";
+
 import useLogout from "@/app/hooks/useLogout";
 import { useAuth } from "@/app/context/AuthProvider";
 import {getProfileLink} from "@/app/utils/getProfileLink";

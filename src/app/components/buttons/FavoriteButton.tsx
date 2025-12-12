@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+
 
 type Props = {
   isFavorite: boolean;

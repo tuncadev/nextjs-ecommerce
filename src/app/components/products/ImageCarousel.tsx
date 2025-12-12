@@ -1,4 +1,4 @@
-import React from "react";
+
 import { Carousel } from "flowbite-react";
 import { ProductImageHolder } from "./ProductImageHolder";
 

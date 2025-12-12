@@ -13,10 +13,12 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "backend.tunca.site" },
     ],
   },
+
   compress: true,
-   webpack: (config) => {
-    // Disable Webpack persistent disk cache
-    config.cache = false;
+
+  turbopack: {},
+
+  webpack(config) {
     return config;
   },
 };

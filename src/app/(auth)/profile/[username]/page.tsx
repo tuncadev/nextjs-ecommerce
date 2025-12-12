@@ -3,7 +3,7 @@ import Working from '@/app/components/actions/Working';
 import { useAuth } from '@/app/context/AuthProvider';
 import { useCart } from '@/app/context/CartContext';
 
-import React from 'react'
+
  
 const page = () => {
 	const { user, authHydrated, authLoading } = useAuth();

@@ -1,0 +1,3 @@
+{
+  "/api/webhooks/products/delete/route": "app/api/webhooks/products/delete/route.js"
+}
