@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../../../src/app/%28auth%29/profile/ProfilePage.tsx"],"sourcesContent":["\"use client\";\n\n\n\nconst ProfilePage: React.FC = () => { \n\n\treturn (\n\t\t<div className=\"\">Profile Page</div>\n\t)\n\n}\n\nexport default ProfilePage"],"names":[],"mappings":"wEAI8B,IAG5B,CAAA,EAAA,EAAA,GAAA,EAAC,MAAA,CAAI,UAAU,YAAG"}

@@ -1,3 +1,0 @@
-{
-  "/(auth)/profile/[username]/favorites/page": "app/(auth)/profile/[username]/favorites/page.js"
-}

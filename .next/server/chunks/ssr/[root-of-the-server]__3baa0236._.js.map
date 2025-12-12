@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../../../src/app/shop/page.tsx"],"sourcesContent":["\n\nconst ShopPage = () => {\n\treturn (\n\t\t<section>ShopPage</section>\n\t)\n}\n\nexport default ShopPage;\n"],"names":[],"mappings":"sWAEiB,IAEf,CAAA,EAAA,EAAA,GAAA,EAAC,UAAA,UAAQ"}

@@ -1,1 +1,0 @@
-(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,13064,e=>{"use strict";var i=e.i(43476);e.s(["default",0,()=>(0,i.jsx)("div",{className:"",children:"Profile Page"})])}]);
