@@ -1,3 +1,17 @@
-[00:00:01.666] Server  LOG     > [PWA] PWA support is disabled
-[00:00:01.667] Server  LOG     > [PWA] PWA support is disabled
-[00:00:01.850] Server  LOG      ✓ Ready in 1671ms
+[00:00:01.447] Server  LOG     > [PWA] PWA support is disabled
+[00:00:01.448] Server  LOG     > [PWA] PWA support is disabled
+[00:00:01.644] Server  LOG      ✓ Ready in 1458ms
+[00:00:06.953] Server  LOG      ○ Compiling / ...
+[00:00:08.577] Server  WARN    Browserslist: browsers data (caniuse-lite) is 8 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+[00:00:18.049] Browser LOG     favorites data: []
+[00:00:18.670] Browser WARN    Image with src "/api/media?url=/2025/05/sofia.jpeg" is using deprecated "onLoadingComplete" property. Please use the "onLoad" property instead.
+[00:00:18.670] Browser WARN    Image with src "/api/media?url=/2025/05/valencia.jpeg" is using deprecated "onLoadingComplete" property. Please use the "onLoad" property instead.
+[00:00:18.670] Browser WARN    Image with src "/api/media?url=/2025/05/boy.jpeg" is using deprecated "onLoadingComplete" property. Please use the "onLoad" property instead.
+[00:00:18.827] Browser WARN    Image with src "/2025/05/bedroom05.jpeg?w=384" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:00:18.827] Browser WARN    Image with src "/2025/05/space-04.webp?w=384" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:00:18.827] Browser WARN    Image with src "/2025/05/space-mercedes-04.webp?w=384" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:00:18.827] Browser WARN    Image with src "/2025/05/beds.jpeg?w=384" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:00:18.827] Browser WARN    Image with src "/2025/05/malyatko.jpeg?w=384" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:00:18.827] Browser WARN    Image with src "/2025/05/premium.jpeg?w=384" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
