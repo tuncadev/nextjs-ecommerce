@@ -1,0 +1,3 @@
+module.exports=[87652,a=>{"use strict";var b=a.i(7997);a.s(["default",0,({text:a="Обробка даних..."})=>(0,b.jsxs)("div",{className:"fixed inset-0 flex flex-col items-center justify-center bg-black bg-opacity-70 z-50",children:[(0,b.jsx)("div",{className:" fixed inset-0  flex justify-center items-center",children:(0,b.jsx)("div",{className:"loader"})}),(0,b.jsx)("div",{className:"fixed pt-20 inset-0 flex justify-center items-center  ",children:(0,b.jsx)("div",{className:"text-center text-gray-200 text-xs max-w-[120px]",children:a})})]})])},64560,a=>{"use strict";var b=a.i(7997),c=a.i(87652);function d(){return(0,b.jsx)(c.default,{})}a.s(["default",()=>d])}];
+
+//# sourceMappingURL=src_app_65e100e8._.js.map
